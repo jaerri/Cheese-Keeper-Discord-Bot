@@ -4,7 +4,10 @@ module.exports = {
     execute(message, args){
         const puppeteer = require('puppeteer');
             async function people(url){
-            const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
+                const browser = await puppeteer.launch({
+                    args: ["--no-sandbox",
+                        "--disable-setuid-sandbox"]
+                });
             const page = await browser.newPage();
             await page.goto(url);
             const [el] = await page.$x('/html/body/div[3]/div[2]/div[2]/div/div[1]/div/span');
