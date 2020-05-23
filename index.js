@@ -49,5 +49,16 @@ bot.on('message', message=>{
         case 'de':
             bot.commands.get("VOTE").execute(message, args);
         break;
+
+        case `${prefix}reset`:
+            resetBot();
+            function resetBot() {
+                message.channel.send('Bot Is Resetting...')
+                .then(msg => bot.destroy())
+                .then(() => bot.login(token))
+                bot.on('ready', () => {
+                    console.log('Bot Is Back Online!');
+                });
+            }
     }
 });
