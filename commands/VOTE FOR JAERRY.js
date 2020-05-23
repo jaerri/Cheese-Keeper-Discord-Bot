@@ -6,7 +6,7 @@ module.exports = {
       message.delete();
       const { promisify } = require('util')
       const sleep = promisify(setTimeout)
-      sleep(5000)
+      sleep(50000)
       message.channel.send('de')
   }
 }
