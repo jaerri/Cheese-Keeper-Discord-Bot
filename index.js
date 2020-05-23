@@ -38,10 +38,6 @@ bot.on('message', message=>{
             bot.commands.get("hello").execute(message, args);
         break;
 
-        case `${prefix}people`:
-            bot.commands.get("people").execute(message, args);
-        break;
-
         case '.':
             bot.commands.get("dot").execute(message, args);
         break;
