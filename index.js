@@ -42,10 +42,6 @@ bot.on('message', message=>{
             bot.commands.get("people").execute(message, args);
         break;
 
-        case `${prefix}weather`:
-            bot.commands.get("weather").execute(message, args);
-        break;
-
         case '.':
             bot.commands.get("dot").execute(message, args);
         break;
@@ -57,13 +53,5 @@ bot.on('message', message=>{
         case 'de':
             bot.commands.get("VOTE").execute(message, args);
         break;
-
-        case `${prefix}reset`:
-            message.channel.send('Bot is restarting...')
-            .then(()=>{bot.destroy()})
-            .then(()=>{bot.login(token);})
-            .then(()=>{message.channel.send('Bot has restarted!')});
-        break;
-
     }
 });
