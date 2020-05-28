@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');
+/*const puppeteer = require('puppeteer');
     async function nameoffunction(url){
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -9,4 +9,4 @@ const puppeteer = require('puppeteer');
     console.log(numba);
     browser.close();
 }
-nameoffunction('//website link');
+nameoffunction('//website link');*/
