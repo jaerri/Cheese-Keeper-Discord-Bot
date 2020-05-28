@@ -7,6 +7,7 @@ bot.login(token);
 
 bot.on('ready', () => { 
     console.log("bot on use it rn @Tresh Jærry#8892 @Tresh Jærry#8892 @Tresh Jærry#8892");
+    message.channel.send("Bot is updated!")
 });
 
 
