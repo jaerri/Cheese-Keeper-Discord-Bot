@@ -8,5 +8,5 @@ module.exports = {
         message.channel.send(`bruh`);
         message.channel.send(`bruh`);
         message.channel.send(`bruh`);
-  }
+    }
 }
