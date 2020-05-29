@@ -21,7 +21,7 @@ const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith(
 for(const file of commandFiles){
     const command = require(`./commands/${file}`);
     bot.commands.set(command.name, command);
-} //for storing cmds
+}
 
 
 
@@ -50,7 +50,7 @@ bot.on('message', message=>{
             bot.commands.get("VOTE").execute(message, args);
         break;
 
-        case `god`:
+        case 'bruh':
             bot.commands.get("bruh").execute(message, args);
         break;
     }
