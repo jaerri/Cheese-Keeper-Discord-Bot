@@ -3,7 +3,8 @@ module.exports = {
     description: "loop bruh",
     execute(message, args){
       var i;
-      for (i = 0; i<=6; i++)
+      for (i = 0; i<=6; i++) {     
         message.channel.send("bruh");
+      }
     }
 }
