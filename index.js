@@ -53,6 +53,6 @@ bot.on('message', message=>{
 
         case `hang me`:
             bot.commands.get("bruh").execute(message, args);
-        break
+        break;
     }
 });
