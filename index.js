@@ -28,7 +28,7 @@ for(const file of commandFiles){
 bot.on('message', message=>{
     const args = message.content.split(' ');
     //message event listener
-    switch(args[0].toLowerCase.search()){
+    switch(args[0].toLowerCase()){
     //switch
         case `${prefix}help`: //case
             bot.commands.get("help").execute(message, args); 
