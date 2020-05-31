@@ -50,7 +50,7 @@ bot.on('message', message=>{
             bot.commands.get("VOTE").execute(message, args);
         break;
 
-        case 'god':
+        case 'bruh!':
             bot.commands.get("bruh").execute(message, args);
         break;
     }
