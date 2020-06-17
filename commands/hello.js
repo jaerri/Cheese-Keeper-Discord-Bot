@@ -12,7 +12,7 @@ module.exports = {
         while (true == true) {
             setTimeout(function(){
                 message.channel.send(randomanswers);
-            }, 0.2)          
+            }, 0.2);          
         }    
     }
   }
