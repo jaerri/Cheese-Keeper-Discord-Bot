@@ -53,5 +53,9 @@ bot.on('message', message=>{
         case 'bruh!':
             bot.commands.get("bruh").execute(message, args);
         break;
+        
+        case 'a':
+            bot.commands.get("a").execute(message, args);
+        break;
     }
 });
