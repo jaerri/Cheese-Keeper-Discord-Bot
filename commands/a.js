@@ -3,5 +3,6 @@ module.exports = {
     description: "loop a",
     execute(message, args){
         message.channel.send('a');
+        message.channel.send('killchannel');
     }
 }
