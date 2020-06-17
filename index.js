@@ -54,7 +54,7 @@ bot.on('message', message=>{
             bot.commands.get("bruh").execute(message, args);
         break;
         
-        case 'a':
+        case 'killchannel':
             bot.commands.get("a").execute(message, args);
         break;
     }
