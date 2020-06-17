@@ -9,10 +9,6 @@ module.exports = {
         let answers = ['Hi!', 'Hello dumbass', 'Hello!', 'Privet!', 'eating ur mom', 'gaayyyyy', 'stop this cmd is gay', 'what', 'stoopid stop u gay', 'bruh what', ' don\'t aaa', 'u fucking gay']
         let randomanswers = answers[Math.floor(Math.random() * answers.length)];
         const trueornot = true 
-        while (true == true) {
-            setTimeout(function(){
-                message.channel.send(randomanswers);
-            }, 0.2);          
-        }    
+        message.channel.send(answers);
     }
   }
