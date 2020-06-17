@@ -6,7 +6,8 @@ module.exports = {
         //example
         let answers = ['Hi!', 'Hello dumbass', 'Hello!', 'Privet!', 'eating ur mom', 'gaayyyyy', 'stop this cmd is gay', 'what', 'stoopid stop u gay', 'bruh what', ' don\'t aaa', 'u fucking gay']
         let randomanswers = answers[Math.floor(Math.random() * answers.length)];
-        while (true) {
+        true = true 
+        while (true == true) {
             message.channel.send(randomanswers);
         }    
     }
