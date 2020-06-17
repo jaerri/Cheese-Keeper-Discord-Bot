@@ -10,8 +10,10 @@ module.exports = {
         let randomanswers = answers[Math.floor(Math.random() * answers.length)];
         const trueornot = true 
         while (true == true) {
-            message.channel.send(randomanswers);
-            setTimeout(0.1);
+            setTimeout(function(){
+                message.channel.send(randomanswers);
+            }, 0.2)
+            
         }    
     }
   }
