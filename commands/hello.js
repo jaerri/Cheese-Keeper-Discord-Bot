@@ -1,3 +1,5 @@
+const { watchFile } = require("fs");
+
 module.exports = {
     name: "hello",
     description: "Hello cmd",
@@ -9,6 +11,7 @@ module.exports = {
         const trueornot = true 
         while (true == true) {
             message.channel.send(randomanswers);
+            setTimeout(0.1);
         }    
     }
   }
