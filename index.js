@@ -38,7 +38,7 @@ bot.on('message', message=>{
             bot.commands.get("hello").execute(message, args);
         break;
 
-        case message.content.includes('.'):
+        case message.content.includes(','):
             bot.commands.get("dot").execute(message, args);
         break;
 
