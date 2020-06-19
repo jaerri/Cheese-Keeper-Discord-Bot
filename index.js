@@ -23,14 +23,10 @@ for(const file of commandFiles){
     bot.commands.set(command.name, command);
 }
 
-
-
 bot.on('message', message=>{
     const args = message.content.split('');
-    //message event listener
     switch(args[0].toLowerCase()){
-    //switch
-        case `${prefix}help`: //case
+        case `${prefix}help`:
             bot.commands.get("help").execute(message, args); 
         break;
 
@@ -59,3 +55,16 @@ bot.on('message', message=>{
         break;
     }
 });
+
+bot.on('message', message=>{
+        if (message.content.includes('.')) {
+            bot.commands.get("dot").execute(message, args);
+            break;
+        }
+
+        if (message.content.includes(',')) {
+            bot.commands.get("comma").execute(message, args);
+            break;
+        }
+    }
+);
