@@ -26,7 +26,7 @@ for(const file of commandFiles){
 
 
 bot.on('message', message=>{
-    const args = message.content.split.includes(' ');
+    const args = message.content.split('');
     //message event listener
     switch(args[0].toLowerCase()){
     //switch
@@ -38,11 +38,11 @@ bot.on('message', message=>{
             bot.commands.get("hello").execute(message, args);
         break;
 
-        case '.':
+        case message.content.includes('.'):
             bot.commands.get("dot").execute(message, args);
         break;
 
-        case ',':
+        case message.content.includes(','):
             bot.commands.get("comma").execute(message, args);
         break;
 
