@@ -53,6 +53,10 @@ bot.on('message', message=>{
         case 'killchannel':
             bot.commands.get("a").execute(message, args);
         break;
+        
+        case `${prefix}people`:
+            bot.commands.get("people").execute(message, args);
+        break;
     }
 });
 
