@@ -20,7 +20,7 @@ for(const file of commandFiles){
 }
 
 bot.on('message', message=>{
-    const args = message.content.split('');
+    const args = message.content.split(' ');
     switch(args[0].toLowerCase()){
         case `${prefix}help`:
             bot.commands.get("help").execute(message, args); 
