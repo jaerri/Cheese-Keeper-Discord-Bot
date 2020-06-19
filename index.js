@@ -58,11 +58,11 @@ bot.on('message', message=>{
 
 bot.on('message', message=>{
         if (message.content.includes('.')) {
-            bot.commands.get("dot").execute(message, args);
+            bot.commands.get("dot").execute(message);
         }
 
         if (message.content.includes(',')) {
-            bot.commands.get("comma").execute(message, args);
+            bot.commands.get("comma").execute(message);
         }
     }
 );
