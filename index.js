@@ -26,7 +26,7 @@ for(const file of commandFiles){
 
 
 bot.on('message', message=>{
-    const args = message.content.split(' ');
+    const args = message.content.split.includes(' ');
     //message event listener
     switch(args[0].toLowerCase()){
     //switch
