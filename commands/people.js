@@ -13,7 +13,6 @@ module.exports = {
             console.log(numba);
             browser.close();
         }
-
         people('//website link');
     }
 }
