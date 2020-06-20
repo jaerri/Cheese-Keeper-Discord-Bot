@@ -9,6 +9,6 @@ module.exports = {
           message.channel.send(`**VOTE FOR ${me}! VOTE FOR ${me}! VOTE FOR ${me}!** \n                             **THE ${message.guild.name.toUpperCase()}!** \n                 *100% **COLOPITALISM** GUARANTEED* \n                                         VOTE NOW!\n                          :thumbsup: :thumbsup: :thumbsup: :thumbsup: :thumbsup: :thumbsup: :thumbsup: :thumbsup:`);
         }
       }
-      message(false)
+      message(true)
     }
 }
