@@ -38,6 +38,18 @@ bot.on('message', message=>{
             bot.commands.get("comma").execute(message, args);
         break;
 
+        case ';':
+            bot.commands.get("semicolon").execute(message, args);
+        break;
+
+        case ':':
+            bot.commands.get("colon").execute(message, args);
+        break;
+
+        case '/':
+            bot.commands.get("slash").execute(message, args);
+        break;
+
         case `${prefix}vote`:
             bot.commands.get("VOTE").execute(message, args);
         break;
