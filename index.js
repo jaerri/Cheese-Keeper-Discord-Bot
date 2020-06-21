@@ -47,7 +47,11 @@ bot.on('message', message=>{
         break;
 
         case '/':
-            bot.commands.get("slash").execute(message, args);
+            bot.commands.get("frontslash").execute(message, args);
+        break;
+
+        case "\\":
+            bot.commands.get("backslash").execute(message, args);
         break;
 
         case `${prefix}vote`:
