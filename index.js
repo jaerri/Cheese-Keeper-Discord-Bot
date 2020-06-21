@@ -38,7 +38,7 @@ bot.on('message', message=>{
             bot.commands.get("comma").execute(message, args);
         break;
 
-        case 'de':
+        case `${prefix}vote`:
             bot.commands.get("VOTE").execute(message, args);
         break;
 
