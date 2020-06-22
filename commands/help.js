@@ -17,7 +17,7 @@ module.exports = {
         )
       .setColor(0xC0C0C0)
       .setTimestamp()
-      .setFooter('©️ *2020 Jærry All Rights Reserved*', 
+      .setFooter('©️ 2020 Jærry All Rights Reserved', 
       'https://cdn.discordapp.com/attachments/685858865413357568/706790794945757224/tai_xuong_3.jpg')
       .setThumbnail('https://i.imgur.com/wSTFkRM.png')
     message.channel.send(embed);
