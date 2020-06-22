@@ -1,7 +1,7 @@
 module.exports = {
     name: "backquote",
-    description: "back quote",
+    description: "backquote",
     execute(message, args){
-        message.channel.send(`ey ${message.author} sent a back quote!`);
+        message.channel.send(`ey ${message.author} sent a backquote!`);
   }
 }
