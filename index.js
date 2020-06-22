@@ -30,7 +30,7 @@ bot.on('message', message=>{
             bot.commands.get("hello").execute(message, args);
         break;
 
-        case '.' && '·':
+        case '.' && '·' && '•':
             bot.commands.get("dot").execute(message, args);
         break;
 
@@ -64,6 +64,18 @@ bot.on('message', message=>{
 
         case '-':
             bot.commands.get("hyphen").execute(message, args);
+        break;
+
+        case '|':
+            bot.commands.get("verticalline").execute(message, args);
+        break;
+
+        case '~':
+            bot.commands.get("tilde").execute(message, args);
+        break;
+
+        case '`':
+            bot.commands.get("backquote").execute(message, args);
         break;
 
         case `${prefix}vote`:
