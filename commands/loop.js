@@ -9,7 +9,6 @@ module.exports = {
             for (i = 0; i<=4; i++) {     
                 message.channel.send(answer);
             } 
-        }
-        
+        }       
     }
 }
