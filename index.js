@@ -21,6 +21,7 @@ for(const file of commandFiles){
 
 bot.on('message', message=>{
     const args = message.content.split(' ');
+    if (!message.content.startsWith(prefix) || message.author.bot) return;
     switch(args[0].toLowerCase()){
         case `${prefix}help`:
             bot.commands.get("help").execute(message, args); 
