@@ -8,8 +8,7 @@ bot.login(token);
 bot.on('ready', () => { 
     console.log("bot on use it rn @Tresh Jærry#8892 @Tresh Jærry#8892 @Tresh Jærry#8892");
 });
-
-
+if (!message.content.startsWith(prefix) || message.author.bot) return;
 
 const fs = require('fs');
 bot.commands = new Collection();
@@ -21,8 +20,6 @@ for(const file of commandFiles){
 
 bot.on('message', message=>{
     const args = message.content.split(' ');
-    if (!message.content.startsWith(prefix) || message.author.bot) return;
-    else {
         switch(args[0].toLowerCase()){
             case `${prefix}help`:
                 bot.commands.get("help").execute(message, args); 
@@ -102,7 +99,7 @@ bot.on('message', message=>{
             break;
         }
     }
-});
+);
 
 bot.on('message', message=>{
         if (message.content.includes('')) {
