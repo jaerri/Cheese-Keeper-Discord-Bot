@@ -54,6 +54,18 @@ bot.on('message', message=>{
             bot.commands.get("backslash").execute(message, args);
         break;
 
+        case "'":
+            bot.commands.get("apostrophe").execute(message, args);
+        break;
+
+        case '"':
+            bot.commands.get("quotationmark").execute(message, args);
+        break;
+
+        case '-':
+            bot.commands.get("hyphen").execute(message, args);
+        break;
+
         case `${prefix}vote`:
             bot.commands.get("VOTE").execute(message, args);
         break;
