@@ -30,11 +30,14 @@ bot.on('message', message=>{
             bot.commands.get("hello").execute(message, args);
         break;
 
-        case '.' || '·' || '•':
+        case '.':
+        case '·': 
+        case '•':
             bot.commands.get("dot").execute(message, args);
         break;
 
-        case ',' || '‚':
+        case ',':
+        case '‚':
             bot.commands.get("comma").execute(message, args);
         break;
 
@@ -46,7 +49,8 @@ bot.on('message', message=>{
             bot.commands.get("colon").execute(message, args);
         break;
 
-        case '/' || '⁄':
+        case '/': 
+        case '⁄':
             bot.commands.get("forwardslash").execute(message, args);
         break;
 
@@ -54,7 +58,8 @@ bot.on('message', message=>{
             bot.commands.get("backslash").execute(message, args);
         break;
 
-        case "'" || '’':
+        case "'": 
+        case '’':
             bot.commands.get("apostrophe").execute(message, args);
         break;
 
@@ -67,7 +72,7 @@ bot.on('message', message=>{
         break;
 
         case '|':
-            bot.commands.get("verticalline").execute(message, args);
+            bot.commands.get("verticalbar").execute(message, args);
         break;
 
         case '~':
