@@ -22,83 +22,85 @@ for(const file of commandFiles){
 bot.on('message', message=>{
     const args = message.content.split(' ');
     if (!message.content.startsWith(prefix) || message.author.bot) return;
-    switch(args[0].toLowerCase()){
-        case `${prefix}help`:
-            bot.commands.get("help").execute(message, args); 
-        break;
+    else {
+        switch(args[0].toLowerCase()){
+            case `${prefix}help`:
+                bot.commands.get("help").execute(message, args); 
+            break;
 
-        case 'hello':
-            bot.commands.get("hello").execute(message, args);
-        break;
+            case 'hello':
+                bot.commands.get("hello").execute(message, args);
+            break;
 
-        case '.':
-        case '·': 
-        case '•':
-            bot.commands.get("dot").execute(message, args);
-        break;
+            case '.':
+            case '·': 
+            case '•':
+                bot.commands.get("dot").execute(message, args);
+            break;
 
-        case ',':
-        case '‚':
-            bot.commands.get("comma").execute(message, args);
-        break;
+            case ',':
+            case '‚':
+                bot.commands.get("comma").execute(message, args);
+            break;
 
-        case ';':
-            bot.commands.get("semicolon").execute(message, args);
-        break;
+            case ';':
+                bot.commands.get("semicolon").execute(message, args);
+            break;
 
-        case ':':
-            bot.commands.get("colon").execute(message, args);
-        break;
+            case ':':
+                bot.commands.get("colon").execute(message, args);
+            break;
 
-        case '/': 
-        case '⁄':
-            bot.commands.get("forwardslash").execute(message, args);
-        break;
+            case '/': 
+            case '⁄':
+                bot.commands.get("forwardslash").execute(message, args);
+            break;
 
-        case "\\":
-            bot.commands.get("backslash").execute(message, args);
-        break;
+            case "\\":
+                bot.commands.get("backslash").execute(message, args);
+            break;
 
-        case "'": 
-        case '’':
-            bot.commands.get("apostrophe").execute(message, args);
-        break;
+            case "'": 
+            case '’':
+                bot.commands.get("apostrophe").execute(message, args);
+            break;
 
-        case '"':
-            bot.commands.get("quotationmark").execute(message, args);
-        break;
+            case '"':
+                bot.commands.get("quotationmark").execute(message, args);
+            break;
 
-        case '-':
-            bot.commands.get("hyphen").execute(message, args);
-        break;
+            case '-':
+                bot.commands.get("hyphen").execute(message, args);
+            break;
 
-        case '|':
-            bot.commands.get("verticalbar").execute(message, args);
-        break;
+            case '|':
+                bot.commands.get("verticalbar").execute(message, args);
+            break;
 
-        case '~':
-            bot.commands.get("tilde").execute(message, args);
-        break;
+            case '~':
+                bot.commands.get("tilde").execute(message, args);
+            break;
 
-        case '`':
-            bot.commands.get("backquote").execute(message, args);
-        break;
+            case '`':
+                bot.commands.get("backquote").execute(message, args);
+            break;
 
-        case `${prefix}vote`:
-            bot.commands.get("VOTE").execute(message, args);
-        break;
-        
-        case 'killchannel':
-            bot.commands.get("a").execute(message, args);
-        break;
-        
-        case `${prefix}people`:
-            bot.commands.get("people").execute(message, args);
-        break;
+            case `${prefix}vote`:
+                bot.commands.get("VOTE").execute(message, args);
+            break;
+            
+            case 'killchannel':
+                bot.commands.get("a").execute(message, args);
+            break;
+            
+            case `${prefix}people`:
+                bot.commands.get("people").execute(message, args);
+            break;
 
-        case `${prefix}`:
-            bot.commands.get("loop").execute(message, args);
-        break;
+            case `${prefix}`:
+                bot.commands.get("loop").execute(message, args);
+            break;
+        }
     }
 });
 
