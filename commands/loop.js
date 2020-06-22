@@ -7,7 +7,6 @@ module.exports = {
         else {
             for (i = 0; i<=4; i++) {     
                 message.channel.send(`${args[1]}`);
-                message.delete();
             } 
         }
         
