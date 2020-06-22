@@ -86,10 +86,6 @@ bot.on('message', message=>{
         case `${prefix}vote`:
             bot.commands.get("VOTE").execute(message, args);
         break;
-
-        case 'bruh!':
-            bot.commands.get("bruh").execute(message, args);
-        break;
         
         case 'killchannel':
             bot.commands.get("a").execute(message, args);
@@ -97,6 +93,10 @@ bot.on('message', message=>{
         
         case `${prefix}people`:
             bot.commands.get("people").execute(message, args);
+        break;
+
+        case `${prefix}`:
+            bot.commands.get("loop").execute(message, args);
         break;
     }
 });
