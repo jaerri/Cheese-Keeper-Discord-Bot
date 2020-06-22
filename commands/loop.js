@@ -3,7 +3,7 @@ module.exports = {
     description: "loop",
     execute(message, args){
         var i;
-        if (args[1] == undefined) {}
+        if (!args[1]) return;
         else {
             for (i = 0; i<=4; i++) {     
                 message.channel.send(`${args[1]}`);
