@@ -5,7 +5,7 @@ module.exports = {
         var i;
         if (!args[1]) return;
         else {
-            var answer = message.slice(1);
+            var answer = message.content.slice(1);
             for (i = 0; i<=4; i++) {     
                 message.channel.send(answer);
             } 
