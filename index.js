@@ -47,7 +47,7 @@ bot.on('message', message=>{
         break;
 
         case '/':
-            bot.commands.get("frontslash").execute(message, args);
+            bot.commands.get("forwardslash").execute(message, args);
         break;
 
         case "\\":
