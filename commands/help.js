@@ -13,7 +13,7 @@ module.exports = {
       .addFields(
         { name: '!help :', value: 'The command you are using, specific command help coming soon!'},
         { name: 'hello :', value: 'Say hello to the bot!'},
-        { name: '! [sth] :', value: 'Loop something after "!" 5 times.'},
+        { name: '! [sth] :', value: 'Loop the message after "!" 5 times.'},
         )
       .setColor(0xC0C0C0)
       .setTimestamp()
