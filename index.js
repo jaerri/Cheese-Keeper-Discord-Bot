@@ -19,7 +19,7 @@ for(const file of commandFiles){
 }
 
 bot.on('message', message=>{
-    if (!message.content.startsWith(prefix) || message.author.bot) return;
+    if (message.author.bot) return;
     const args = message.content.split(' ');
         switch(args[0].toLowerCase()){
             case `${prefix}help`:
