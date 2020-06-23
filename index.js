@@ -19,7 +19,7 @@ for(const file of commandFiles){
 }
 
 bot.on('message', message=>{
-    if (message.author.bot) return;
+    if (message.author.bot || message.author == message.guilds.get("679620013556236289")) return;
     const args = message.content.split(' ');
         switch(args[0].toLowerCase()){
             case `${prefix}help`:
