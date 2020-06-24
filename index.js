@@ -8,7 +8,6 @@ bot.login(token);
 bot.on('ready', () => { 
     console.log("bot on use it rn @Tresh Jærry#8892 @Tresh Jærry#8892 @Tresh Jærry#8892");
 });
-bot.user.setActivity('HOW NOT TO BE A BOT', { type: 'Watching' });
 
 const fs = require('fs');
 bot.commands = new Collection();
