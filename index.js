@@ -8,7 +8,7 @@ bot.login(token);
 bot.on('ready', () => { 
     console.log("bot on use it rn @Tresh Jærry#8892 @Tresh Jærry#8892 @Tresh Jærry#8892");
 });
-
+bot.user.setActivity('HOW NOT TO BE A BOT', { type: 'Watching' });
 
 const fs = require('fs');
 bot.commands = new Collection();
@@ -19,7 +19,7 @@ for(const file of commandFiles){
 }
 
 bot.on('message', message=>{
-    if (message.author.bot || message.author == message.guild.member('679620013556236289')) return;
+    if (message.author.bot || message.author == message.guildMember('679620013556236289')) return;
     const args = message.content.split(' ');
         switch(args[0].toLowerCase()){
             case `${prefix}help`:
