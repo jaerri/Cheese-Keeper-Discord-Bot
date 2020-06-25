@@ -99,7 +99,7 @@ bot.on('message', message=>{
                 bot.commands.get("loop").execute(message, args);
             break;
 
-            case '<@!706095024869474354>':
+            case message.mentions.members.has('706095024869474354'):            
                 bot.commands.get("mention").execute(message, args);
             break;
         }
