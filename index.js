@@ -50,6 +50,7 @@ bot.on('message', message=>{
 
             case '/': 
             case '⁄':
+            case '\/':
                 bot.commands.get("forwardslash").execute(message, args);
             break;
 
@@ -99,7 +100,6 @@ bot.on('message', message=>{
             break;
 
             case '<@!706095024869474354>':
-            case '@Cheese Keeper':
                 bot.commands.get("mention").execute(message, args);
             break;
         }
