@@ -94,7 +94,7 @@ bot.on('message', message=>{
                 bot.commands.get("people").execute(message, args);
             break;
 
-            case `${prefix}`:
+            case '!':
             case '\!':
                 bot.commands.get("loop").execute(message, args);
             break;
