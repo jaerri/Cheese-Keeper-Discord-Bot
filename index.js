@@ -2,7 +2,7 @@ const {Client, Collection} = require("discord.js");
 const bot = new Client();
 
 const token = "NzA2MDk1MDI0ODY5NDc0MzU0.Xq_LrA.09Uu_lNFxtG8ebV-ikXeRw1iaeA"; //token
-const prefix = ['!', '\!'] //prefix
+const prefix = '!'//prefix
 bot.login(token);
 
 bot.on('ready', () => { 
@@ -95,6 +95,7 @@ bot.on('message', message=>{
             break;
 
             case `${prefix}`:
+            case '\!':
                 bot.commands.get("loop").execute(message, args);
             break;
         }
