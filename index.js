@@ -99,6 +99,7 @@ bot.on('message', message=>{
             break;
 
             case '<@!706095024869474354>':
+            case '@Cheese Keeper':
                 bot.commands.get("mention").execute(message, args);
             break;
         }
