@@ -80,7 +80,7 @@ bot.on('message', message=>{
             break;
 
             case '`':
-                bot.commands.get("backquote").execute(message, args);
+                bot.commands.get("backtick").execute(message, args);
             break;
 
             case `${prefix}vote`:
@@ -99,7 +99,7 @@ bot.on('message', message=>{
                 bot.commands.get("loop").execute(message, args);
             break;
 
-            case message.mentions.members.has('706095024869474354'):            
+            case "@Cheese Keeper":            
                 bot.commands.get("mention").execute(message, args);
             break;
         }
