@@ -102,6 +102,14 @@ bot.on('message', message=>{
             case "@Cheese Keeper":            
                 bot.commands.get("mention").execute(message, args);
             break;
+
+            case "æ":            
+                bot.commands.get("lowercaseæ").execute(message, args);
+            break;
+
+            case "Æ":            
+                bot.commands.get("uppercaseÆ").execute(message, args);
+            break;
         }
     }
 );
