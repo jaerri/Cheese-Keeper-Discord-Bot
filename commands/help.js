@@ -15,11 +15,11 @@ module.exports = {
         { name: '!help :', value: 'The command you are using, specific command help coming soon!'},
         { name: 'hello :', value: 'Say hello to the bot!'},
         { name: '! [sth] :', value: 'Loop the message after "!" 5 times.'},
-        { name: '!randominvite :', value: 'Send a message with 10 randomly generated discord invite link (usable not guaranteed)'}
+        { name: '!randominvite :', value: 'Send 10 randomly generated strings begin with "discord.gg/"'}
       )
       .setColor(message.guild.me.displayColor)
       .setTimestamp()
-      .setFooter('©️ 2020 Jærry All Rights Reserved', 
+      .setFooter('©️ 2020 Jærry All Rights Reserved',
       'https://cdn.discordapp.com/avatars/679948431103492098/96f585cf63b16eb19b3e7d54e062c04a.png?size=2048')      
     message.channel.send(embed);
     }

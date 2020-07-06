@@ -16,11 +16,11 @@ module.exports = {
             const [el] = await page.$x('/html/body/div[1]/pre');
             const Txt = await el.getProperty('textContent');
             const string = await Txt.jsonValue();
-            const answer = string.replace(/(.{6})/g,"discord.gg/")
+            var chuncks = string.match(/.{1,6}/g);
+            var answer = chuncks.join("discord.gg/");
             message.channel.send(answer);
             browser.close();
         }
-
         randomstring('https://www.random.org/strings/?num=10&len=6&digits=on&upperalpha=on&loweralpha=on&unique=on&format=html&rnd=new');
     }
 }
