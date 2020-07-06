@@ -6,7 +6,7 @@ const prefix = '!'//prefix
 bot.login(token);
 
 bot.on('ready', () => { 
-    console.log("BOT ON TEST IT AAAAA!");
+    console.log("aeaeaeaeaeaeaeaeaeaeae");
 });
 
 const fs = require('fs');
