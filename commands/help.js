@@ -15,6 +15,7 @@ module.exports = {
         { name: '!help :', value: 'The command you are using, specific command help coming soon!'},
         { name: 'hello :', value: 'Say hello to the bot!'},
         { name: '! [sth] :', value: 'Loop the message after "!" 5 times.'},
+        { name: '!randominvite :', value: 'Send a message with 10 randomly generated discord invite link (usable not guaranteed)'}
       )
       .setColor(message.guild.me.displayColor)
       .setTimestamp()
