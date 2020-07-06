@@ -17,8 +17,10 @@ module.exports = {
             const Txt = await el.getProperty('textContent');
             const string = await Txt.jsonValue();
             var chuncks = string.match(/.{1,6}/g);
-            var answer = chuncks.join("discord.gg/");
-            message.channel.send(answer);
+            var strings = chuncks.join("discord.gg/");
+            var stringsChuncks = strings.match(/.{1,17}/g)
+            const answer = stringsChuncks.join("\n")
+            message.channel.send(`discord.gg/${answer}`);
             browser.close();
         }
         randomstring('https://www.random.org/strings/?num=10&len=6&digits=on&upperalpha=on&loweralpha=on&unique=on&format=html&rnd=new');
