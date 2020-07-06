@@ -16,12 +16,12 @@ module.exports = {
             const [el] = await page.$x('/html/body/div[1]/pre');
             const Txt = await el.getProperty('textContent');
             const string = await Txt.jsonValue();
-            var chuncks = string.match(/.{1,6}/g);
+            var chuncks = string.match(/.{0,6}/g);
             var strings = chuncks.join("discord.gg/");
             var stringsChuncks = strings.match(/.{1,17}/g)
             const answer = stringsChuncks.join("\n")
             const finalAnswer = [answer.slice(0, 6), "\n", answer.slice(6)].join('');
-            message.channel.send(`discord.gg/${finalAnswer}`);
+            message.channel.send(`${finalAnswer}`);
             browser.close();
         }
         randomstring('https://www.random.org/strings/?num=10&len=6&digits=on&upperalpha=on&loweralpha=on&unique=on&format=html&rnd=new');
