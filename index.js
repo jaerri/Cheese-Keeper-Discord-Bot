@@ -56,9 +56,8 @@ bot.on('message', message=>{
     }
 );
 
-const cfs = require('fs');
 bot.characters = new Collection();
-const charactersFiles = cfs.readdirSync('./characters/').filter(file => file.endsWith('.js'));
+const charactersFiles = fs.readdirSync('./characters/').filter(file => file.endsWith('.js'));
 for(const file of charactersFiles){
     const characters = require(`./characters/${file}`);
     bot.characters.set(characters.name, characters);
