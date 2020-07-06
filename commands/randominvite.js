@@ -20,7 +20,7 @@ module.exports = {
             var strings = chuncks.join("discord.gg/");
             var stringsChuncks = strings.match(/.{1,17}/g)
             const answer = stringsChuncks.join("\n")
-            const finalAnswer = [answer.slice(0, 7), "\n", answer.slice(7)].join('');
+            const finalAnswer = [answer.slice(0, 6), "\n", answer.slice(6)].join('');
             message.channel.send(`discord.gg/${finalAnswer}`);
             browser.close();
         }
