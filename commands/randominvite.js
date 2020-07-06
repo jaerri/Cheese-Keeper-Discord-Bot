@@ -19,7 +19,8 @@ module.exports = {
             var chunck = string.match(/.{0,6}/g);
             var chuncks = chunck.join("discord.gg/");
             var answer = `discord.gg/${chuncks}`
-            const finalAnswer = [answer.slice(0, 17), "\n", answer.slice(17)].join('');
+            var answerChunck = answer.match(/.{0,6}/g);
+            var finalAnswer = answerChunck.join("discord.gg/");
             message.channel.send(finalAnswer);
             browser.close();
         }
