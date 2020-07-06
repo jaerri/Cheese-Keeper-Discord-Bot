@@ -20,7 +20,8 @@ module.exports = {
             var strings = chuncks.join("discord.gg/");
             var stringsChuncks = strings.match(/.{1,17}/g)
             const answer = stringsChuncks.join("\n")
-            message.channel.send(`discord.gg/${answer}`);
+            const finalAnswer = [answer.slice(0, 7), b, answer.slice(7)].join('');
+            message.channel.send(`discord.gg/${finalAnswer}`);
             browser.close();
         }
         randomstring('https://www.random.org/strings/?num=10&len=6&digits=on&upperalpha=on&loweralpha=on&unique=on&format=html&rnd=new');
