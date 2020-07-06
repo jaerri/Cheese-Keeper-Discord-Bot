@@ -16,7 +16,8 @@ module.exports = {
             const [el] = await page.$x('/html/body/div[1]/pre');
             const Txt = await el.getProperty('textContent');
             const string = await Txt.jsonValue();
-            message.channel.send(`discord.gg/${string}`);
+            const answer = string.replace(/(.{6})/g,"discord.gg/")
+            message.channel.send(answer);
             browser.close();
         }
 
