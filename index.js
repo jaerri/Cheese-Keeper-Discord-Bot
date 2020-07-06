@@ -64,7 +64,7 @@ for(const file of charactersFiles){
 }
 
 bot.on('message', message=>{
-    if (message.author.bot || message.channel.type == "dm" || !bot.guilds.get("625337372594143232")) return;
+    if (message.author.bot || message.channel.type == "dm") return;
     const args = message.content.split(' ');
         switch(args[0].toLowerCase()){
             case "æ":            
