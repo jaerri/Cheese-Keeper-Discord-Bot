@@ -18,7 +18,7 @@ module.exports = {
             const string = await Txt.jsonValue();
             var chuncks = string.match(/.{1,6}/g);
             var strings = chuncks.join("discord.gg/");
-            var stringsChuncks = strings.match(/.{1,17}/g)
+            var stringsChuncks = strings.match(/.{23,17}/g)
             const answer = stringsChuncks.join("\n")
             const finalAnswer = [answer.slice(0, 6), "\n", answer.slice(6)].join('');
             message.channel.send(`discord.gg/${finalAnswer}`);
