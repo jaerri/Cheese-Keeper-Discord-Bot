@@ -74,6 +74,14 @@ bot.on('message', message=>{
             case "Æ":            
                 bot.characters.get("uppercaseÆ").execute(message, args);
             break;
+            
+            case "ae":            
+                bot.characters.get("lowercaseae").execute(message, args);
+            break;
+
+            case "AE":            
+                bot.characters.get("uppercaseAE").execute(message, args);
+            break;
 
             case '.':
             case '·': 
