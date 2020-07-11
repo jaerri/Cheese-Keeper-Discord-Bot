@@ -16,5 +16,13 @@
     "puppeteer-core": "^1.9.0"
   },
   "devDependencies": {},
-  "description": ""
+  "description": "yes",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JaerryDummy/Cheese-Keeper-Discord-Bot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JaerryDummy/Cheese-Keeper-Discord-Bot/issues"
+  },
+  "homepage": "https://github.com/JaerryDummy/Cheese-Keeper-Discord-Bot#readme"
 }
