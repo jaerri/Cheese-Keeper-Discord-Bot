@@ -23,9 +23,9 @@ for (const file of commandFiles) {
 bot.on('message', message=>{
     if (message.author.bot || !message.guild) return;
     const args = message.content.split(' ');
-    var prefix
+    let prefix
     if (prefix == null) {prefixes.set(message.guild.id, globalPrefix);}   
-    let prefix = prefixes.get(message.guild.id);
+    prefix = prefixes.get(message.guild.id);
     switch(args[0].toLowerCase()){
         case `${prefix}help`:
             bot.commands.get("help").execute(message, args); 
