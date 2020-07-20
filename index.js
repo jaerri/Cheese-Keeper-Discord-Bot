@@ -51,10 +51,6 @@ bot.on('message', message=>{
             bot.commands.get("loop").execute(message, args);
             break;
 
-        case "@Cheese Keeper":            
-            bot.commands.get("mention").execute(message, args);
-            break;
-
         case `${prefix}randominvite`:
             bot.commands.get("randominvite").execute(message, args);
             break;
