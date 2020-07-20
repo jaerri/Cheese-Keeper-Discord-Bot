@@ -1,6 +1,5 @@
 const {Client, Collection} = require("discord.js");
 const fs = require('fs');
-const Enmap = require('enmap');
 const bot = new Client();
 
 const token = "NzA2MDk1MDI0ODY5NDc0MzU0.Xq_LrA.09Uu_lNFxtG8ebV-ikXeRw1iaeA"; //token
