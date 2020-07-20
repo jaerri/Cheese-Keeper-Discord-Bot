@@ -5,6 +5,7 @@ module.exports = {
         function prefixS() {
             if (!prefix[message.guild.id]) prefix[message.guild.id] = "!"
             prefix[message.guild.id] = args[3]
+            message.channel.send(`Success! Prefix is now ${args[3]}`)
         }
 
         if (!message.author.hasPermission('ADMINISTRATOR')) {
