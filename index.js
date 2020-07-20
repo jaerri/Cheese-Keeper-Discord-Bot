@@ -7,6 +7,7 @@ const bot = new Client();
 var globalPrefix = "!";
 const prefixes = new Keyv('sqlite://path/to.sqlite');
 bot.login(config.token);
+keyv.on('error', err => console.error('Keyv connection error:', err));
 
 bot.on('ready', () => { 
     console.log("aeaeaeaeaeaeaeaeaeaeae");
@@ -23,53 +24,45 @@ for (const file of commandFiles) {
 bot.on('message', message=>{
     if (message.author.bot || !message.guild) return;
     const args = message.content.split(' ');
-        let prefix;
-        if (message.content.startsWith(globalPrefix)) {
-            prefix = globalPrefix;
-        } 
-        else {
-            const guildPrefix = prefixes.get(message.guild.id);
-            if (message.content.startsWith(guildPrefix)) {prefix = guildPrefix;}
-        }
-        switch(args[0].toLowerCase()){
-            case `${prefix}help`:
-                bot.commands.get("help").execute(message, args); 
-            break;
+    let prefix = prefixes.get(message.guild.id);
+    switch(args[0].toLowerCase()){
+        case `${prefix}help`:
+            bot.commands.get("help").execute(message, args); 
+        break;
 
-            case 'hello':
-                bot.commands.get("hello").execute(message, args);
-            break;
+        case 'hello':
+            bot.commands.get("hello").execute(message, args);
+        break;
 
-            case `${prefix}vote`:
-                bot.commands.get("VOTE").execute(message, args);
-            break;
+        case `${prefix}vote`:
+            bot.commands.get("VOTE").execute(message, args);
+        break;
             
-            case `${prefix}people`:
-                bot.commands.get("people").execute(message, args);
-            break;
+        case `${prefix}people`:
+            bot.commands.get("people").execute(message, args);
+        break;
 
-            case `${prefix}`:
-                bot.commands.get("loop").execute(message, args);
-            break;
+        case `${prefix}`:
+            bot.commands.get("loop").execute(message, args);
+        break;
 
-            case "@Cheese Keeper":            
-                bot.commands.get("mention").execute(message, args);
-            break;
+        case "@Cheese Keeper":            
+            bot.commands.get("mention").execute(message, args);
+        break;
 
-            case `${prefix}randominvite`:
-                bot.commands.get("randominvite").execute(message, args);
-            break;
+        case `${prefix}randominvite`:
+            bot.commands.get("randominvite").execute(message, args);
+        break;
 
-            case `${prefix}settings`:
-                bot.commands.get("settings").execute(message, args);
-            break;
+        case `${prefix}settings`:
+            bot.commands.get("settings").execute(message, args);
+        break;
 
-            case `${prefix}ping`:
-                bot.commands.get("ping").execute(message, args);
-            break;
-        }
+        case `${prefix}ping`:
+            bot.commands.get("ping").execute(message, args);
+        break;
     }
-);
+});
 
 bot.characters = new Collection();
 const charactersFiles = fs.readdirSync('./characters/').filter(file => file.endsWith('.js'));
