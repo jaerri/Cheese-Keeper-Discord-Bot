@@ -5,7 +5,7 @@ const config = require("./config.json");
 const bot = new Client();
 
 var globalPrefix = "!";
-const prefixes = new sqlite3.Database('./sqlite.guildSettings.db', sqlite3.OPEN_READWRITE)
+const prefixes = new sqlite3.Database('./sqlite.guildSettings.db')
 bot.login(config.token);
 
 bot.on('ready', () => { 
