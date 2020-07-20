@@ -9,7 +9,7 @@ const bot = new Client();
 
 var globalPrefix = "!";
 const dbPath = path.resolve(__dirname, 'guildSettings.db')
-const prefixes = new Keyv('sqlite://path/to/database.sqlite');
+const prefixes = new Keyv(dbPath);
 bot.login(config.token);
 
 bot.on('ready', () => { 
