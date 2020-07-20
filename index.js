@@ -7,7 +7,7 @@ const bot = new Client();
 var globalPrefix = "!";
 const prefixes = new Keyv('sqlite://path/to.sqlite');
 bot.login(config.token);
-keyv.on('error', err => console.error('Keyv connection error:', err));
+Keyv.on('error', err => console.error('Keyv connection error:', err));
 
 bot.on('ready', () => { 
     console.log("aeaeaeaeaeaeaeaeaeaeae");
