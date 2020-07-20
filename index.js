@@ -29,7 +29,7 @@ bot.on('message', message=>{
     const args = message.content.split(' ');
     let prefix
     if (prefix == null) {prefixes.set(message.guild.id, globalPrefix);}   
-    prefix = prefixes.get(message.guild.id);
+    prefix = prefixes.get(message.guild.id, globalPrefix);
     switch(args[0].toLowerCase()){
         case `${prefix}help`:
             bot.commands.get("help").execute(message, args); 
