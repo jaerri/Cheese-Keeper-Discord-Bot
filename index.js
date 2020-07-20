@@ -28,7 +28,7 @@ bot.on('message', message=>{
             prefix = globalPrefix;
         } 
         else {
-            const guildPrefix = await prefixes.get(message.guild.id);
+            const guildPrefix = prefixes.get(message.guild.id);
             if (message.content.startsWith(guildPrefix)) {prefix = guildPrefix;}
         }
         switch(args[0].toLowerCase()){
