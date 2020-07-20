@@ -1,11 +1,10 @@
 const {Client, Collection} = require("discord.js");
 const fs = require('fs');
 const config = require("./config.json");
-const Keyv = require('keyv');
 const bot = new Client();
 
 var globalPrefix = "!";
-const prefixes = new Keyv('sqlite://path/to.sqlite');
+const prefixes = new Keyv('sqlite:/./serverSettings.db');
 bot.login(config.token);
 
 bot.on('ready', () => { 
@@ -23,6 +22,8 @@ for (const file of commandFiles) {
 bot.on('message', message=>{
     if (message.author.bot || !message.guild) return;
     const args = message.content.split(' ');
+    var prefix
+    if (prefix == null) {prefixes.set(message.guild.id, globalPrefix);}   
     let prefix = prefixes.get(message.guild.id);
     switch(args[0].toLowerCase()){
         case `${prefix}help`:
