@@ -6,7 +6,7 @@ module.exports = {
             message.channel.send(`Success! Prefix is now ${args[3]}`)
         }
 
-        if (!message.author.hasPermission('ADMINISTRATOR')) {
+        if (!message.member.hasPermission('ADMINISTRATOR')) {
             return message.channel.send(`${message.author} you need **Administrator** permission to use this command!`); }
         else {               
             if (args[1] == "prefix") {
