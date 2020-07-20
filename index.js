@@ -1,11 +1,14 @@
 const {Client, Collection} = require("discord.js");
 const fs = require('fs');
+const path = require('path')
+
 const sqlite3 = require('sqlite3').verbose();
 const config = require("./config.json");
 const bot = new Client();
 
 var globalPrefix = "!";
-const prefixes = new sqlite3.Database('./sqlite.guildSettings.db')
+const dbPath = path.resolve(__dirname, 'guildSettings.db')
+const prefixes = new sqlite3.Database(dbPath)
 bot.login(config.token);
 
 bot.on('ready', () => { 
