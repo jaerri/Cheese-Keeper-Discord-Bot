@@ -1,8 +1,6 @@
 const {Client, Collection} = require("discord.js");
 const fs = require('fs');
 const config = require("./config.json");
-const SQLite = require("better-sqlite3");
-const sql = new SQLite('./scores.sqlite');
 const bot = new Client();
 
 var prefix = "!";
