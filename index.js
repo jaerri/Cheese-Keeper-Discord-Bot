@@ -1,9 +1,11 @@
 const {Client, Collection} = require("discord.js");
 const fs = require('fs');
+const SQLite = require("better-sqlite3");
+const sql = new SQLite('./scores.sqlite');
 const bot = new Client();
 
 const token = "NzA2MDk1MDI0ODY5NDc0MzU0.Xq_LrA.09Uu_lNFxtG8ebV-ikXeRw1iaeA"; //token
-var prefix = {};
+var prefix = "!";
 bot.login(token);
 
 bot.on('ready', () => { 
@@ -21,7 +23,6 @@ for (const file of commandFiles) {
 bot.on('message', message=>{
     if (message.author.bot || !message.guild) return;
     const args = message.content.split(' ');
-        if (!prefix[message.guild.id]) prefix[message.guild.id] = "!"
         switch(args[0].toLowerCase()){
             case `${prefix}help`:
                 bot.commands.get("help").execute(message, args); 

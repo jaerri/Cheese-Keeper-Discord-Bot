@@ -4,8 +4,7 @@ module.exports = {
     execute(message, args){
       const {MessageEmbed} = require('discord.js');
       const embed = new MessageEmbed()
-      .setAuthor('Cheese Keeper', 
-      'https://media.discordapp.net/attachments/696673595505639474/728133780791099413/jerrycheese.jpeg',
+      .setAuthor(bot.user.username, bot.user.avatarURL,
       'https://discord.com/api/oauth2/authorize?client_id=706095024869474354&permissions=8&scope=bot')
       .setThumbnail('https://media.discordapp.net/attachments/696673595505639474/728131476557922354/png-transparent-emoji-question-mark-exclamation-mark-android-text-messaging-question-mark-text-logo-.png?width=475&height=475')
       .setTitle('Bot\'s Commands :')
@@ -14,7 +13,7 @@ module.exports = {
       .addFields(
         { name: '!help :', value: 'The command you are using, specific command help coming soon!'},
         { name: 'hello :', value: 'Say hello to the bot!'},
-        { name: '! [sth] :', value: 'Loop the message after "!" 5 times.'},
+        { name: '! [something] :', value: 'Loop the message after "!" 5 times.'},
         { name: '!randominvite :', value: 'Send 10 randomly generated strings begin with "discord.gg/".'}
       )
       .setColor(message.guild.me.displayColor)
