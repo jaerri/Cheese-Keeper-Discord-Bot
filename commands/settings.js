@@ -3,7 +3,7 @@ module.exports = {
     description: "Settings Command",
     execute(message, args){
         function prefixS() {
-            await prefixes.set(message.guild.id, arg[2]);
+            prefixes.set(message.guild.id, arg[2]);
             message.channel.send(`Success! Prefix is now ${arg2}`)
         }
 
