@@ -1,15 +1,17 @@
 const {Client, Collection} = require("discord.js");
+const fs = require('fs');
+const Enmap = require('enmap');
 const bot = new Client();
 
 const token = "NzA2MDk1MDI0ODY5NDc0MzU0.Xq_LrA.09Uu_lNFxtG8ebV-ikXeRw1iaeA"; //token
-const prefix = '!'//prefix
+var prefix = {};
 bot.login(token);
 
 bot.on('ready', () => { 
     console.log("aeaeaeaeaeaeaeaeaeaeae");
 });
 
-const fs = require('fs');
+
 bot.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
@@ -18,7 +20,7 @@ for (const file of commandFiles) {
 }
 
 bot.on('message', message=>{
-    if (message.author.bot || message.channel.type == "dm") return;
+    if (message.author.bot || !message.guild) return;
     const args = message.content.split(' ');
         switch(args[0].toLowerCase()){
             case `${prefix}help`:
@@ -41,7 +43,7 @@ bot.on('message', message=>{
                 bot.commands.get("people").execute(message, args);
             break;
 
-            case '!':
+            case `${prefix}`:
                 bot.commands.get("loop").execute(message, args);
             break;
 
@@ -51,6 +53,10 @@ bot.on('message', message=>{
 
             case `${prefix}randominvite`:
                 bot.commands.get("randominvite").execute(message, args);
+            break;
+
+            case `${prefix}settings`:
+                bot.commands.get("settings").execute(message, args);
             break;
         }
     }
@@ -64,7 +70,7 @@ for(const file of charactersFiles){
 }
 
 bot.on('message', message=>{
-    if (message.author.bot || message.channel.type == "dm") return;
+    if (message.author.bot || !message.guild) return;
     const args = message.content.split(' ');
         switch(args[0].toLowerCase()){
             case "æ":            
