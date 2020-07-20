@@ -4,7 +4,7 @@ module.exports = {
     execute(message, args){
       const {MessageEmbed} = require('discord.js');
       const embed = new MessageEmbed()
-      .setAuthor(bot.user.username, bot.user.avatarURL,
+      .setAuthor(message.guild.me.username, message.guild.me.avatarURL,
       'https://discord.com/api/oauth2/authorize?client_id=706095024869474354&permissions=8&scope=bot')
       .setThumbnail('https://media.discordapp.net/attachments/696673595505639474/728131476557922354/png-transparent-emoji-question-mark-exclamation-mark-android-text-messaging-question-mark-text-logo-.png?width=475&height=475')
       .setTitle('Bot\'s Commands :')
