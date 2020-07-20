@@ -1,15 +1,10 @@
 const {Client, Collection} = require("discord.js");
 const fs = require('fs');
-const Keyv = require('keyv');
-const path = require('path')
 
-const sqlite3 = require('sqlite3').verbose();
 const config = require("./config.json");
 const bot = new Client();
 
-var globalPrefix = "!";
-const dbPath = path.resolve(__dirname, 'guildSettings.db')
-const prefixes = new Keyv(dbPath);
+const prefix = "!"
 bot.login(config.token);
 
 bot.on('ready', () => { 
@@ -27,9 +22,6 @@ for (const file of commandFiles) {
 bot.on('message', message=>{
     if (message.author.bot || !message.guild) return;
     const args = message.content.split(' ');
-    let prefix
-    if (prefix == null) {prefixes.set(message.guild.id, globalPrefix);}   
-    prefix = prefixes.get(message.guild.id, globalPrefix);
     switch(args[0].toLowerCase()){
         case `${prefix}help`:
             bot.commands.get("help").execute(message, args); 
@@ -62,6 +54,10 @@ bot.on('message', message=>{
         case `${prefix}ping`:
             bot.commands.get("ping").execute(message, args);
             break;
+
+        case `${prefix}uptime`:            
+            bot.characters.get("uptime").execute(message, args);
+            break; 
     }
 });
 

@@ -1,5 +1,3 @@
-const { watchFile } = require("fs");
-
 module.exports = {
     name: "hello",
     description: "Hello cmd",
