@@ -13,8 +13,9 @@ module.exports = {
       .addFields(
         { name: '!help :', value: 'The command you are using, specific command help coming soon!'},
         { name: 'hello :', value: 'Say hello to the bot!'},
-        { name: '! [something] :', value: 'Loop the message after "!" 5 times.'},
-        { name: '!randominvite :', value: 'Send 10 randomly generated strings begin with "discord.gg/".'}
+        { name: `${prefix} [something]`, value: 'Loop the message after "!" 5 times.'},
+        { name: `${prefix}randominvite :`, value: 'Send 10 randomly generated strings begin with "discord.gg/".'},
+        { name: `${prefix}ping :`, value: "Send bot's latency."}
       )
       .setColor(message.guild.me.displayColor)
       .setTimestamp()
