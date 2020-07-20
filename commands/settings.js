@@ -10,7 +10,7 @@ module.exports = {
             return message.channel.send(`${message.author} you need **Administrator** permission to use this command!`); }
         else {               
             if (args[1] == "prefix") {
-                if (!args[3]) return;
+                if (!args[3]) message.channel.send("Type the new prefix you want to set for the bot!");
                 else {
                     prefixS();
                 }
