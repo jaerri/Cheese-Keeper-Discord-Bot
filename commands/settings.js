@@ -18,7 +18,7 @@ module.exports = {
                 }            
             }
             else {
-                message.channel.send("Available settings : `prefix`. Type with settings command.")
+                message.channel.send("Available settings : \n`prefix` \nType with settings command.")
             }
         }     
     }
