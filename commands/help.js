@@ -13,13 +13,13 @@ module.exports = {
       .addFields(
         { name: '!help :', value: 'The command you are using, specific command help coming soon!'},
         { name: 'hello :', value: 'Say hello to the bot!'},
-        { name: `${prefix} [something]`, value: 'Loop the message after "!" 5 times.'},
-        { name: `${prefix}randominvite :`, value: 'Send 10 randomly generated strings begin with "discord.gg/".'},
-        { name: `${prefix}ping :`, value: "Send bot's latency."}
+        { name: `{prefix} [something]`, value: 'Loop the message after "!" 5 times.'},
+        { name: `{prefix}randominvite :`, value: 'Send 10 randomly generated strings begin with "discord.gg/".'},
+        { name: `{prefix}ping :`, value: "Send bot's latency."}
       )
       .setColor(message.guild.me.displayColor)
       .setTimestamp()
       .setFooter('©️ 2020 Jærry All Rights Reserved')      
-    message.channel.send(embed);
+      message.channel.send(embed);
     }
 }
