@@ -1,12 +1,12 @@
 const {Client, Collection} = require("discord.js");
 const fs = require('fs');
+const config = require("./config.json");
 const SQLite = require("better-sqlite3");
 const sql = new SQLite('./scores.sqlite');
 const bot = new Client();
 
-const token = "NzA2MDk1MDI0ODY5NDc0MzU0.Xq_LrA.09Uu_lNFxtG8ebV-ikXeRw1iaeA"; //token
 var prefix = "!";
-bot.login(token);
+bot.login(config.token);
 
 bot.on('ready', () => { 
     console.log("aeaeaeaeaeaeaeaeaeaeae");
@@ -58,6 +58,10 @@ bot.on('message', message=>{
 
             case `${prefix}settings`:
                 bot.commands.get("settings").execute(message, args);
+            break;
+
+            case `${prefix}ping`:
+                bot.commands.get("ping").execute(message, args);
             break;
         }
     }
