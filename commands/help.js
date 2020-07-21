@@ -1,13 +1,13 @@
 module.exports = {
 	name: "help",
 	description: "Help cmd",
-	execute(message, args, prefix, botcommands) {
+	execute(message, args, botcommands) {
 		if (args[1]) {
 			const {MessageEmbed} = require('discord.js');
 			const smallEmbeds = new MessageEmbed()
 			.setTitle(args[1])
 			.setThumbnail('https://media.discordapp.net/attachments/696673595505639474/728131476557922354/png-transparent-emoji-question-mark-exclamation-mark-android-text-messaging-question-mark-text-logo-.png?width=475&height=475')
-			.setDescription(`\`${botcommands.get(args[1]).syntax}\``)
+			.setDescription('Command Help')
 			.addField({name: "Description :", value: botcommands.get(args[1].description)})
 			message.channel.send(smallEmbeds);
 		}

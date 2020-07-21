@@ -1,8 +1,7 @@
 module.exports = {
     name: "loop",
     description: "Loop things behind ! 5 times.",
-    syntax: `${prefix} [your message]`,
-    execute(message, args, prefix){
+    execute(message, args){
         var i;
         if (!args[1]) return;
         else {
@@ -11,5 +10,5 @@ module.exports = {
                 message.channel.send(answer);
             } 
         }       
-    }
+    },    
 }

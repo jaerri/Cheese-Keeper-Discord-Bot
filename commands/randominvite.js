@@ -1,8 +1,7 @@
 module.exports = {
     name: "randominvite",
     description: "Generate 10 random discord invite that may not work.",
-    syntax: `${prefix}randominvite`,
-    execute(message, args, prefix){
+    execute(message, args){
         const puppeteer = require('puppeteer');
         async function randomstring(url){
             const browser = await puppeteer.launch({
