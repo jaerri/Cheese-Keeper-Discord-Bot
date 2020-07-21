@@ -8,7 +8,7 @@ module.exports = {
 			.setTitle(args[1])
 			.setThumbnail('https://media.discordapp.net/attachments/696673595505639474/728131476557922354/png-transparent-emoji-question-mark-exclamation-mark-android-text-messaging-question-mark-text-logo-.png?width=475&height=475')
 			.setDescription('Command Help')
-			.addField({name: "Description :", value: botcommands.get(args[1].description)})
+			.addFields({name: "Description :", value: botcommands.get(args[1].description)})
 			message.channel.send(smallEmbeds);
 		}
 		
