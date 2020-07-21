@@ -25,9 +25,11 @@ module.exports = {
 			.setURL('https://discord.js.org/#/')
 			.setDescription('Click bot\'s name to get invite link')
 			.addFields(
-				
+				{name: "Normal Commands :", value: "`work in progress dont ask for it u dum`"},
+				{name: "Admin :", value: "`work in progress dont ask for it u dum`"},
 			)	
 			.setColor(message.guild.me.displayColor)
+			.setAuthor(`Use ${prefix}help [command] for specific command description`)
 			.setTimestamp()    
 			message.channel.send(mainHelpEmbed);
 		}
