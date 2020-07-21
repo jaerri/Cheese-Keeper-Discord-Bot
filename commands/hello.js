@@ -1,6 +1,6 @@
 module.exports = {
     name: "hello",
-    description: "Hello cmd",
+    description: "Respond when you say hello.",
     execute(message, args){
         //How to random : "(const) (randomElement) = (array)[Math.floor(Math.random() * (array).length)];""
         //example
@@ -8,4 +8,4 @@ module.exports = {
         let randomanswers = answers[Math.floor(Math.random() * answers.length)];
         message.channel.send(randomanswers);
     }
-  }
+}
