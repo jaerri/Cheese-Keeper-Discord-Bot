@@ -20,9 +20,6 @@ module.exports = {
 
         var uptime = `${hours} ${hoursWord}, ${minutes} ${minutesWord}, ${seconds} ${secondsWord} and ${milisec} ${milisecWord}`;
 
-        if (hours = 0) {uptime = `${minutes} ${minutesWord}, ${seconds} ${secondsWord} and ${milisec} ${milisecWord}`}
-        if (minutes = 0) {uptime = `${seconds} ${secondsWord} and ${milisec} ${milisecWord}`}
-
         message.channel.send(`${message.guild.me.user.username} has been up for ${uptime}.`);
     }
 }
