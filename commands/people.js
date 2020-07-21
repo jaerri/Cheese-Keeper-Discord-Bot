@@ -1,7 +1,8 @@
 module.exports = {
     name: "people",
     description: "people",
-    execute(message, args){
+    syntax: "",
+    execute(message, args, prefix){
         const puppeteer = require('puppeteer');
         async function people(url){
             const browser = await puppeteer.launch();

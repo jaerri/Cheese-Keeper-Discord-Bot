@@ -1,7 +1,8 @@
 module.exports = {
     name: "loop",
-    description: "loop",
-    execute(message, args){
+    description: "Loop things behind ! 5 times.",
+    syntax: `${prefix} [your message]`,
+    execute(message, args, prefix){
         var i;
         if (!args[1]) return;
         else {

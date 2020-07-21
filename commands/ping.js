@@ -1,7 +1,8 @@
 module.exports = {
     name: "ping",
-    description: "Ping command",
-    execute(message, args) {
+    description: "Show bot's latency.",
+    syntax: `${prefix}ping`,
+    execute(message, args, prefix) {
         message.channel.send("Pinging ...")
 			.then((msg) => { 
                 let ping = Date.now() - msg.createdTimestamp;

@@ -24,39 +24,35 @@ bot.on('message', message=>{
     const args = message.content.split(' ');
     switch(args[0].toLowerCase()){
         case `${prefix}help`:
-            bot.commands.get("help").execute(message, args); 
+            bot.commands.get("help").execute(message, args, prefix, bot.commands); 
             break;
 
         case 'hello':
-            bot.commands.get("hello").execute(message, args);
-            break;
-
-        case `${prefix}vote`:
-            bot.commands.get("VOTE").execute(message, args);
+            bot.commands.get("hello").execute(message, args, prefix);
             break;
             
         case `${prefix}people`:
-            bot.commands.get("people").execute(message, args);
+            bot.commands.get("people").execute(message, args, prefix);
             break;
 
         case `${prefix}`:
-            bot.commands.get("loop").execute(message, args);
+            bot.commands.get("loop").execute(message, args, prefix);
             break;
 
         case `${prefix}randominvite`:
-            bot.commands.get("randominvite").execute(message, args);
+            bot.commands.get("randominvite").execute(message, args, prefix);
             break;
 
         case `${prefix}settings`:
-            bot.commands.get("settings").execute(message, args);
+            bot.commands.get("settings").execute(message, args, prefix);
             break;
 
         case `${prefix}ping`:
-            bot.commands.get("ping").execute(message, args);
+            bot.commands.get("ping").execute(message, args, prefix);
             break;
 
         case `${prefix}uptime`:            
-            bot.commands.get("uptime").execute(message, args, bot);
+            bot.commands.get("uptime").execute(message, args, prefix, bot);
             break; 
     }
 });
