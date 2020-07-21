@@ -1,6 +1,6 @@
 module.exports = {
     name: "hello",
-    description: "Respond when you say hello.",
+    description: "Responds when you say hello.",
     execute(message, args){
         //How to random : "(const) (randomElement) = (array)[Math.floor(Math.random() * (array).length)];""
         //example
