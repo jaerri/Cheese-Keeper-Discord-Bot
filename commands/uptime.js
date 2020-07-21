@@ -2,12 +2,9 @@ module.exports = {
     name: "uptime",
     description: "Show bot's uptime.",
     execute(message, args, bot) {
-        let totalSeconds = (bot.uptime / 1000);
-        let hours = Math.floor(totalSeconds / 3600);
-        totalSeconds %= 3600;
-        let minutes = Math.floor(totalSeconds / 60);
-        let seconds = Math.floor(totalSeconds % 60);
-        let milisec = Math.floor(totalSeconds);
+        let hours = Math.floor(bot.uptime / 3600000) % 24;
+        let minutes = Math.floor(bot.uptime / 60000) % 60;
+        let seconds = Math.floor(bot.uptime / 1000) % 60;
 
         let hoursWord;
         let minutesWord;
