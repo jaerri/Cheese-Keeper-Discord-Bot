@@ -7,16 +7,7 @@ module.exports = {
         let seconds = Math.floor(bot.uptime / 1000) % 60;
         let milisec = bot.uptime % 1000;
 
-        let hoursWord;
-        let minutesWord;
-        let secondsWord;
-        let milisecWord;
-        if (hours <= 1) {hoursWord = "hour"} else {hoursWord = "hours"};
-        if (minutes <= 1) {minutesWord = "minute"} else {minutesWord = "minutes"};
-        if (seconds <= 1) {secondsWord = "second"} else {secondsWord = "seconds"};
-        if (milisec <= 1) {milisecWord = "milisecond"} else {milisecWord = "miliseconds"};
-
-        var uptime = `${hours} ${hoursWord}, ${minutes} ${minutesWord}, ${seconds} ${secondsWord} and ${milisec} ${milisecWord}`;
+        var uptime = `${hours} hour${(hours <= 1) ? "":"s"}, ${minutes} minute${(minutes <= 1) ? "":"s"}, ${seconds} second${(seconds <= 1) ? "":"s"} and ${milisec} milisecond${(milisec <= 1) ? "":"s"}`;
 
         message.channel.send(`${message.guild.me.user.username} has been up for ${uptime}.`);
     }

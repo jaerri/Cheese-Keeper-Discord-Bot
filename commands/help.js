@@ -2,6 +2,8 @@ module.exports = {
 	name: "help",
 	description: "Help cmd",
 	execute(message, args) {
+		
+		
 		if (!args[1]) {
 			const {MessageEmbed} = require('discord.js');
 			const embed = new MessageEmbed()
