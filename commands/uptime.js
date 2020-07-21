@@ -9,6 +9,7 @@ module.exports = {
         let minutes = Math.floor(totalSeconds / 60);
         let seconds = Math.floor(totalSeconds % 60);
         let milisec = Math.floor(totalSeconds);
+
         let daysWord;
         let hoursWord;
         let minutesWord;
@@ -20,7 +21,12 @@ module.exports = {
         if (seconds <= 1) {secondsWord = "second"} else {secondsWord = "seconds"};
         if (milisec <= 1) {milisecWord = "milisecond"} else {milisecWord = "miliseconds"};
 
-        let uptime = `${days} ${daysWord}, ${hours} ${hoursWord}, ${minutes} ${minutesWord}, ${seconds} ${secondsWord} and ${milisec} ${milisecWord}.`;
+        let uptime = `${days} ${daysWord}, ${hours} ${hoursWord}, ${minutes} ${minutesWord}, ${seconds} ${secondsWord} and ${milisec} ${milisecWord}`;
+
+        if (days = 0) {uptime = `${hours} ${hoursWord}, ${minutes} ${minutesWord}, ${seconds} ${secondsWord} and ${milisec} ${milisecWord}`}
+        if (hours = 0) {uptime = `${minutes} ${minutesWord}, ${seconds} ${secondsWord} and ${milisec} ${milisecWord}`}
+        if (minutes = 0) {uptime = `${seconds} ${secondsWord} and ${milisec} ${milisecWord}`}
+
         message.channel.send(`${message.guild.me.user.username} has been up for ${uptime}.`);
     }
 }
