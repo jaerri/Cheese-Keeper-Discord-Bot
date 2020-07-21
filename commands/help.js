@@ -7,7 +7,7 @@ module.exports = {
 		if (args[1]) {
 			let desc = botCommands.get(args[1].toLowerCase());
 			if (!desc) return message.channel.send(`con cac may hoi cai gi vay tao deo hieu`);	
-			if (args[1].toLowerCase() = "help")	return message.channel.send("may bi ngu a");		
+			if (args[1].toLowerCase() == "help") return message.channel.send("may bi ngu a");		
 			const smallEmbeds = new MessageEmbed()
 			.setTitle(args[1].toLowerCase())
 			.setThumbnail('https://media.discordapp.net/attachments/696673595505639474/735151883055923301/question-mark.png')

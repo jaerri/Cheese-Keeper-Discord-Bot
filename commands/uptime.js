@@ -1,6 +1,6 @@
 module.exports = {
     name: "uptime",
-    description: "Show bot's uptime.",
+    description: "Show the time bot has been online constantly undisrupted.",
     execute(message, args, bot) {
         let hours = Math.floor(bot.uptime / 3600000) % 24;
         let minutes = Math.floor(bot.uptime / 60000) % 60;
