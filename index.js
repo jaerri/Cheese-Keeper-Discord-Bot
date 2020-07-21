@@ -56,7 +56,7 @@ bot.on('message', message=>{
             break;
 
         case `${prefix}uptime`:            
-            bot.commands.get("uptime").execute(message, args);
+            bot.commands.get("uptime").execute(message, args, bot);
             break; 
     }
 });
