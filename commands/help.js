@@ -3,8 +3,8 @@ module.exports = {
 	description: "Help cmd",
 	execute(message, args, botcommands) {
 		if (args[1]) {
-			if (!desc) return message.channel.send("con cac may hoi cai deo gi vay tao deo hieu");		
 			let desc = botcommands.get(args[1]).description;
+			if (!desc) return message.channel.send("con cac may hoi cai deo gi vay tao deo hieu");					
 			const {MessageEmbed} = require('discord.js');
 			const smallEmbeds = new MessageEmbed()
 			.setTitle(args[1])
