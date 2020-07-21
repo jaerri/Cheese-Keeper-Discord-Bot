@@ -11,7 +11,7 @@ module.exports = {
         let minutesWord;
         let secondsWord;
         let milisecWord;
-        if (hours <= 1) {hoursWord = "day"} else {hoursWord = "hours"};
+        if (hours <= 1) {hoursWord = "hour"} else {hoursWord = "hours"};
         if (minutes <= 1) {minutesWord = "minute"} else {minutesWord = "minutes"};
         if (seconds <= 1) {secondsWord = "second"} else {secondsWord = "seconds"};
         if (milisec <= 1) {milisecWord = "milisecond"} else {milisecWord = "miliseconds"};
