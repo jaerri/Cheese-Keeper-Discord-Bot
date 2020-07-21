@@ -3,12 +3,15 @@ module.exports = {
 	description: "Help cmd",
 	execute(message, args, botcommands) {
 		if (args[1]) {
+			if (!desc) return message.channel.send("con cac may hoi cai deo gi vay tao deo hieu");		
+			let desc = botcommands.get(args[1]).description;
 			const {MessageEmbed} = require('discord.js');
 			const smallEmbeds = new MessageEmbed()
 			.setTitle(args[1])
 			.setThumbnail('https://media.discordapp.net/attachments/696673595505639474/728131476557922354/png-transparent-emoji-question-mark-exclamation-mark-android-text-messaging-question-mark-text-logo-.png?width=475&height=475')
 			.setDescription('Command Help')
-			.addFields({name: "Description :", value: botcommands.get(args[1]).description})
+			.addFields({name: "Description :", value: desc})
+			.setColor(message.guild.me.displayColor)
 			message.channel.send(smallEmbeds);
 		}
 		
