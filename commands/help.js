@@ -5,7 +5,7 @@ module.exports = {
 		const {MessageEmbed} = require('discord.js');
 
 		if (args[1]) {
-			let desc = botCommands.get(args[1]);
+			let desc = botCommands.get(args[1].toLowerCase());
 			if (!desc) return message.channel.send("con cac may hoi cai gi vay tao deo hieu");					
 			const smallEmbeds = new MessageEmbed()
 			.setTitle(args[1])
