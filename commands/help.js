@@ -9,12 +9,12 @@ module.exports = {
 			let admin = botAdminCommands.get(args[1].toLowerCase());
 			if (!command || !admin) return message.channel.send(`Can't find ${args[1].toLowerCase()}!`);	
 			if (args[1].toLowerCase() == "help") return message.channel.send(`may bi ngu a`);	
-			if (!command && admin) var value = admin.description; else value = command.description;
+			if (!command && admin) var values = admin.description; else values = command.description;
 			const smallEmbeds = new MessageEmbed()
 			.setTitle(prefix + args[1].toLowerCase())
 			.setThumbnail('https://media.discordapp.net/attachments/696673595505639474/735157372082716672/question-mark.png')
 			.setDescription('Help Command :')
-			.addFields({name: "Description :", value: value})
+			.addFields({name: "Description :", value: values})
 			.setColor(message.guild.me.displayColor)
 			message.channel.send(smallEmbeds);
 		}
