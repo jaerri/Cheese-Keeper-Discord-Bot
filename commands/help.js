@@ -9,7 +9,7 @@ module.exports = {
 			let command = botCommands.get(args[1].toLowerCase());
 			let admin = botAdminCommands.get(args[1].toLowerCase());
 			let values = command||admin;
-			if (!values) return message.channel.send(`Can't find \`${args[1].toLowerCase()}\` command!`);	
+			if (!values) return message.channel.send(`Can't find \`${args[1].toLowerCase() == "`" ? "` ":args[1].toLowerCase()}\` command!`);	
 
 			const smallEmbeds = new MessageEmbed()
 			.setTitle(prefix + args[1].toLowerCase())
