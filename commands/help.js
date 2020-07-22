@@ -6,7 +6,7 @@ module.exports = {
 
 		if (args[1]) {
 			let desc = botCommands.get(args[1].toLowerCase());
-			if (!desc) return message.channel.send(`Can't find ${args[1].toLowerCase()} command!.`);	
+			if (!desc) return message.channel.send(`Can't find ${args[1].toLowerCase()} command!`);	
 			if (args[1].toLowerCase() == "help") return message.channel.send(`may bi ngu a`);		
 			const smallEmbeds = new MessageEmbed()
 			.setTitle(prefix + args[1].toLowerCase())
