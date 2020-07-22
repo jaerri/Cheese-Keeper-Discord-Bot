@@ -24,7 +24,7 @@ module.exports = {
 				normalCommands += `\`${commandFiles[i].slice(0, -3)}\`` + ' ';
 			}
 			var adminCommands = ``
-			for (var i = 0; i < normalCommands.length; i++) 
+			for (var i = 0; i < adminCommands.length; i++) 
 			{
 				adminCommands += `\`${adminFiles[i].slice(0, -3)}\`` + ' ';
 			}
