@@ -66,9 +66,6 @@ bot.on('message', message=>{
             case `${prefix}uptime`:            
                 bot.adminCommands.get("uptime").execute(message, args, bot);
                 break; 
-            
-            case `${prefix}kick`:
-                bot.adminCommands.get("kick").execute(message, args);
         }
     }
     else return message.channel.send(`${message.author} you need **Administrator** permission to use this command!`);
