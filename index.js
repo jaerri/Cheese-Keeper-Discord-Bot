@@ -30,10 +30,6 @@ bot.on('message', message=>{
         case 'hello':
             bot.commands.get("hello").execute(message, args);
             break;
-            
-        case `${prefix}people`:
-            bot.commands.get("people").execute(message, args);
-            break;
 
         case `${prefix}`:
             bot.commands.get("loop").execute(message, args);
