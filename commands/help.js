@@ -1,13 +1,13 @@
 module.exports = {
 	name: "help",
 	description: "Help cmd",
-	execute(message, args, botCommands, prefix) {
+	execute(message, args, botCommands, commandFiles, prefix) {
 		const {MessageEmbed} = require('discord.js');
 
 		if (args[1]) {
 			let desc = botCommands.get(args[1].toLowerCase());
-			if (!desc) return message.channel.send(`con cac may hoi cai gi vay tao deo hieu`);	
-			if (args[1].toLowerCase() == "help") return message.channel.send("may bi ngu a");		
+			if (!desc) return message.channel.send(`Can't find ${args[1].toLowerCase()} command!.`);	
+			if (args[1].toLowerCase() == "help") return message.channel.send(`may bi ngu a`);		
 			const smallEmbeds = new MessageEmbed()
 			.setTitle(prefix + args[1].toLowerCase())
 			.setThumbnail('https://media.discordapp.net/attachments/696673595505639474/735157372082716672/question-mark.png')
@@ -18,6 +18,11 @@ module.exports = {
 		}
 		
 		if (!args[1]) {
+			var normalCommands = ``
+			for (var i = 0; i < commandFiles.length; i++) 
+			{
+				normalCommands += `\`${commandFiles[i]}\`` + ' ';
+			}
 			const mainHelpEmbed = new MessageEmbed()
 			.setAuthor(message.guild.me.user.username, null, 'https://discord.com/oauth2/authorize?client_id=706095024869474354&permissions=8&scope=bot')
 			.setThumbnail('https://media.discordapp.net/attachments/696673595505639474/735157372082716672/question-mark.png')
@@ -25,8 +30,8 @@ module.exports = {
 			.setURL('https://discord.js.org/#/')
 			.setDescription(`Use these commands with bot's prefix (${prefix})`)
 			.addFields(
-				{name: "Normal Commands :", value: "`work in progress dont ask for it u dum`"},
-				{name: "Admin :", value: "`work in progress dont ask for it u dum`"},
+				{name: "Normal Commands :", value: normalCommands},
+				{name: "Admin Commands :", value: "`work in progress dont ask for it u dum`"},
 			)	
 			.setColor(message.guild.me.displayColor)
 			.setFooter(`Use ${prefix}help [command] for specific command description`)

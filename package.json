@@ -12,12 +12,10 @@
     "@keyv/sqlite": "^2.0.2",
     "discord.js": "^12.2.0",
     "fs": "0.0.1-security",
-    "keyv": "^4.0.1",
     "node.js": "0.0.1-security",
     "path": "^0.12.7",
     "puppeteer": "^3.0.4",
-    "puppeteer-core": "^1.9.0",
-    "sqlite3": "^5.0.0"
+    "puppeteer-core": "^1.9.0"
   },
   "devDependencies": {},
   "description": "yes",

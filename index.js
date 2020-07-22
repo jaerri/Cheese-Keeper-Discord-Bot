@@ -24,7 +24,7 @@ bot.on('message', message=>{
     const args = message.content.split(' ');
     switch(args[0].toLowerCase()){
         case `${prefix}help`:
-            bot.commands.get("help").execute(message, args, bot.commands, prefix); 
+            bot.commands.get("help").execute(message, args, bot.commands, commandFiles, prefix); 
             break;
 
         case 'hello':
