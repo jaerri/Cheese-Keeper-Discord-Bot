@@ -21,7 +21,7 @@ module.exports = {
 			var normalCommands = ``
 			for (var i = 0; i < commandFiles.length; i++) 
 			{
-				normalCommands += `\`${commandFiles[i]}\`` + ' ';
+				normalCommands += `\`${commandFiles[i].slice(0, -3)}\`` + ' ';
 			}
 			const mainHelpEmbed = new MessageEmbed()
 			.setAuthor(message.guild.me.user.username, null, 'https://discord.com/oauth2/authorize?client_id=706095024869474354&permissions=8&scope=bot')
