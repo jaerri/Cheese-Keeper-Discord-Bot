@@ -34,7 +34,7 @@ for(const file of charactersFiles){
 
 
 bot.on('message', message=>{
-    if (message.author.bot || !message.guild || message.content.length < 500) return;
+    if (message.author.bot || !message.guild || message.content.length > 500) return;
     const args = message.content.split(' ');
     switch(args[0].toLowerCase()){
         case `${prefix}help`:
@@ -69,12 +69,12 @@ bot.on('message', message=>{
         }
     }
     else return message.channel.send(`${message.author} you need **Administrator** permission to use this command!`);
-    if (message.content.length < 500) return message.channel.send("Too much words bro");
+    if (message.content.length > 500) return message.channel.send("Too much words bro");
     
 
 
 
-    if (message.author.bot || !message.guild || config.charactersEnabled == "false" || message.content.length < 500) return;
+    if (message.author.bot || !message.guild || config.charactersEnabled == "false" || message.content.length > 500) return;
     else {
         switch(args[0].toLowerCase()){
             case "æ":            
