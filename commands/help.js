@@ -15,7 +15,7 @@ module.exports = {
 			.setTitle(prefix + args[1].toLowerCase())
 			.setThumbnail('https://media.discordapp.net/attachments/696673595505639474/735157372082716672/question-mark.png')
 			.setDescription('Help Command :')
-			.addFields({name: "Description :", value: `${values}`})
+			.addFields({name: "Description :", value: `${values.description}`})
 			.setColor(message.guild.me.displayColor)
 			message.channel.send(smallEmbeds);
 		}
