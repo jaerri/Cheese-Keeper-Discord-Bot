@@ -8,7 +8,9 @@ module.exports = {
 			if (args[1].toLowerCase() == "help") return message.channel.send(`may bi ngu a`);	
 			let command = botCommands.get(args[1].toLowerCase());
 			let admin = botAdminCommands.get(args[1].toLowerCase());
-			if (!command && admin) var values = admin.description; else values = command.description;			
+			var values;
+			if (!admin) values = command.description;
+			if (!command) values = admin.description;
 			if (!command || !admin) return message.channel.send(`Can't find ${args[1].toLowerCase()}!`);			
 
 			const smallEmbeds = new MessageEmbed()
