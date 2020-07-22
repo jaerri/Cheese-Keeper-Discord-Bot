@@ -1,5 +1,5 @@
 module.exports = {
-    name: "loop",
+    name: "!",
     description: "Loop things behind ! 5 times.",
     execute(message, args){
         var i;

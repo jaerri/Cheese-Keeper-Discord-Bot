@@ -32,7 +32,7 @@ bot.on('message', message=>{
             break;
 
         case `${prefix}`:
-            bot.commands.get("loop").execute(message, args);
+            bot.commands.get("!").execute(message, args);
             break;
 
         case `${prefix}randominvite`:
