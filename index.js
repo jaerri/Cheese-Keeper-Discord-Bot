@@ -58,12 +58,7 @@ bot.on('message', message=>{
 
 
     if (!message.author.bot || message.guild || message.member.hasPermission('ADMINISTRATOR') || message.author.id == "706095024869474354") {
-        const args = message.content.split(' ');
         switch(args[0].toLowerCase()){
-            case `${prefix}`:
-                bot.adminCommands.get("!").execute(message, args);
-                break;
-
             case `${prefix}settings`:
                 bot.adminCommands.get("settings").execute(message, args);
                 break;
@@ -71,6 +66,9 @@ bot.on('message', message=>{
             case `${prefix}uptime`:            
                 bot.adminCommands.get("uptime").execute(message, args, bot);
                 break; 
+            
+            case `${prefix}kick`:
+                bot.adminCommands.get("kick").execute(message, args);
         }
     }
     else return message.channel.send(`${message.author} you need **Administrator** permission to use this command!`);
