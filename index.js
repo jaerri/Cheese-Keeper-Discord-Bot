@@ -45,10 +45,6 @@ bot.on('message', message=>{
             bot.commands.get("hello").execute(message, args);
             break;
 
-        case `${prefix}`:
-            bot.commands.get("!").execute(message, args);
-            break;
-
         case `${prefix}randominvite`:
             bot.commands.get("randominvite").execute(message, args);
             break;
