@@ -8,7 +8,7 @@ module.exports = {
             function kick() {
                 member.kick();
                 message.channel.send("no chet roi");
-                setTimeout(message.channel.send(`thang nay ne ${member}`), 700);
+                message.channel.send(`thang nay ne ${member}`);
             }
             kick().catch(() => {
                 message.channel.send("tao deo kick duoc thang nay");
