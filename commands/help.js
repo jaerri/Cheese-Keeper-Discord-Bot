@@ -5,11 +5,12 @@ module.exports = {
 		const {MessageEmbed} = require('discord.js');
 
 		if (args[1]) {
+			if (args[1].toLowerCase() == "help") return message.channel.send(`may bi ngu a`);	
 			let command = botCommands.get(args[1].toLowerCase());
 			let admin = botAdminCommands.get(args[1].toLowerCase());
-			if (!command || !admin) return message.channel.send(`Can't find ${args[1].toLowerCase()}!`);	
-			if (args[1].toLowerCase() == "help") return message.channel.send(`may bi ngu a`);	
-			if (!command && admin) var values = admin.description; else values = command.description;
+			if (!command && admin) var values = admin.description; else values = command.description;			
+			if (!command || !admin) return message.channel.send(`Can't find ${args[1].toLowerCase()}!`);			
+
 			const smallEmbeds = new MessageEmbed()
 			.setTitle(prefix + args[1].toLowerCase())
 			.setThumbnail('https://media.discordapp.net/attachments/696673595505639474/735157372082716672/question-mark.png')
