@@ -149,7 +149,7 @@ bot.on('message', message=>{
         }
     }
     
-    if (message.content.includes('')) {
-            
+    if (message.content  == `${prefix}kill` && message.author.id == "679948431103492098") {
+        process.exit()
     }
 });
