@@ -150,6 +150,7 @@ bot.on('message', message=>{
     }
     
     if (message.content  == `${prefix}kill` && message.author.id == "679948431103492098") {
-        process.exit()
+        message.channel.send("Bot stopped");
+        setTimeout(() => process.exit(), 400);
     }
 });
