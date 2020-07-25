@@ -6,7 +6,7 @@ module.exports = {
 			.then((msg) => { 
                 let ping = Date.now() - msg.createdTimestamp;
                 var otherMessage;
-                if (ping > 90) {otherMessage = "o no"; message.channel.send(otherMessage);}
+                if (ping > 140) {otherMessage = "o no"; message.channel.send(otherMessage);}
                 msg.edit("Pong : " + ping + 'ms');              
 		});
     },   
