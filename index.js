@@ -153,4 +153,5 @@ bot.on('message', message=>{
         message.channel.send("Bot stopped");
         setTimeout(() => process.exit(), 400);
     }
+    else return message.channel.send("You cannot shut bot down.");
 });

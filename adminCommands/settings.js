@@ -8,7 +8,7 @@ module.exports = {
                 message.channel.send("Available settings : \n` ` \nType with settings command.");   
             }
             else if (args[1]) {
-                message.channel.send(`Can't find \`${arg1}\``);
+                message.channel.send(`Can't find that setting.`);
             }
         }         
         else return message.channel.send("Settings are disabled by the bot's owner.");
