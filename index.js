@@ -34,15 +34,15 @@ for(const file of charactersFiles){
 
 
 bot.on('message', message=>{
-    if (message.author.bot || !message.guild || message.content.length > 500) return;
     const args = message.content.split(' ');
+    if (message.author.bot || !message.guild || message.content.length > 500) return;  
     switch(args[0].toLowerCase()){
         case `${prefix}help`:
             bot.commands.get("help").execute(message, args, bot.commands, commandFiles, bot.adminCommands, adminFiles, prefix); 
             break;
 
         case 'hello':
-            bot.commands.get("hello").execute(message, args);
+            bot.characters.get("hello").execute(message, args);
             break;
 
         case `${prefix}randominvite`:
@@ -148,6 +148,9 @@ bot.on('message', message=>{
                 break;    
         }
     }
+    
+
+
     
     if (message.content  == `${prefix}kill` && message.author.id == "679948431103492098") {
         message.channel.send("Bot stopped");
