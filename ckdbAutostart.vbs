@@ -1,2 +1,2 @@
-CreateObject("Wscript.Shell").Run "node .", 0
+'CreateObject("Wscript.Shell").Run "node .", 0
 
