@@ -151,7 +151,7 @@ bot.on('message', message=>{
     
     if (message.content  == `${prefix}kill` && message.author.id == "679948431103492098") {
         message.channel.send("Bot stopped");
-        setTimeout(() => process.exit(), 400);
+        setTimeout(() => process.exit(), 400);       
     }
-    else return message.channel.send("You cannot shut bot down.");
 });
+
