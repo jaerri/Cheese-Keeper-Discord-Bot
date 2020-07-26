@@ -65,16 +65,14 @@ bot.on('message', message=>{
 
 bot.on('message', message=>{
     const args = message.content.split(' ');
-    if (!message.author.bot || message.guild || message.member.hasPermission('ADMINISTRATOR') || message.author.id == "706095024869474354" || !message.content.length > 500) {
+    if (!message.author.bot || message.guild || message.member.hasPermission('ADMINISTRATOR') || !message.content.length > 500 || message.author.id == "679948431103492098") {
         switch(args[0].toLowerCase()){
             case `${prefix}settings`:
                 bot.adminCommands.get("settings").execute(message, args);
-                break;
-
-             
+                break;       
         }
     }
-    else return message.channel.send(`${message.author} you need **Administrator** permission to use this command!`);   
+    else return message.channel.send(`${message.author} you can't use this command!`);   
 });
 
 
