@@ -86,6 +86,8 @@ bot.on('message', message=>{
         }
 
         switch (args[0]) {
+            case 'Ae':
+            case 'aE':
             case "ae":            
                 bot.characters.get("lowercaseae").execute(message, args);
                 break;
