@@ -39,11 +39,11 @@ for(const file of charactersFiles){
 
 
 bot.on("messageDelete", deletedMsg => {
-    if (deletedMsg.author.bot) return;
+    if (deletedMsg.author.bot || deletedMsg.length > 500) return;
     deletedMsg.channel.send(`A message was deleted by ${deletedMsg.author}. The message's content is : ||${deletedMsg.content}||`);
 }); 
 bot.on('messageUpdate', (oldMsg, newMsg) => {
-    if (oldMsg.embeds || oldMsg.author.bot) return;
+    if (oldMsg.embeds || oldMsg.author.bot || oldMsg.content.length > 50 || newMsg.content.length > 50) return;
     oldMsg.channel.send(`A message was edited by ${oldMsg.author}. Old message : ||${oldMsg}|| turns into ||${newMsg}||`);
  });
 
@@ -75,8 +75,9 @@ bot.on('message', message=>{
             break;
     }
  
-    if (message.content  == `${prefix}kill` && message.author.id == "679948431103492098") {
-        message.channel.send("Bot stopped");
+    if (message.content  == `${prefix}kill`) {
+        if (!message.author.id == "679948431103492098") return message.channel.send("You can't shut bot down!");
+        message.channel.send("Bot stopped.");
         setTimeout(() => process.exit(), 400);       
     }
 });

@@ -1,29 +1,23 @@
 module.exports = {
     name: "randominvite",
-    description: "Generate 10 random discord invite that may not work.",
+    description: "Generate 10 random discord invite links that won't work.",
     execute(message, args){
-        const puppeteer = require('puppeteer');
-        async function randomstring(url){
-            const browser = await puppeteer.launch({
-                args: [
-                  '--no-sandbox',
-                  '--disable-setuid-sandbox',
-                  'headless: false',
-                ],
-            });
-            const page = await browser.newPage();
-            await page.goto(url); 
-            const [el] = await page.$x('/html/body/div[1]/pre');
-            const Txt = await el.getProperty('textContent');
-            const string = await Txt.jsonValue();
-            var chunck = string.match(/.{1,6}/g);
-            var chuncks = chunck.join("discord.gg/");
-            var answer = `discord.gg/${chuncks}`
-            var answerChunck = answer.match(/.{0,17}/g);
-            var finalAnswer = answerChunck.join("\n");
-            message.channel.send(finalAnswer);
-            browser.close();
+        var result = '';
+        function randomChar(length) {          
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            for (var i = 0; i < length; i ++) {
+               result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result;
         }
-        randomstring('https://www.random.org/strings/?num=10&len=6&digits=on&upperalpha=on&loweralpha=on&unique=on&format=html&rnd=new');
+        for (var j = 0;j < 8; j ++) {
+            randomChar(7)
+        }       
+        var chunck = result.match(/.{1,7}/g);
+        var chuncks = chunck.join("discord.gg/");
+        var answer = `discord.gg/${chuncks}`
+        var answerChunck = answer.match(/.{0,18}/g);
+        var finalAnswer = answerChunck.join("\n");
+        message.channel.send(finalAnswer);
     }
 }
