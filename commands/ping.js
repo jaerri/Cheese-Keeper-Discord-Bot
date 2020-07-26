@@ -4,9 +4,9 @@ module.exports = {
     execute(message, args) {
         message.channel.send("Pinging ...")
 			.then((msg) => { 
-                let ping = Date.now() - msg.createdTimestamp;
+                let ping = msg.createdTimestamp - message.createdTimestamp;
                 var otherMessage;
-                if (ping > 140) {otherMessage = "o no"; message.channel.send(otherMessage);}
+                if (ping > 300) {otherMessage = "o no"; message.channel.send(otherMessage);}
                 msg.edit("Pong : " + ping + 'ms');              
 		});
     },   

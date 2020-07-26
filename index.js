@@ -11,6 +11,9 @@ bot.on('ready', () => {
     console.log("aeaeaeaeaeaeaeaeaeaeae");
 });
 
+
+
+
 bot.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
@@ -41,10 +44,6 @@ bot.on('message', message=>{
             bot.commands.get("help").execute(message, args, bot.commands, commandFiles, bot.adminCommands, adminFiles, prefix); 
             break;
 
-        case 'hello':
-            bot.characters.get("hello").execute(message, args);
-            break;
-
         case `${prefix}randominvite`:
             bot.commands.get("randominvite").execute(message, args);
             break;
@@ -52,37 +51,40 @@ bot.on('message', message=>{
         case `${prefix}ping`:
             bot.commands.get("ping").execute(message, args);
             break;
+        case `${prefix}uptime`:            
+            bot.commands.get("uptime").execute(message, args, bot);
+            break;
     }
+ 
+    if (message.content  == `${prefix}kill` && message.author.id == "679948431103492098") {
+        message.channel.send("Bot stopped");
+        setTimeout(() => process.exit(), 400);       
+    }
+});
 
 
-
-
-    if (!message.author.bot || message.guild || message.member.hasPermission('ADMINISTRATOR') || message.author.id == "706095024869474354") {
+bot.on('message', message=>{
+    const args = message.content.split(' ');
+    if (!message.author.bot || message.guild || message.member.hasPermission('ADMINISTRATOR') || message.author.id == "706095024869474354" || !message.content.length > 500) {
         switch(args[0].toLowerCase()){
             case `${prefix}settings`:
                 bot.adminCommands.get("settings").execute(message, args);
                 break;
 
-            case `${prefix}uptime`:            
-                bot.adminCommands.get("uptime").execute(message, args, bot);
-                break; 
+             
         }
     }
-    else return message.channel.send(`${message.author} you need **Administrator** permission to use this command!`);
-    if (message.content.length > 500) return message.channel.send("Too much words bro");
-    
+    else return message.channel.send(`${message.author} you need **Administrator** permission to use this command!`);   
+});
 
 
-
+bot.on('message', message=>{
+    const args = message.content.split(' ');
     if (message.author.bot || !message.guild || config.charactersEnabled == "false" || message.content.length > 500) return;
     else {
         switch(args[0].toLowerCase()){
-            case "æ":            
-                bot.characters.get("lowercaseæ").execute(message, args);
-                break;
-
-            case "Æ":            
-                bot.characters.get("uppercaseÆ").execute(message, args);
+            case 'hello':
+                bot.characters.get("hello").execute(message, args);
                 break;
                 
             case "ae":            
@@ -92,69 +94,6 @@ bot.on('message', message=>{
             case "AE":            
                 bot.characters.get("uppercaseAE").execute(message, args);
                 break;
-
-            case '.':
-            case '·': 
-            case '•':
-                bot.characters.get("dot").execute(message, args);
-                break;
-        
-            case ',':
-            case '‚':
-                bot.characters.get("comma").execute(message, args);
-                break;
-        
-            case ';':
-                bot.characters.get("semicolon").execute(message, args);
-                break;
-        
-            case ':':
-                bot.characters.get("colon").execute(message, args);
-                break;
-        
-            case '/': 
-            case '⁄':
-            case '\/':
-                bot.characters.get("forwardslash").execute(message, args);
-                break;
-        
-            case "\\":
-                bot.characters.get("backslash").execute(message, args);
-                break;
-        
-            case "'": 
-            case '’':
-                bot.characters.get("apostrophe").execute(message, args);
-                break;
-        
-            case '"':
-                bot.characters.get("quotationmark").execute(message, args);
-                break;
-        
-            case '-':
-                bot.characters.get("hyphen").execute(message, args);
-                break;
-        
-            case '|':
-                bot.characters.get("verticalbar").execute(message, args);
-                break;
-        
-            case '~':
-                bot.characters.get("tilde").execute(message, args);
-                break;
-        
-            case '`':
-                bot.characters.get("backtick").execute(message, args);
-                break;    
         }
     }
-    
-
-
-    
-    if (message.content  == `${prefix}kill` && message.author.id == "679948431103492098") {
-        message.channel.send("Bot stopped");
-        setTimeout(() => process.exit(), 400);       
-    }
 });
-
