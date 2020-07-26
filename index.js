@@ -8,8 +8,10 @@ const prefix = "!"
 bot.login(config.token);
 
 bot.on('ready', () => { 
-    console.log("aeaeaeaeaeaeaeaeaeaeae");
-});
+    console.log("Bot online!");
+    bot.users.cache.find(user => user.id === "679948431103492098").send("Bot online!");
+    //bot.guilds.cache.find(guild => guild.id === "625337372594143232").channels.cache.find(channel => channel.name === 'general').send("Bot online again!");
+}); 
 
 
 
@@ -36,6 +38,18 @@ for(const file of charactersFiles){
 
 
 
+bot.on("messageDelete", deletedMsg => {
+    if (deletedMsg.author.bot) return;
+    deletedMsg.channel.send(`A message was deleted by ${deletedMsg.author}. The message's content is : ||${deletedMsg.content}||`);
+}); 
+bot.on('messageUpdate', (oldMsg, newMsg) => {
+    if (oldMsg.embeds || oldMsg.author.bot) return;
+    oldMsg.channel.send(`A message was edited by ${oldMsg.author}. Old message : ||${oldMsg}|| turns into ||${newMsg}||`);
+ });
+
+
+
+
 bot.on('message', message=>{
     const args = message.content.split(' ');
     if (message.author.bot || !message.guild || message.content.length > 500) return;  
@@ -51,8 +65,13 @@ bot.on('message', message=>{
         case `${prefix}ping`:
             bot.commands.get("ping").execute(message, args);
             break;
+
         case `${prefix}uptime`:            
             bot.commands.get("uptime").execute(message, args, bot);
+            break;
+
+        case `${prefix}iss`:            
+            bot.commands.get("iss").execute(message, args, bot);
             break;
     }
  
@@ -70,7 +89,7 @@ bot.on('message', message=>{
             case `${prefix}settings`:
                 if (!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send(`${message.author} you don't have permission to use this command!`); 
                 bot.adminCommands.get("settings").execute(message, args);
-                break;       
+                break;      
         }      
     }
 });
