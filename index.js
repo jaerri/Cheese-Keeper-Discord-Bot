@@ -64,17 +64,16 @@ bot.on('message', message=>{
 
 
 bot.on('message', message=>{
-    const args = message.content.split(' ');
-    if (!message.author.bot || message.guild || message.member.hasPermission('ADMINISTRATOR') || !message.content.length > 500 || message.author.id == "679948431103492098") {
+    const args = message.content.split(' '); 
+    if (!message.author.bot && message.guild  && message.content.length < 500) {          
         switch(args[0].toLowerCase()){
             case `${prefix}settings`:
+                if (!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send(`${message.author} you don't have permission to use this command!`); 
                 bot.adminCommands.get("settings").execute(message, args);
                 break;       
-        }
+        }      
     }
-    else return message.channel.send(`${message.author} you can't use this command!`);   
 });
-
 
 bot.on('message', message=>{
     const args = message.content.split(' ');
@@ -83,8 +82,10 @@ bot.on('message', message=>{
         switch(args[0].toLowerCase()){
             case 'hello':
                 bot.characters.get("hello").execute(message, args);
-                break;
-                
+                break;                          
+        }
+
+        switch (args[0]) {
             case "ae":            
                 bot.characters.get("lowercaseae").execute(message, args);
                 break;
