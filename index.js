@@ -39,12 +39,12 @@ for(const file of charactersFiles){
 
 
 bot.on("messageDelete", deletedMsg => {
-    if (deletedMsg.author.bot || deletedMsg.length > 500) return;
+    if (deletedMsg.author.bot || deletedMsg.length > 100) return;
     deletedMsg.channel.send(`A message was deleted by ${deletedMsg.author}. The message's content is : ||${deletedMsg.content}||`);
 }); 
 bot.on('messageUpdate', (oldMsg, newMsg) => {
-    if (oldMsg.embeds || oldMsg.author.bot || oldMsg.content.length > 50 || newMsg.content.length > 50) return;
-    oldMsg.channel.send(`A message was edited by ${oldMsg.author}. Old message : ||${oldMsg}|| turns into ||${newMsg}||`);
+    if (oldMsg.author.bot || oldMsg.content.length > 50 || newMsg.content.length > 50 || oldMsg.content.includes(`https://`)) return;
+    oldMsg.channel.send(`A message was edited by ${oldMsg.author}. Old message : ||${oldMsg}|| turns into : ||${newMsg}||`);
  });
 
 
@@ -71,15 +71,17 @@ bot.on('message', message=>{
             break;
 
         case `${prefix}iss`:            
-            bot.commands.get("iss").execute(message, args, bot);
+            bot.commands.get("iss").execute(message, args);
+            break;
+
+        case `${prefix}pfp`:
+            bot.commands.get("pfp").execute(message, args, bot);
             break;
     }
- 
-    if (message.content  == `${prefix}kill`) {
-        if (!message.author.id == "679948431103492098") return message.channel.send("You can't shut bot down!");
-        message.channel.send("Bot stopped.");
-        setTimeout(() => process.exit(), 400);       
-    }
+
+    if (message.mentions.users.get('706095024869474354')) {//|| message.mentions.roles.find(role => role.name === "Cheese Keeper") 
+        message.channel.send(`My prefix is \`${prefix}\` Use ${prefix}help for more information.`);
+    }   
 });
 
 
@@ -95,6 +97,7 @@ bot.on('message', message=>{
     }
 });
 
+
 bot.on('message', message=>{
     const args = message.content.split(' ');
     if (message.author.bot || !message.guild || config.charactersEnabled == "false" || message.content.length > 500) return;
@@ -102,7 +105,7 @@ bot.on('message', message=>{
         switch(args[0].toLowerCase()){
             case 'hello':
                 bot.characters.get("hello").execute(message, args);
-                break;                          
+                break;     
         }
 
         switch (args[0]) {
@@ -115,6 +118,30 @@ bot.on('message', message=>{
             case "AE":            
                 bot.characters.get("uppercaseAE").execute(message, args);
                 break;
+        }
+    }
+});
+
+bot.on('message', message=>{
+    if (message.content.toLowerCase()  == `${prefix}kill`) {
+        if (message.author.id == "679948431103492098") {
+            message.channel.send("Bot stopped.")
+            .then(() => {
+                process.exit()
+            });
+        }            
+        else return message.channel.send("You can't shut bot down!");
+    }
+
+    if (message.content.toLowerCase().includes("gay") && !message.author.bot) {
+        for (var i = 0;i < 5;i++) {
+            message.channel.send("no u");
+        }
+    }
+
+    if (message.content.toLowerCase().includes("no u") && !message.author.bot) {
+        for (var i = 0;i < 5;i++) {
+            message.channel.send("shut ta fuc up");
         }
     }
 });
