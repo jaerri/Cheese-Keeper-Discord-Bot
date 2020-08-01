@@ -40,7 +40,7 @@ for(const file of charactersFiles){
 
 bot.on("messageDelete", deletedMsg => {
     if (deletedMsg.author.bot || deletedMsg.length > 100) return;
-    deletedMsg.channel.send(`A message was deleted by ${deletedMsg.author}. The message's content is : ||${deletedMsg.content}||`);
+    deletedMsg.channel.send(`A message by ${deletedMsg.author} was deleted. The message's content is : ||${deletedMsg.content}||`);
 }); 
 bot.on('messageUpdate', (oldMsg, newMsg) => {
     if (oldMsg.author.bot || oldMsg.content.length > 50 || newMsg.content.length > 50 || oldMsg.content.includes(`https://`)) return;
@@ -105,7 +105,7 @@ bot.on('message', message=>{
         switch(args[0].toLowerCase()){
             case 'hello':
                 bot.characters.get("hello").execute(message, args);
-                break;     
+                break;
         }
 
         switch (args[0]) {
@@ -136,6 +136,12 @@ bot.on('message', message=>{
     if (message.content.toLowerCase().includes("gay") && !message.author.bot) {
         for (var i = 0;i < 5;i++) {
             message.channel.send("no u");
+        }
+    }
+
+    if (message.content.toLowerCase().includes("owo" || "uwu") && !message.author.bot) {
+        for (var i = 0;i < 5;i++) {
+            message.channel.send("no u unholy stop");
         }
     }
 
