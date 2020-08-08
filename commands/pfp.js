@@ -9,9 +9,8 @@ module.exports = {
         const embed = new MessageEmbed()
             .setTitle(`Profile Picture`)
             .setDescription(`${user}'s pfp :`)
-            .setImage(user.displayAvatarURL())
+            .setImage(`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=2048`)
             .setColor(message.guild.me.displayColor);
-            console.log(user);
         message.channel.send(embed);             
     }
 }
