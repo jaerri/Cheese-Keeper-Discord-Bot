@@ -14,6 +14,7 @@ https.request(options, res=>{//making the request with the options above
     });
     res.on("end", ()=>{//event listener that triggers when the request is complete
         let jsondata = JSON.parse(data);//converts the data type from string back to json
+        console.log(data)
         console.log(jsondata);//outputs the data as json
         //you can also do other stuffs with the data in here too
         console.log("latitude: " + jsondata.latitude);//for example, this will output the latitude of the iss

@@ -1,7 +1,6 @@
 const {Client, Collection} = require("discord.js");
 const fs = require('fs');
 const config = require("./config.json");
-const { error } = require("console");
 const bot = new Client();
 const prefix = "!"
 var i;
@@ -34,13 +33,15 @@ for(const file of adminFiles){
 
 
 bot.on("messageDelete", deletedMsg => {
-    if (deletedMsg.author.bot || deletedMsg.length > 100) return;
-    deletedMsg.channel.send(`A message by ${deletedMsg.author} was deleted. The message's content is : ||${deletedMsg.content}||`);
+    if (!deletedMsg.author.bot && !deletedMsg.length > 30) {
+        deletedMsg.channel.send(`A message by ${deletedMsg.author} was deleted. The message's content is : ||${deletedMsg.content}||`);
+    }   
 }); 
 
 bot.on('messageUpdate', (oldMsg, newMsg) => {
-    if (oldMsg.author.bot || oldMsg.content.length > 50 || newMsg.content.length > 50 || oldMsg.content.includes(`https://`) || oldMsg.content == newMsg.content) return;
-    oldMsg.channel.send(`A message was edited by ${oldMsg.author}. Old message : ||${oldMsg}|| turns into : ||${newMsg}||`);
+    if (!oldMsg.author.bot && oldMsg.content.length < 30 && newMsg.content.length < 30 && !oldMsg.content == newMsg.content) {
+        oldMsg.channel.send(`A message was edited by ${oldMsg.author}. Old message : ||${oldMsg}|| turns into : ||${newMsg}||`);
+    }
  });
 
 
@@ -76,7 +77,7 @@ bot.on('message', async message=>{
 
         case `${prefix}settings`:
             if (message.member.hasPermission('ADMINISTRATOR') || message.author.id == "679948431103492098")  { 
-                bot.adminCommands.get("settings").execute(message, args);
+                bot.adminCommands.get("settings").execute(message, args, prefix);
             }
             else return message.channel.send(`${message.author} you don't have permission to use this command!`);
             break;  
