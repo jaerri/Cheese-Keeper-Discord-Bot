@@ -33,7 +33,8 @@ module.exports = {
 				adminCommands += `\`${adminFiles[i].slice(0, -3)}\`` + ' ';
 			}
 			const mainHelpEmbed = new MessageEmbed()
-				.setAuthor(message.guild.me.user.username, null, 'https://discord.com/oauth2/authorize?client_id=706095024869474354&permissions=8&scope=bot')
+				.setAuthor(message.guild.me.user.username, `https://cdn.discordapp.com/avatars/${message.guild.me.user.id}/${message.guild.me.user.avatar}.png?size=2048`,
+				 	'https://discord.com/oauth2/authorize?client_id=706095024869474354&permissions=8&scope=bot')
 				.setThumbnail('https://media.discordapp.net/attachments/696673595505639474/735157372082716672/question-mark.png')
 				.setTitle('Bot\'s Commands :')
 				.setURL('https://discord.js.org/#/')

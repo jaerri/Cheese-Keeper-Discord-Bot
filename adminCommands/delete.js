@@ -14,7 +14,8 @@ module.exports = {
                     message.channel.messages.fetch({limit: amount})
                     .then(function (list){
                         message.channel.bulkDelete(list)
-                        .catch(error => message.channel.send(`Can't delete! Error : \`\`\`${error}\`\`\`  `));
+                        .then(() => message.channel.send(`Successfully deleted messages.`).then(msg => msg.delete({timeout: 2000})))
+                        .catch(error => message.channel.send(`Can't delete older message! Error : \`\`\`${error}\`\`\`  `).then(msg => msg.delete({timeout: 5000})))
                     });
                 }
             }
