@@ -17,6 +17,7 @@ module.exports = {
 				.setDescription('Help Command :')
 				.addFields({name: "Description :", value: `${values.description}`})
 				.setColor(message.guild.me.displayColor)
+				.setTimestamp();
 			message.channel.send(smallEmbeds);
 		}
 		
@@ -43,7 +44,7 @@ module.exports = {
 				)	
 				.setColor(message.guild.me.displayColor)
 				.setFooter(`Use ${prefix}help [command] for specific command description`)
-				.setTimestamp()    
+				.setTimestamp(); 
 			message.channel.send(mainHelpEmbed);
 		}
 	}
