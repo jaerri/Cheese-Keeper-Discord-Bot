@@ -1,6 +1,7 @@
 module.exports = {
     name: "settings",
     description: "Settings command, use without arg 1 to show help",
+    alias: null,
     execute(message, args){
         const fs = require("fs");
         const editJsonFile = require("edit-json-file");

@@ -1,6 +1,7 @@
 module.exports = {
     name: "emit",
     description: "Emit an event.",
+    alias: null,
     execute(message, args, bot){    
         if (!args[1]) return;
         switch (args[1].toLowerCase()) {

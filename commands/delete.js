@@ -1,6 +1,7 @@
 module.exports = {
     name: "delete",
     description: "Delete messages in the channel.",
+    alias: null,
     execute(message, args){
         if (!args[1]) return message.channel.send("Need input!");
         else {

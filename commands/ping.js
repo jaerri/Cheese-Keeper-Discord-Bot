@@ -1,6 +1,7 @@
 module.exports = {
     name: "ping",
     description: "Show bot's latency.",   
+    alias: null,
     execute(message, args) {
         message.channel.send("Pinging ...")
 			.then((msg) => { 

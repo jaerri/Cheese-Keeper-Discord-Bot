@@ -1,6 +1,7 @@
 module.exports = {
     name: "buihien",
     description: "Convert Tiếng Việt to Tiếq Việt",
+    alias: null,
     execute(message, args){    
         const tieqviet = require("tieq-viet");
         let arg = args.slice(1);

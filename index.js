@@ -9,36 +9,21 @@ bot.login(config.token);
 
 bot.on('ready', () => { 
     console.log("Bot online!");
-    bot.user.setActivity("Weebs Dying", { type: 'WATCHING' });
+    bot.user.setActivity("YOU", { type: 'LISTENING' });
     bot.users.cache.find(user => user.id === "679948431103492098").send("Bot online!");
     //bot.guilds.cache.find(guild => guild.id === "625337372594143232").channels.cache.find(channel => channel.name === 'general').send("Bot online again!");
 }); 
 
 
 
-bot.commands = new Collection();
-const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
-for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
-    bot.commands.set(command.name, command, commandFiles);
-}
-bot.adminCommands = new Collection();
-const adminFiles = fs.readdirSync('./adminCommands/').filter(file => file.endsWith('.js'));
-for(const file of adminFiles){
-    const adminCommands = require(`./adminCommands/${file}`);
-    bot.adminCommands.set(adminCommands.name, adminCommands, adminFiles);
-}
-
-
-
 bot.on("messageDelete", (deletedMsg) => {
-    if (deletedMsg.content.length < 30 && config.logEnabled == "true" && !deletedMsg.content.startsWith("!delete")) {     
+    if (deletedMsg.content.length < 30 && config.logEnabled == "true" && !deletedMsg.content.startsWith("!delete")) {    
+        deletedMsg.channel.send(`A message by ${deletedMsg.author} was deleted. The message's content is : ||${deletedMsg.content}||`);
         if (deletedMsg.guild.channels.cache.find(channel => channel.name === 'logs')) {     
             if (deletedMsg.author.id === bot.user.id && deletedMsg.channel.name === "logs" && deletedMsg.author.bot) {         
-                deletedMsg.channel.send("Test", {embed: deletedMsg.embeds[0]});           
+                deletedMsg.channel.send("Do not delete log messages.", {embed: deletedMsg.embeds[0]});           
             }  
-            else if (!deletedMsg.author.bot) {
-                deletedMsg.channel.send(`A message by ${deletedMsg.author} was deleted. The message's content is : ||${deletedMsg.content}||`);
+            else if (!deletedMsg.author.bot) {       
                 let embed = new MessageEmbed()
                     .setAuthor(deletedMsg.author.username, deletedMsg.author.avatarURL())
                     .setTitle("Message Deleted")
@@ -56,42 +41,22 @@ bot.on("messageDelete", (deletedMsg) => {
 
 bot.on('messageUpdate', (oldMsg, newMsg) => {
     if (!oldMsg.author.bot && oldMsg.content.length < 30 && newMsg.content.length < 30 && config.logEnabled == "true") {
-        if (!oldMsg.pinned && newMsg.pinned) {
-            oldMsg.channel.send(`A message was edited by ${oldMsg.author}. Old message : ||${oldMsg}|| turns into : ||${newMsg}||`);
-            if (oldMsg.guild.channels.cache.find(channel => channel.name === 'logs')) {
-                var embed = new MessageEmbed()
-                    .setAuthor(oldMsg.author.username, oldMsg.author.avatarURL())
-                    .setTitle("Message Edited")
-                    .setThumbnail("https://media.discordapp.net/attachments/718408923232862218/741902021166104676/pencil-icon.png")
-                    .setDescription(`A message was edited by ${oldMsg.author} in ${oldMsg.channel} :`)
-                    .addFields(
-                        { name: 'Old message content :', value: oldMsg.content },
-                        { name: 'turns into :', value: newMsg.content}
-                    )
-                    .setColor('#FF4500')
-                    .setTimestamp(oldMsg.createdTimestamp)
-                    .setFooter("Old message sent at :");
-                oldMsg.guild.channels.cache.find(channel => channel.name === 'logs').send(embed);
-            }
-        }
-        else if (oldMsg.content != newMsg.content) {
-            oldMsg.channel.send(`A message was edited by ${oldMsg.author}. Old message : ||${oldMsg}|| turns into : ||${newMsg}||`);
-            if (oldMsg.guild.channels.cache.find(channel => channel.name === 'logs')) {
-                var embed = new MessageEmbed()
-                    .setAuthor(oldMsg.author.username, oldMsg.author.avatarURL())
-                    .setTitle("Message Edited")
-                    .setThumbnail("https://media.discordapp.net/attachments/718408923232862218/741902021166104676/pencil-icon.png")
-                    .setDescription(`A message was edited by ${oldMsg.author} in ${oldMsg.channel} :`)
-                    .addFields(
-                        { name: 'Old message content :', value: oldMsg.content },
-                        { name: 'turns into :', value: newMsg.content}
-                    )
-                    .setColor('#FF4500')
-                    .setTimestamp(oldMsg.createdTimestamp)
-                    .setFooter("Old message sent at :");
-                oldMsg.guild.channels.cache.find(channel => channel.name === 'logs').send(embed);
-            }
-        }         
+        oldMsg.channel.send(`A message was edited by ${oldMsg.author}. Old message : ||${oldMsg}|| turns into : ||${newMsg}||`);
+        if (oldMsg.guild.channels.cache.find(channel => channel.name === 'logs')) { 
+            var embed = new MessageEmbed()
+                .setAuthor(oldMsg.author.username, oldMsg.author.avatarURL())
+                .setTitle("Message Edited")
+                .setThumbnail("https://media.discordapp.net/attachments/718408923232862218/741902021166104676/pencil-icon.png")
+                .setDescription(`A message was edited by ${oldMsg.author} in ${oldMsg.channel} :`)
+                .addFields(
+                    { name: 'Old message content :', value: oldMsg.content },
+                    { name: 'turns into :', value: newMsg.content}
+                )
+                .setColor('#FF4500')
+                .setTimestamp(oldMsg.createdTimestamp)
+                .setFooter("Old message sent at :");
+            oldMsg.guild.channels.cache.find(channel => channel.name === 'logs').send(embed);
+        }          
     }
  });
 
@@ -150,6 +115,15 @@ bot.on("emojiDelete", emoji => {
 
 
 
+bot.commands = new Collection();
+const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+for (const file of commandFiles) {
+    const command = require(`./commands/${file}`);
+    bot.commands.set(command.name, command, commandFiles);
+}
+
+
+
 bot.on('message', async message => {
     const args = message.content.split(' ');
     if (message.author.bot || !message.guild || message.content.length > 500) return;  
@@ -188,21 +162,21 @@ bot.on('message', async message => {
 
         case `${prefix}settings`:
             if (message.member.hasPermission('ADMINISTRATOR') || message.author.id == "679948431103492098")  { 
-                bot.adminCommands.get("settings").execute(message, args, prefix);
+                bot.commands.get("settings").execute(message, args, prefix);
             }
             else return message.channel.send(`${message.author} you don't have permission to use this command!`);
             break;  
         
         case `${prefix}emit`:
             if (message.member.hasPermission('ADMINISTRATOR') || message.author.id == "679948431103492098" && message.guild.me.hasPermission("ADMINISTRATOR"))  { 
-                bot.adminCommands.get("emit").execute(message, args, bot);
+                bot.commands.get("emit").execute(message, args, bot);
             }
             else return message.channel.send(`Bot doesn't have enough permission to emit events.`);
             break; 
         
         case `${prefix}delete`:
             if (message.member.hasPermission("MANAGE_MESSAGES") || message.author.id == "679948431103492098" && message.guild.me.hasPermission("ADMINISTRATOR" || "MANAGE_MESSAGES"))  { 
-                bot.adminCommands.get("delete").execute(message, args, prefix);
+                bot.commands.get("delete").execute(message, args, prefix);
             }
             else return message.channel.send(`${message.author} you don't have permission to use this command!`);
             break;  
