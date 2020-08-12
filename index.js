@@ -17,7 +17,7 @@ bot.on('ready', () => {
 
 
 bot.on("messageDelete", (deletedMsg) => {
-    if (deletedMsg.content.length < 30 && config.logEnabled == "true" && !deletedMsg.content.startsWith("!delete")) {    
+    if (!deletedMsg.author.bot && deletedMsg.content.length < 30 && config.logEnabled == "true" && !deletedMsg.content.startsWith("!delete")) {    
         deletedMsg.channel.send(`A message by ${deletedMsg.author} was deleted. The message's content is : ||${deletedMsg.content}||`);
         if (deletedMsg.guild.channels.cache.find(channel => channel.name === 'logs')) {     
             if (deletedMsg.author.id === bot.user.id && deletedMsg.channel.name === "logs" && deletedMsg.author.bot) {         
