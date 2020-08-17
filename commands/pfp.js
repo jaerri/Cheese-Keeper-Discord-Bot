@@ -1,7 +1,7 @@
 module.exports = {
     name: "pfp",
     description: "Use with the id of the user you want to get their profile picture or mention them, use without arg 1 to get your own pfp.",   
-    alias: null,
+    alias: "avatar",
     type: "normal",
     execute(message, args, prefix, bot) {
         const {MessageEmbed} = require('discord.js');
