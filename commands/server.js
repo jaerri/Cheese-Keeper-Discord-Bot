@@ -2,6 +2,7 @@ module.exports = {
     name: "server",
     description: "Show info about the current guild(server).",
     alias: null,
+    type: "normal",
     execute(message, args) {
 		const {MessageEmbed} = require('discord.js');
         var guild = message.guild;
@@ -13,31 +14,29 @@ module.exports = {
         var voiceChannels = guild.channels.cache.filter(c => c.type === 'voice').size;
         var allChannels = guild.channels.cache.size;
         var d = guild.createdAt;
-        if (d.getTimezoneOffset() / 60 * -1 >= 0) var op = "+"; else op = "";
-        dformat = d.getDay() +
-                [d.getMonth() + 1,
-                d.getDate(),
-                d.getFullYear()].join('/') + ' ' +
-                [d.getHours(),
-                d.getMinutes(),
-                d.getSeconds()].join(':') + " UTC " + op +
-                d.getTimezoneOffset() / 60 * -1;               
+        dformat = d.getUTCDay() +
+                [d.getUTCMonth() + 1,
+                d.getUTCDate(),
+                d.getUTCFullYear()].join('/') + ' ' +
+                [d.getUTCHours(),
+                d.getUTCMinutes(),
+                d.getUTCSeconds()].join(':') + " UTC "         
         let embed = new MessageEmbed()
-            .setAuthor(guild.me.user.username, `https://cdn.discordapp.com/avatars/${guild.me.user.id}/${guild.me.user.avatar}.png`,
+            .setAuthor(guild.me.user.username, guild.me.user.displayAvatarURL({dynamic: true}),
                 'https://discord.com/oauth2/authorize?client_id=706095024869474354&permissions=8&scope=bot')
-            .setThumbnail(`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`)
+            .setThumbnail(guild.iconURL({dynamic: true}))
             .setTitle(guild.name)
-            .setDescription("Server's Info :")
+            .setDescription("Server's Info:")
             .addFields(
-                {name: 'Creation date :', value: dformat, inline: true},
+                {name: 'Creation Date :', value: dformat, inline: true},
                 {name: 'Owner :', value: guild.owner.user, inline: true},
                 {name: 'Region :', value: `${message.guild.region}`, inline: true},
-                {name: 'Member count :', value: `Users : ${userMembers}\nBots : ${botMembers}\nTotal : ${allMembers}`, inline: true},    
-                {name: 'Channel count :', value: `Text channels : ${textChannels}\nVoice channels : ${voiceChannels}\n Total : ${allChannels}`, inline: true},
+                {name: 'Member Count :', value: `Users: ${userMembers}\nBots: ${botMembers}\nTotal: ${allMembers}`, inline: true},    
+                {name: 'Channel Count :', value: `Text Channels: ${textChannels}\nVoice Channels: ${voiceChannels}\n Total: ${allChannels}`, inline: true},
                 {name: "Role Count :", value: guild.roles.cache.size, inline: true},
             ) 
             .setTimestamp() 
-            .setFooter(`Requested by ${message.author.username}#${message.author.discriminator}`, `https://cdn.discordapp.com/avatars/${message.author.id}/${message.author.avatar}.png`)
+            .setFooter(`Requested by ${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL({dynamic: true}))
             .setColor(guild.me.displayColor);
         message.channel.send(embed);
     }

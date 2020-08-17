@@ -2,6 +2,7 @@ module.exports = {
     name: "randominvite",
     description: "Generate 10 random discord invite links that won't work.",
     alias: null,
+    type: "normal",
     execute(message, args){
         var result = '';
         function randomChar(length) {          

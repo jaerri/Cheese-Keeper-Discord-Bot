@@ -2,6 +2,7 @@ module.exports = {
     name: "people",
     description: "people",
     alias: null,
+    type: "normal",
     execute(message, args){
         const puppeteer = require('puppeteer');
         async function people(url){

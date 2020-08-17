@@ -2,7 +2,8 @@ module.exports = {
     name: "delete",
     description: "Delete messages in the channel.",
     alias: null,
-    execute(message, args){
+    type: "admin",
+    execute(message, args, prefix){
         if (!args[1]) return message.channel.send("Need input!");
         else {
             if (isNaN(args[1])) return message.channel.send("Input must be a number.");
@@ -16,7 +17,7 @@ module.exports = {
                     .then(function (list){
                         message.channel.bulkDelete(list)
                         .then(() => message.channel.send(`Successfully deleted messages.`).then(msg => msg.delete({timeout: 2000})))
-                        .catch(error => message.channel.send(`Can't delete older message! Error : \`\`\`${error}\`\`\`  `).then(msg => msg.delete({timeout: 5000})))
+                        .catch(error => message.channel.send(`Can't delete! Error : \`\`\`${error}\`\`\`  `).then(msg => msg.delete({timeout: 5000})))
                     });
                 }
             }

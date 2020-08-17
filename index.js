@@ -1,6 +1,7 @@
 const {Client, Collection, MessageEmbed} = require("discord.js");
 const fs = require('fs');
 const config = require("./config.json");
+const { time } = require("console");
 const bot = new Client();
 const prefix = "!"
 var i;
@@ -17,17 +18,20 @@ bot.on('ready', () => {
 
 
 bot.on("messageDelete", (deletedMsg) => {
-    if (!deletedMsg.author.bot && deletedMsg.content.length < 30 && config.logEnabled == "true" && !deletedMsg.content.startsWith("!delete")) {    
-        deletedMsg.channel.send(`A message by ${deletedMsg.author} was deleted. The message's content is : ||${deletedMsg.content}||`);
+    if (deletedMsg.content.length < 30 && config.logEnabled == "true" && !deletedMsg.content.startsWith("!delete")) {  
+        if (!deletedMsg.author.bot) {
+            deletedMsg.channel.send(`A message by ${deletedMsg.author} was deleted. The message's content is : ||${deletedMsg.content}||`);
+        }
         if (deletedMsg.guild.channels.cache.find(channel => channel.name === 'logs')) {     
-            if (deletedMsg.author.id === bot.user.id && deletedMsg.channel.name === "logs" && deletedMsg.author.bot) {         
+            if (deletedMsg.author.id === bot.user.id && deletedMsg.channel.name === "logs" && deletedMsg.author.bot && deletedMsg.embeds[0].title == "Message Deleted") {         
                 deletedMsg.channel.send("Do not delete log messages.", {embed: deletedMsg.embeds[0]});           
             }  
             else if (!deletedMsg.author.bot) {       
                 let embed = new MessageEmbed()
+                    .attachFiles(["./Files/trashcan-icon.png"])
                     .setAuthor(deletedMsg.author.username, deletedMsg.author.avatarURL())
                     .setTitle("Message Deleted")
-                    .setThumbnail("https://media.discordapp.net/attachments/718408923232862218/741901980422897724/trashcan-icon.png")
+				    .setThumbnail('attachment://trashcan-icon.png')
                     .setDescription(`A message by ${deletedMsg.author} was deleted in ${deletedMsg.channel} :`)
                     .addField("Deleted message content :", deletedMsg.content)
                     .setColor('#FF0000')
@@ -40,13 +44,14 @@ bot.on("messageDelete", (deletedMsg) => {
 }); 
 
 bot.on('messageUpdate', (oldMsg, newMsg) => {
-    if (!oldMsg.author.bot && oldMsg.content.length < 30 && newMsg.content.length < 30 && config.logEnabled == "true") {
+    if (!oldMsg.author.bot && oldMsg.content.length < 30 && newMsg.content.length < 30 && config.logEnabled == "true" && oldMsg.content != newMsg.content) {
         oldMsg.channel.send(`A message was edited by ${oldMsg.author}. Old message : ||${oldMsg}|| turns into : ||${newMsg}||`);
         if (oldMsg.guild.channels.cache.find(channel => channel.name === 'logs')) { 
             var embed = new MessageEmbed()
+                .attachFiles(["./Files/pencil-icon.png"])
                 .setAuthor(oldMsg.author.username, oldMsg.author.avatarURL())
-                .setTitle("Message Edited")
-                .setThumbnail("https://media.discordapp.net/attachments/718408923232862218/741902021166104676/pencil-icon.png")
+                .setTitle("Message Edited")     
+				.setThumbnail('attachment://pencil-icon.png')
                 .setDescription(`A message was edited by ${oldMsg.author} in ${oldMsg.channel} :`)
                 .addFields(
                     { name: 'Old message content :', value: oldMsg.content },
@@ -59,7 +64,6 @@ bot.on('messageUpdate', (oldMsg, newMsg) => {
         }          
     }
  });
-
 
 bot.on("guildCreate", guild => {
     if (guild.systemChannel) {
@@ -119,17 +123,49 @@ bot.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
-    bot.commands.set(command.name, command, commandFiles);
+    bot.commands.set(command.name, command);
+    bot.commands.set(command.alias, command);
 }
 
 
 
 bot.on('message', async message => {
+    message.createdAt.get
     const args = message.content.split(' ');
+    const cmdCode = bot.commands.get(args[0].toLowerCase().substring(prefix.length))
     if (message.author.bot || !message.guild || message.content.length > 500) return;  
-    switch(args[0].toLowerCase()){
+    else if (cmdCode && message.content.startsWith(prefix)) {
+        cmdCode.execute(message, args, prefix, bot, commandFiles, bot.commands)
+    }
+
+    if (message.content.toLowerCase()  == `${prefix}kill`) { 
+        if (message.author.id == "679948431103492098") {
+            message.channel.send("Bot stopped.") 
+            .then(() => {
+                process.exit();
+            });
+        }
+        else return message.channel.send("You don't have permission.");
+    };
+
+    if (message.mentions.users.get('706095024869474354') || message.mentions.roles.find(role => role.name === "Cheese Keeper")) { 
+        message.channel.send(`My prefix is \`${prefix}\` Use ${prefix}help for more information. Create a channel named "logs" to log deleted and edited messages.`).catch(error => {
+            message.channel.send(`There was an error : \`\`\`${error}\`\`\``)
+        });
+    };
+
+    var chance = 1/1000;
+    if (Math.random() < chance) {
+        message.react('👶');
+    }
+    if (Math.random() < chance && message.guild.id == "625337372594143232") {
+        message.react('741123714695037039');
+    }
+});
+
+/*switch(args[0].toLowerCase()){
         case `${prefix}help`:
-            bot.commands.get("help").execute(message, args, bot.commands, commandFiles, bot.adminCommands, adminFiles, prefix); 
+            bot.commands.get("help").execute(message, args, prefix, bot, commandFiles); 
             break;
 
         case `${prefix}randominvite`:
@@ -141,7 +177,7 @@ bot.on('message', async message => {
             break;
 
         case `${prefix}uptime`:            
-            bot.commands.get("uptime").execute(message, args, bot);
+            bot.commands.get("uptime").execute(message, args, prefix, bot);
             break;
 
         case `${prefix}iss`:            
@@ -149,7 +185,7 @@ bot.on('message', async message => {
             break;
 
         case `${prefix}pfp`:
-            bot.commands.get("pfp").execute(message, args, bot);
+            bot.commands.get("pfp").execute(message, args, prefix, bot);
             break;
 
         case `${prefix}buihien`:
@@ -159,42 +195,20 @@ bot.on('message', async message => {
         case `${prefix}server`:
             bot.commands.get("server").execute(message, args);
             break;
+            
+        case `${prefix}chuvan`:
+            bot.commands.get("chuvan").execute(message, args);
+            break;
 
         case `${prefix}settings`:
-            if (message.member.hasPermission('ADMINISTRATOR') || message.author.id == "679948431103492098")  { 
-                bot.commands.get("settings").execute(message, args, prefix);
-            }
-            else return message.channel.send(`${message.author} you don't have permission to use this command!`);
+            bot.commands.get("settings").execute(message, args, prefix);
             break;  
         
         case `${prefix}emit`:
-            if (message.member.hasPermission('ADMINISTRATOR') || message.author.id == "679948431103492098" && message.guild.me.hasPermission("ADMINISTRATOR"))  { 
-                bot.commands.get("emit").execute(message, args, bot);
-            }
-            else return message.channel.send(`Bot doesn't have enough permission to emit events.`);
+            bot.commands.get("emit").execute(message, args, prefix, bot);
             break; 
         
         case `${prefix}delete`:
-            if (message.member.hasPermission("MANAGE_MESSAGES") || message.author.id == "679948431103492098" && message.guild.me.hasPermission("ADMINISTRATOR" || "MANAGE_MESSAGES"))  { 
-                bot.commands.get("delete").execute(message, args, prefix);
-            }
-            else return message.channel.send(`${message.author} you don't have permission to use this command!`);
-            break;  
-    };
-
-    if (message.content.toLowerCase()  == `${prefix}kill`) { 
-        if (message.author.id == "679948431103492098") {
-            message.channel.send("Bot stopped.") 
-            .then(() => {
-                process.exit();
-            });
-        }
-        else return message.channel.send("You can't shut bot down.");
-    };
-
-    if (message.mentions.users.get('706095024869474354') || message.mentions.roles.find(role => role.name === "Cheese Keeper")) { 
-        message.channel.send(`My prefix is \`${prefix}\` Use ${prefix}help for more information. Create a channel named "logs" to log deleted and edited messages.`).catch(error => {
-            message.channel.send(`There was an error : \`\`\`${error}\`\`\``)
-        });
-    };
-});
+            bot.commands.get("delete").execute(message, args, prefix);
+            break;       
+    };*/

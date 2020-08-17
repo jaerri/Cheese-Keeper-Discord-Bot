@@ -2,13 +2,13 @@ module.exports = {
     name: "ping",
     description: "Show bot's latency.",   
     alias: null,
+    type: "normal",
     execute(message, args) {
         message.channel.send("Pinging ...")
 			.then((msg) => { 
                 let ping = msg.createdTimestamp - message.createdTimestamp;
-                var otherMessage;
-                if (ping > 300) {otherMessage = "o no"; message.channel.send(otherMessage);}
-                msg.edit("Pong : " + ping + 'ms');              
+                msg.edit("Pong : " + ping + 'ms');    
+                if (ping > 450) return message.channel.send("o no");          
 		});
     },   
 }
