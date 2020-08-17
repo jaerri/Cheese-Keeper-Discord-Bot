@@ -4,6 +4,8 @@ module.exports = {
     alias: null,
     type: "reset",
     execute(message, args, prefix, bot, commandFiles, botCommands) {
+        const clearRequire = require('clear-require');
+
         if (message.author.id == "679948431103492098") {
             if (!args[1]) return message.channel.send("Need input!");
             var exception = false;
@@ -15,7 +17,7 @@ module.exports = {
                     command = require(`./${args[1].toLowerCase()}.js`);
                 }
                 
-                delete require.cache[require.resolve(`./${command.name}.js`)];
+                clearRequire(`./${command.name}.js`);
                 try {
                     const newCommand = require(`./${command.name}.js`);
                     botCommands.set(newCommand.name, newCommand);
@@ -26,7 +28,7 @@ module.exports = {
                     exception = true;
                 }
                 if (!exception) {
-                    message.channel.send("File reloaded.");
+                    message.channel.send("Command file reloaded.");
                 }
             }
 
@@ -35,7 +37,7 @@ module.exports = {
                     for (const file of commandFiles) {
                         command = require(`./${file}`);
                         
-                        delete require.cache[require.resolve(`./${file}`)];
+                        clearRequire(`./${file}`);
                         const newCommand = require(`./${file}`);
                         botCommands.set(newCommand.name, newCommand);          
                     }
