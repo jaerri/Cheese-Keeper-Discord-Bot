@@ -7,7 +7,7 @@ module.exports = {
         const clearRequire = require('clear-require');
 
         if (message.author.id == "679948431103492098") {
-            if (!args[1]) return message.channel.send("Need input!");
+            if (!args[1]) return message.channel.send("Need file name input!");
             var exception = false;
             
             if (args[1].toLowerCase() != "all") {

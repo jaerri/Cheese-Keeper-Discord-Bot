@@ -5,7 +5,7 @@ module.exports = {
     type: "normal",
     execute(message, args, bot) {
         const {MessageEmbed} = require('discord.js');
-        const user = message.mentions.users.first() || bot.users.fetch(args[1]) || message.author;
+        const user = message.mentions.users.first() || bot.users.find(user => user.id === args[1]) || message.author;
 
         if (!user) return message.channel.send("Unknown user!");
         const embed = new MessageEmbed()
