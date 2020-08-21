@@ -2,8 +2,6 @@ const {Client, Collection, MessageEmbed} = require("discord.js");
 const fs = require('fs');
 const config = require("./config.json");
 const { time } = require("console");
-const Constants = require('discord.js/src/util/Constants.js')
-Constants.DefaultOptions.ws.properties.$browser = `Discord iOS`
 const bot = new Client();
 const prefix = "!"
 var i;
