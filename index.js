@@ -2,6 +2,8 @@ const {Client, Collection, MessageEmbed} = require("discord.js");
 const fs = require('fs');
 const config = require("./config.json");
 const { time } = require("console");
+const Constants = require('discord.js/src/util/Constants.js')
+Constants.DefaultOptions.ws.properties.$browser = `Discord iOS`
 const bot = new Client();
 const prefix = "!"
 var i;
@@ -10,7 +12,7 @@ bot.login(config.token);
 
 bot.on('ready', () => { 
     console.log("Bot online!");
-    bot.user.setActivity("YOU", { type: 'LISTENING' });
+    bot.user.setActivity("YOU", { type: 'LISTENING', browser: "DISCORD IOS" });
     bot.users.cache.find(user => user.id === "679948431103492098").send("Bot online!");
     //bot.guilds.cache.find(guild => guild.id === "625337372594143232").channels.cache.find(channel => channel.name === 'general').send("Bot online again!");
 }); 
