@@ -133,7 +133,6 @@ for (const file of commandFiles) {
 
 
 bot.on('message', async message => {
-    message.createdAt.get
     const args = message.content.split(' ');
     const cmdCode = bot.commands.get(args[0].toLowerCase().substring(prefix.length))
     if (message.author.bot || !message.guild || message.content.length > 500) return;  
