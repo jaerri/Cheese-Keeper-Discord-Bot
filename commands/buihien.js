@@ -2,7 +2,7 @@ module.exports = {
     name: "buihien",
     description: "Convert Tiếng Việt to Tiếq Việt",
     alias: "tieqviet",
-    type: "normal",
+    type: null,
     execute(message, args){    
         if (args[1]) {
             const tieqviet = require("tieq-viet");

@@ -18,7 +18,8 @@ bot.on('ready', () => {
 
 
 bot.on("messageDelete", (deletedMsg) => {
-    if (deletedMsg.content.length < 30 && config.logEnabled == "true" && !deletedMsg.content.startsWith("!delete")) {  
+    if (deletedMsg.content.length <= 100 && config.logEnabled == "true" && !deletedMsg.content.startsWith("!delete")) {  
+        if (deletedMsg.content.length > 100) deletedMsg.content = deletedMsg.content.slice(0, 100)
         if (!deletedMsg.author.bot) {
             deletedMsg.channel.send(`A message by ${deletedMsg.author} was deleted. The message's content is : ||${deletedMsg.content}||`);
         }
@@ -44,7 +45,9 @@ bot.on("messageDelete", (deletedMsg) => {
 }); 
 
 bot.on('messageUpdate', (oldMsg, newMsg) => {
-    if (!oldMsg.author.bot && oldMsg.content.length < 30 && newMsg.content.length < 30 && config.logEnabled == "true" && oldMsg.content != newMsg.content) {
+    if (!oldMsg.author.bot && oldMsg.content.length <= 100 && newMsg.content.length <= 100 && config.logEnabled == "true" && oldMsg.content != newMsg.content) {
+        if (oldMsg.content.length > 100) oldMsg.content = oldMsg.content.slice(0, 100)
+        if (newMsg.content.length > 100) newMsg.content = newMsg.content.slice(0, 100)
         oldMsg.channel.send(`A message was edited by ${oldMsg.author}. Old message : ||${oldMsg}|| turns into : ||${newMsg}||`);
         if (oldMsg.guild.channels.cache.find(channel => channel.name === 'logs')) { 
             var embed = new MessageEmbed()

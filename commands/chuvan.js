@@ -2,7 +2,7 @@ module.exports = {
     name: "chuvan",
     description: "Send chữ vạn.",
     alias: null,
-    type: "normal",
+    type: null,
     execute(message, args){    
         message.channel.send("卐");
     }
