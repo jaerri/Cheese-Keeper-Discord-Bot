@@ -4,14 +4,23 @@ const config = require("./config.json");
 const { time } = require("console");
 const bot = new Client();
 const prefix = "!"
+const actList = [
+    [`${prefix}help`, { type: 'LISTENING'}],
+    [`YOU`, { type: 'LISTENING'}],
+    [`The Cheese`, {type: "WATCHING"}],
+]
 var i;
 
 bot.login(config.token);
 
 bot.on('ready', () => { 
     console.log("Bot online!");
-    bot.user.setActivity("YOU", { type: 'LISTENING', browser: "DISCORD IOS" });
+    bot.user.setActivity("YOU", { type: 'LISTENING'});
     bot.users.cache.find(user => user.id === "679948431103492098").send("Bot online!");
+    setInterval(() => {
+        const index = Math.floor(Math.random() * (actList.length - 1) + 1); // generates a random number between 1 and the length of the activities array list (in this case 5).
+        bot.user.setActivity(actList[index]); // sets bot's activities to one of the phrases in the arraylist.
+    }, 10000);
     //bot.guilds.cache.find(guild => guild.id === "625337372594143232").channels.cache.find(channel => channel.name === 'general').send("Bot online again!");
 }); 
 
