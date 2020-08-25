@@ -15,7 +15,6 @@ bot.login(config.token);
 
 bot.on('ready', () => { 
     console.log("Bot online!");
-    bot.user.setActivity("YOU", { type: 'LISTENING'});
     bot.users.cache.find(user => user.id === "679948431103492098").send("Bot online!");
     setInterval(() => {
         const index = Math.floor(Math.random() * (actList.length - 1) + 1); // generates a random number between 1 and the length of the activities array list (in this case 5).
