@@ -10,7 +10,6 @@ bot.login(config.token);
 
 bot.on('ready', () => { 
     console.log("Bot online!");
-    bot.user.setActivity("YOU", { type: 'LISTENING'});
     bot.users.cache.find(user => user.id === "679948431103492098").send("Bot online!");
     while (true) {
         bot.user.setActivity("YOU", { type: 'LISTENING'});
