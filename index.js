@@ -11,12 +11,7 @@ bot.login(config.token);
 bot.on('ready', () => { 
     console.log("Bot online!");
     bot.users.cache.find(user => user.id === "679948431103492098").send("Bot online!");
-    while (true) {
-        bot.user.setActivity("YOU", { type: 'LISTENING'});
-        setTimeout(() => {
-            bot.user.setActivity(`${prefix}help`, { type: 'LISTENING'});
-        }, 10000);
-    }
+    bot.user.setActivity("YOU", { type: 'LISTENING'});
     //bot.guilds.cache.find(guild => guild.id === "625337372594143232").channels.cache.find(channel => channel.name === 'general').send("Bot online again!");
 }); 
 
