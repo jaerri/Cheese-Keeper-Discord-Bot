@@ -55,10 +55,10 @@ bot.on('messageUpdate', (oldMsg, newMsg) => {
                 .setAuthor(oldMsg.author.username, oldMsg.author.avatarURL())
                 .setTitle("Message Edited")     
 				.setThumbnail('attachment://pencil-icon.png')
-                .setDescription(`A message was edited by ${oldMsg.author} in ${oldMsg.channel} :`)
+                .setDescription(`A message was edited by ${oldMsg.author} in ${oldMsg.channel} :   [Jump!](${oldMsg.url} 'Click to jump to message')`)
                 .addFields(
-                    { name: `Old message content :   [Jump!](${oldMsg.url} 'Click to jump to message')`, value: oldMsg.content },
-                    { name: `turns into :   [Jump!](${newMsg.url} 'Click to jump to message')`, value: newMsg.content}
+                    { name: `Old message content :`, value: oldMsg.content },
+                    { name: `turns into :`, value: newMsg.content}
                 )
                 .setColor('#FF4500')
                 .setTimestamp(oldMsg.createdTimestamp)
