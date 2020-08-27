@@ -38,8 +38,7 @@ bot.on("messageDelete", (deletedMsg) => {
                     .setDescription(`A message by ${deletedMsg.author} was deleted in ${deletedMsg.channel} :`)
                     .addField("Deleted message content :", deletedMsg.content)
                     .setColor('#FF0000')
-                    .setTimestamp(deletedMsg.createdTimestamp)
-                    .setFooter("Deleted message sent at");
+                    .setFooter("Deleted message sent at " + deletedMsg.createdAt);
                 deletedMsg.guild.channels.cache.find(channel => channel.name === 'logs').send(embed);
             }
         }    
@@ -63,8 +62,7 @@ bot.on('messageUpdate', (oldMsg, newMsg) => {
                     { name: `turns into :`, value: newMsg.content}
                 )
                 .setColor('#FF4500')
-                .setTimestamp(oldMsg.createdTimestamp)
-                .setFooter("Old message sent at :");
+                .setFooter("Old message sent at " + oldMsg.createdAt);
             oldMsg.guild.channels.cache.find(channel => channel.name === 'logs').send(embed);
         }          
     }
