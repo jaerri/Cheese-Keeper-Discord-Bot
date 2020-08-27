@@ -24,8 +24,10 @@ bot.on("messageDelete", (deletedMsg) => {
             deletedMsg.channel.send(`A message by ${deletedMsg.author} was deleted. The message's content is : ||${deletedMsg.content}||`);
         }
         if (deletedMsg.guild.channels.cache.find(channel => channel.name === 'logs')) {     
-            if (deletedMsg.author.id === bot.user.id && deletedMsg.channel.name === "logs" && deletedMsg.author.bot && deletedMsg.embeds[0].title == "Message Deleted") {         
-                deletedMsg.channel.send("Do not delete log messages.", {embed: deletedMsg.embeds[0]});           
+            if (deletedMsg.author.id === bot.user.id && deletedMsg.channel.name === "logs" && deletedMsg.author.bot && deletedMsg.embeds[0]) {    
+                if (deletedMsg.embeds[0].title === "Message Deleted") {
+                    deletedMsg.channel.send("Do not delete log messages.", {embed: deletedMsg.embeds[0]}); 
+                }                 
             }  
             else if (!deletedMsg.author.bot) {       
                 let embed = new MessageEmbed()
