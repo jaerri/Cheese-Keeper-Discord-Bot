@@ -158,7 +158,11 @@ bot.on('message', async message => {
         });
     };
 
-    var chance = 1/1000;
+    let chance = 1/100;
+    if (Math.random() < chance) {
+        message.channel.send("卐")
+    }
+    chance = 1/1000
     if (Math.random() < chance) {
         message.react('👶');
     }
