@@ -61,7 +61,7 @@ bot.on('messageUpdate', (oldMsg, newMsg) => {
         if (oldMsg.guild.channels.cache.find(channel => channel.name === 'logs')) { 
             let d = oldMsg.createdAt
             let dformat = d.getUTCDay() +
-                [d.getUTCMonth() + 1,
+                [d.getUTCMonth(),
                 d.getUTCDate(),
                 d.getUTCFullYear()].join('/') + ' ' +
                 [d.getUTCHours(),
