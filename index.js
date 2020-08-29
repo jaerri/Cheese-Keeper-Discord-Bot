@@ -61,7 +61,7 @@ bot.on('messageUpdate', (oldMsg, newMsg) => {
         if (oldMsg.guild.channels.cache.find(channel => channel.name === 'logs')) { 
             let d = oldMsg.createdAt
             let dformat = d.getUTCDay() +
-                [d.getUTCMonth(),
+                [d.getUTCMonth() + 1,
                 d.getUTCDate(),
                 d.getUTCFullYear()].join('/') + ' ' +
                 [d.getUTCHours(),
@@ -172,7 +172,7 @@ bot.on('message', async message => {
         });
     };
 
-    let chance = 1/100;
+    let chance = 1/500;
     if (Math.random() < chance) {
         message.channel.send("卐")
     }
