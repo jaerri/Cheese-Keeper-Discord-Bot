@@ -30,14 +30,6 @@ bot.on("messageDelete", (deletedMsg) => {
                 }                 
             }  
             else if (!deletedMsg.author.bot) {     
-                let d = deletedMsg.createdAt
-                let dformat = d.getUTCDay() +
-                    [d.getUTCMonth() + 1,
-                    d.getUTCDate(),
-                    d.getUTCFullYear()].join('/') + ' ' +
-                    [d.getUTCHours(),
-                    d.getUTCMinutes(),
-                    d.getUTCSeconds()].join(':') + " UTC "  
                 let embed = new MessageEmbed()
                     .attachFiles(["./Files/trashcan-icon.png"])
                     .setAuthor(deletedMsg.author.username, deletedMsg.author.avatarURL())
@@ -46,7 +38,8 @@ bot.on("messageDelete", (deletedMsg) => {
                     .setDescription(`A message by ${deletedMsg.author} was deleted in ${deletedMsg.channel} :`)
                     .addField("Deleted message content :", deletedMsg.content)
                     .setColor('#FF0000')
-                    .setFooter("Deleted message sent at " + dformat);
+                    .setTimestamp(deletedMsg.createdTimestamp)
+                    .setFooter("Deleted message sent at ");
                 deletedMsg.guild.channels.cache.find(channel => channel.name === 'logs').send(embed);
             }
         }    
@@ -59,14 +52,6 @@ bot.on('messageUpdate', (oldMsg, newMsg) => {
         if (newMsg.content.length > 100) newMsg.content = newMsg.content.slice(0, 100)
         oldMsg.channel.send(`A message was edited by ${oldMsg.author}. Old message : ||${oldMsg}|| turns into : ||${newMsg}||`);
         if (oldMsg.guild.channels.cache.find(channel => channel.name === 'logs')) { 
-            let d = oldMsg.createdAt
-            let dformat = d.getUTCDay() +
-                [d.getUTCMonth() + 1,
-                d.getUTCDate(),
-                d.getUTCFullYear()].join('/') + ' ' +
-                [d.getUTCHours(),
-                d.getUTCMinutes(),
-                d.getUTCSeconds()].join(':') + " UTC "
             let embed = new MessageEmbed()
                 .attachFiles(["./Files/pencil-icon.png"])
                 .setAuthor(oldMsg.author.username, oldMsg.author.avatarURL())
@@ -78,7 +63,8 @@ bot.on('messageUpdate', (oldMsg, newMsg) => {
                     { name: `turns into :`, value: newMsg.content}
                 )
                 .setColor('#FF4500')
-                .setFooter("Old message sent at " + dformat);
+                .setTimestamp(oldMsg.createdTimestamp)
+                .setFooter("Old message sent at ");
             oldMsg.guild.channels.cache.find(channel => channel.name === 'logs').send(embed);
         }          
     }
