@@ -93,7 +93,7 @@ bot.on("guildMemberRemove", member => {
             member.guild.systemChannel.send(`${member} has been removed from the server.`);
         }
         else {
-            member.guild.systemChannel.send(`${member} has left or was kicked, banned from the server.`);
+            member.guild.systemChannel.send(`${member} has either left, kicked or banned from the server.`);
         }  
     };  
 });
@@ -129,7 +129,9 @@ const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith(
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
     bot.commands.set(command.name, command);
-    bot.commands.set(command.alias, command);
+    command.aliases.forEach(alias => {
+        bot.commands.set(alias, command);
+    });
 }
 
 

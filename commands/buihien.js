@@ -1,7 +1,7 @@
 module.exports = {
     name: "buihien",
     description: "Convert Tiếng Việt to Tiếq Việt",
-    alias: "tieqviet",
+    aliases: [null],
     type: null,
     execute(message, args){    
         if (args[1]) {

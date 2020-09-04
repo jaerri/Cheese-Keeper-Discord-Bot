@@ -1,7 +1,7 @@
 module.exports = {
     name: "people",
     description: "people",
-    alias: null,
+    aliases: [null],
     type: "normal",
     execute(message, args){
         const puppeteer = require('puppeteer');

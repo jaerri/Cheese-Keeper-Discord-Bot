@@ -1,7 +1,7 @@
 module.exports = {
     name: "settings",
     description: "Settings command, use without arg 1 to show help",
-    alias: null,
+    aliases: [null],
     type: "admin",
     execute(message, args, prefix, bot){
         if (message.member.hasPermission('ADMINISTRATOR') || message.author.id == "679948431103492098")  {             

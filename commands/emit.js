@@ -1,9 +1,9 @@
 module.exports = {
     name: "emit",
     description: "Emit an event.",
-    alias: null,
+    aliases: [null],
     type: "admin",
-    execute(message, args, bot){    
+    execute(message, args, prefix, bot){    
         if (message.member.hasPermission('ADMINISTRATOR') || message.author.id == "679948431103492098" && message.guild.me.hasPermission("ADMINISTRATOR"))  { 
             if (!args[1]) return;
             switch (args[1].toLowerCase()) {

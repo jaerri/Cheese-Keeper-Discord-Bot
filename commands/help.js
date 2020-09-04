@@ -1,7 +1,7 @@
 module.exports = {
 	name: "help",
 	description: "Help cmd",
-	alias: null,
+	aliases: [null],
     type: "normal",
     execute(message, args, prefix, bot, commandFiles, botCommands) {
 		const {MessageEmbed} = require('discord.js');

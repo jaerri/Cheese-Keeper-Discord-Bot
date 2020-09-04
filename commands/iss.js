@@ -1,7 +1,7 @@
 module.exports = {
     name: "iss",
     description: "Show iss's position.",
-    alias: null,
+    aliases: [null],
     type: "normal",
     execute(message, args){
         const https = require('https');

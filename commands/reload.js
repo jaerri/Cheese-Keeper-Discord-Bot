@@ -1,21 +1,28 @@
 module.exports = {
     name: "reload",
     description: "Restart command file.",   
-    alias: null,
-    type: "reset",
+    aliases: [null],
+    type: null,
     execute(message, args, prefix, bot, commandFiles, botCommands) {
         if (message.author.id == "679948431103492098") {
             if (!args[1]) return message.channel.send("Need input!");
             var exception = false;
             
             if (args[1].toLowerCase() != "all") {
-                var command = botCommands.get(args[1].toLowerCase());
+                let command = botCommands.get(args[1].toLowerCase());
                 if (!command) return message.channel.send(`Unknown command file.`)
                 
-                delete require.cache[require.resolve(`./${command.name}.js`)];
                 try {
+                    botCommands.delete(command.name)
+                    command.aliases.forEach(alias => {
+                        botCommands.delete(alias);
+                    });
+                    delete require.cache[require.resolve(`./${command.name}.js`)];
                     const newCommand = require(`./${command.name}.js`);
                     botCommands.set(newCommand.name, newCommand);
+                    newCommand.aliases.forEach(alias => {
+                        botCommands.set(alias, newCommand);
+                    });
                 } 
                 catch (error) {
                     console.log(error);
@@ -30,8 +37,6 @@ module.exports = {
             if (args[1].toLowerCase() == "all") {
                 try {
                     for (const file of commandFiles) {
-                        command = require(`./${file}`);
-                        
                         delete require.cache[require.resolve(`./${file}`)];
                         const newCommand = require(`./${file}`);
                         botCommands.set(newCommand.name, newCommand);          

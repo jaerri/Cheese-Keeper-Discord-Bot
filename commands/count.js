@@ -1,7 +1,7 @@
 module.exports = {
     name: "count",
     description: "Count from 1 to 10",   
-    alias: null,
+    aliases: [null],
     type: null,
     execute(message, args, prefix, bot, commandFiles, botCommands) {
         if (message.guild.id === "728598542784135249") {

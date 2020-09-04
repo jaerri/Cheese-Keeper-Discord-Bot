@@ -1,7 +1,7 @@
 module.exports = {
     name: "server",
     description: "Show info about the current guild(server).",
-    alias: null,
+    aliases: [null],
     type: "normal",
     execute(message, args) {
 		const {MessageEmbed} = require('discord.js');
