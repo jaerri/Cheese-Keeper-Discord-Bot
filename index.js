@@ -1,10 +1,8 @@
 const {Client, Collection, MessageEmbed} = require("discord.js");
 const fs = require('fs');
 const config = require("./config.json");
-const { time } = require("console");
 const bot = new Client();
-const prefix = "!"
-var i;
+var prefix = "!";
 
 bot.login(config.token);
 
@@ -18,11 +16,9 @@ bot.on('ready', () => {
 
 
 bot.on("messageDelete", (deletedMsg) => {
-    if (deletedMsg.content.length <= 100 && config.logEnabled == "true" && !deletedMsg.content.startsWith("!delete")) {  
-        if (deletedMsg.content.length > 100) deletedMsg.content = deletedMsg.content.slice(0, 100)
-        if (!deletedMsg.author.bot) {
-            deletedMsg.channel.send(`A message by ${deletedMsg.author} was deleted. The message's content is : ||${deletedMsg.content}||`);
-        }
+    if (!deletedMsg.author.bot && deletedMsg.content.length <= 100 && config.logEnabled == "true" && !deletedMsg.content.startsWith("!delete")) {  
+        if (deletedMsg.content.length > 100) deletedMsg.content = deletedMsg.content.slice(0, 100);
+        deletedMsg.channel.send(`A message by ${deletedMsg.author} was deleted. The message's content is : ||${deletedMsg.content}||`);
         if (deletedMsg.guild.channels.cache.find(channel => channel.name === 'logs')) {     
             if (deletedMsg.author.id === bot.user.id && deletedMsg.channel.name === "logs" && deletedMsg.author.bot && deletedMsg.embeds[0]) {    
                 if (deletedMsg.embeds[0].title === "Message Deleted") {
@@ -30,7 +26,7 @@ bot.on("messageDelete", (deletedMsg) => {
                 }                 
             }  
             else if (!deletedMsg.author.bot) {     
-                let embed = new MessageEmbed()
+                var embed = new MessageEmbed()
                     .attachFiles(["./Files/trashcan-icon.png"])
                     .setAuthor(deletedMsg.author.username, deletedMsg.author.avatarURL())
                     .setTitle("Message Deleted")
@@ -52,7 +48,7 @@ bot.on('messageUpdate', (oldMsg, newMsg) => {
         if (newMsg.content.length > 100) newMsg.content = newMsg.content.slice(0, 100)
         oldMsg.channel.send(`A message was edited by ${oldMsg.author}. Old message : ||${oldMsg}|| turns into : ||${newMsg}||`);
         if (oldMsg.guild.channels.cache.find(channel => channel.name === 'logs')) { 
-            let embed = new MessageEmbed()
+            var embed = new MessageEmbed()
                 .attachFiles(["./Files/pencil-icon.png"])
                 .setAuthor(oldMsg.author.username, oldMsg.author.avatarURL())
                 .setTitle("Message Edited")     
@@ -112,13 +108,13 @@ bot.on("guildBanRemove", (guild, user) => {
 
 bot.on("emojiCreate", emoji => {
     if (emoji.guild.channels.cache.find(channel => channel.name === "general")) {
-        setTimeout(() => emoji.guild.channels.cache.find(channel => channel.name === "general").send(`New emoji added : ${emoji}`), 500);
+        setTimeout(() => emoji.guild.channels.cache.find(channel => channel.name === "general").send(`New emoji added ${emoji}`), 500);
     };     
 });
 
 bot.on("emojiDelete", emoji => {
     if (emoji.guild.channels.cache.find(channel => channel.name === "general")) {
-        setTimeout(() => emoji.guild.channels.cache.find(channel => channel.name === "general").send(`Emoji deleted : ${emoji}`), 500);
+        setTimeout(() => emoji.guild.channels.cache.find(channel => channel.name === "general").send(`Emoji deleted ${emoji}`), 500);
     }
 });
 
@@ -138,9 +134,19 @@ for (const file of commandFiles) {
 
 bot.on('message', async message => {
     const args = message.content.split(' ');
-    const cmdCode = bot.commands.get(args[0].toLowerCase().substring(prefix.length))
     if (message.author.bot || !message.guild || message.content.length > 500) return;  
-    else if (cmdCode && message.content.startsWith(prefix)) {
+    fs.readFile('./GuildSettings/prefix.json', (err, jsonString) => {
+        if (err) return console.error(err);
+        try {
+            let jsonobj = JSON.parse(jsonString)
+            if (jsonobj[message.guild.id]) {
+                prefix = jsonobj[message.guild.id];
+            }
+        } catch (err) {return console.error(err);}
+    });
+
+    const cmdCode = bot.commands.get(args[0].toLowerCase().substring(prefix.length));
+    if (cmdCode && message.content.startsWith(prefix)) {
         cmdCode.execute(message, args, prefix, bot, commandFiles, bot.commands)
     }
 
@@ -154,11 +160,13 @@ bot.on('message', async message => {
         else return message.channel.send("You don't have permission.");
     };
 
-    if (message.mentions.users.get('706095024869474354') || message.mentions.roles.find(role => role.name === "Cheese Keeper")) { 
-        message.channel.send(`My prefix is \`${prefix}\` Use ${prefix}help for more information. Create a channel named "logs" to log deleted and edited messages.`).catch(error => {
+    if (message.mentions.users.get('706095024869474354')/* || message.mentions.roles.find(role => role.name === "Cheese Keeper")*/) { 
+        message.channel.send(`My prefix here is \`${prefix}\` Use ${prefix}help for more information. Create a channel named "logs" to log deleted and edited messages.`).catch(error => {
             message.channel.send(`There was an error : \`\`\`${error}\`\`\``)
         });
     };
+
+    if (message.content.toLowerCase().includes("doubt")) message.channel.send("卐");
 
     let chance = 1/500;
     if (Math.random() < chance) {
@@ -171,54 +179,5 @@ bot.on('message', async message => {
     if (Math.random() < chance && message.guild.id == "625337372594143232") {
         message.react('741123714695037039');
     }
+    return prefix = "!";
 });
-
-/*switch(args[0].toLowerCase()){
-        case `${prefix}help`:
-            bot.commands.get("help").execute(message, args, prefix, bot, commandFiles); 
-            break;
-
-        case `${prefix}randominvite`:
-            bot.commands.get("randominvite").execute(message, args);
-            break;
-
-        case `${prefix}ping`:
-            bot.commands.get("ping").execute(message, args);
-            break;
-
-        case `${prefix}uptime`:            
-            bot.commands.get("uptime").execute(message, args, prefix, bot);
-            break;
-
-        case `${prefix}iss`:            
-            bot.commands.get("iss").execute(message, args);
-            break;
-
-        case `${prefix}pfp`:
-            bot.commands.get("pfp").execute(message, args, prefix, bot);
-            break;
-
-        case `${prefix}buihien`:
-            bot.commands.get("buihien").execute(message, args);
-            break;
-        
-        case `${prefix}server`:
-            bot.commands.get("server").execute(message, args);
-            break;
-            
-        case `${prefix}chuvan`:
-            bot.commands.get("chuvan").execute(message, args);
-            break;
-
-        case `${prefix}settings`:
-            bot.commands.get("settings").execute(message, args, prefix);
-            break;  
-        
-        case `${prefix}emit`:
-            bot.commands.get("emit").execute(message, args, prefix, bot);
-            break; 
-        
-        case `${prefix}delete`:
-            bot.commands.get("delete").execute(message, args, prefix);
-            break;       
-    };*/

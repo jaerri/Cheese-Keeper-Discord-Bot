@@ -4,16 +4,9 @@ module.exports = {
     aliases: [null],
     type: "normal",
     execute(message, args){
-        var result = '';
-        function randomChar(length) {          
-            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            for (var i = 0; i < length; i ++) {
-               result += characters.charAt(Math.floor(Math.random() * characters.length));
-            }
-            return result;
-        }
-        for (var j = 0;j < 8; j ++) {
-            randomChar(7)
+        let result = '';
+        for (var j = 0; j < 8; j ++) {
+            result += require("../functions/randomChar")(7)
         }       
         var chunck = result.match(/.{1,7}/g);
         var chuncks = chunck.join("discord.gg/");
