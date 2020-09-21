@@ -3,6 +3,8 @@ module.exports = {
     description: "people",
     aliases: [null],
     type: "normal",
+    admin: false,
+    syntax: "",
     execute(message, args){
         const puppeteer = require('puppeteer');
         async function people(url){

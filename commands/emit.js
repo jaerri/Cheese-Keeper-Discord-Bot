@@ -3,8 +3,10 @@ module.exports = {
     description: "Emit an event.",
     aliases: [null],
     type: "admin",
+    admin: true,
+    syntax: "[event]",
     execute(message, args, prefix, bot){    
-        if (message.member.hasPermission('ADMINISTRATOR') || message.author.id == "679948431103492098" && message.guild.me.hasPermission("ADMINISTRATOR"))  { 
+        if (message.guild.me.hasPermission("ADMINISTRATOR"))  { 
             if (!args[1]) return;
             switch (args[1].toLowerCase()) {
                 case "channelcreate":

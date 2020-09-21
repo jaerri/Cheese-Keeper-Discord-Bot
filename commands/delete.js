@@ -3,7 +3,10 @@ module.exports = {
     description: "Delete messages in the channel.",
     aliases: [null],
     type: "admin",
+    admin: true,
+    syntax: "[number]",
     execute(message, args, prefix){
+        if (!message.guild.me.hasPermission("MANAGE_MESSAGES")) return message.channel.send(`Bot doesn't have permission to delete messages.`);
         if (!args[1]) return message.channel.send("Need input!");
         else {
             if (isNaN(args[1])) return message.channel.send("Input must be a number.");
@@ -14,7 +17,7 @@ module.exports = {
                 else {
                     message.delete();
                     message.channel.messages.fetch({limit: amount})
-                    .then(function (list){
+                    .then((list) => {
                         message.channel.bulkDelete(list)
                         .then(() => message.channel.send(`Successfully deleted messages.`).then(msg => msg.delete({timeout: 2000})))
                         .catch(error => message.channel.send(`There was an error : \`\`\`${error}\`\`\`  `).then(msg => msg.delete({timeout: 5000})))

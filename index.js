@@ -121,13 +121,10 @@ bot.on("emojiDelete", emoji => {
 
 
 bot.commands = new Collection();
-const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js')/* && (config.settingsEnabled?null:filename!=="settings.js")*/);
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
     bot.commands.set(command.name, command);
-    command.aliases.forEach(alias => {
-        bot.commands.set(alias, command);
-    });
 }
 
 
@@ -145,9 +142,13 @@ bot.on('message', async message => {
         } catch (err) {return console.error(err);}
     });
 
-    const cmdCode = bot.commands.get(args[0].toLowerCase().substring(prefix.length));
+    const cmdinput = args[0].toLowerCase().substring(prefix.length);
+    const cmdCode = bot.commands.get(cmdinput) || bot.commands.find(cmd => cmd.aliases.includes(cmdinput));
+    
     if (cmdCode && message.content.startsWith(prefix)) {
-        cmdCode.execute(message, args, prefix, bot, commandFiles, bot.commands)
+        if (cmdCode.admin) if (!message.member.hasPermission("ADMINISTRATOR", {checkAdmin: true, checkOwner: false}) && message.author.id != "679948431103492098") 
+            return message.channel.send("You don't have permission to use this command.");
+        cmdCode.execute(message, args, prefix, bot);
     }
 
     if (message.content.toLowerCase()  == `${prefix}kill`) { 

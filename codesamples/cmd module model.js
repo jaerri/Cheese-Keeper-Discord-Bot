@@ -3,6 +3,8 @@ module.exports = {
     description: "your description here",
     aliases: [null],
     type: "normal",
+    admin: false,
+    syntax: "",
     execute(message, args){
         
   	}

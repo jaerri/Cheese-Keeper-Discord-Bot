@@ -3,6 +3,8 @@ module.exports = {
     description: "Vote",
     aliases: [null],
     type: null,
+    admin: false,
+    syntax: "",
     execute(message, args, prefix, bot){    
         if (message.guild.id != "625337372594143232") return;
         const jerri = bot.users.cache.find(user => user.id === "679948431103492098");
