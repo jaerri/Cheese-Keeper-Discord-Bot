@@ -1,5 +1,6 @@
 {
     "token" : "NzA2MDk1MDI0ODY5NDc0MzU0.Xq_LrA.09Uu_lNFxtG8ebV-ikXeRw1iaeA",
-    "settingsEnabled" : "true",
-    "logEnabled" : "true"
+    "settingsEnabled" : true,
+    "logEnabled" : true,
+    "prefix": "!"
 }

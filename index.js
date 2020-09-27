@@ -2,7 +2,7 @@ const {Client, Collection, MessageEmbed} = require("discord.js");
 const fs = require('fs');
 const config = require("./config.json");
 const bot = new Client();
-var prefix = "!";
+var prefix = config.prefix;
 
 bot.login(config.token);
 
@@ -16,7 +16,7 @@ bot.on('ready', () => {
 
 
 bot.on("messageDelete", (deletedMsg) => {
-    if (!deletedMsg.author.bot && deletedMsg.content.length <= 100 && config.logEnabled == "true" && !deletedMsg.content.startsWith("!delete")) {  
+    if (!deletedMsg.author.bot && deletedMsg.content.length <= 100 && config.logEnabled == true && !deletedMsg.content.startsWith("!delete")) {  
         if (deletedMsg.content.length > 100) deletedMsg.content = deletedMsg.content.slice(0, 100);
         deletedMsg.channel.send(`A message by ${deletedMsg.author} was deleted. The message's content is : ||${deletedMsg.content}||`);
         if (deletedMsg.guild.channels.cache.find(channel => channel.name === 'logs')) {     
@@ -43,7 +43,7 @@ bot.on("messageDelete", (deletedMsg) => {
 }); 
 
 bot.on('messageUpdate', (oldMsg, newMsg) => {
-    if (!oldMsg.author.bot && oldMsg.content.length <= 100 && newMsg.content.length <= 100 && config.logEnabled == "true" && oldMsg.content != newMsg.content) {
+    if (!oldMsg.author.bot && oldMsg.content.length <= 100 && newMsg.content.length <= 100 && config.logEnabled == true && oldMsg.content != newMsg.content) {
         if (oldMsg.content.length > 100) oldMsg.content = oldMsg.content.slice(0, 100)
         if (newMsg.content.length > 100) newMsg.content = newMsg.content.slice(0, 100)
         oldMsg.channel.send(`A message was edited by ${oldMsg.author}. Old message : ||${oldMsg}|| turns into : ||${newMsg}||`);
@@ -121,7 +121,7 @@ bot.on("emojiDelete", emoji => {
 
 
 bot.commands = new Collection();
-const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js')/* && (config.settingsEnabled?null:filename!=="settings.js")*/);
+const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
     bot.commands.set(command.name, command);
@@ -132,15 +132,13 @@ for (const file of commandFiles) {
 bot.on('message', async message => {
     const args = message.content.split(' ');
     if (message.author.bot || !message.guild || message.content.length > 500) return;  
-    fs.readFile('./GuildSettings/prefix.json', (err, jsonString) => {
-        if (err) return console.error(err);
-        try {
-            let jsonobj = JSON.parse(jsonString)
-            if (jsonobj[message.guild.id]) {
-                prefix = jsonobj[message.guild.id];
-            }
-        } catch (err) {return console.error(err);}
-    });
+    var jsonString = fs.readFileSync('./GuildSettings/prefix.json', 'utf8');
+    try {
+        let jsonobj = JSON.parse(jsonString)
+        if (jsonobj[message.guild.id]) {
+            prefix = jsonobj[message.guild.id];
+        }
+    } catch (err) {return console.error(err);}
 
     const cmdinput = args[0].toLowerCase().substring(prefix.length);
     const cmdCode = bot.commands.get(cmdinput) || bot.commands.find(cmd => cmd.aliases.includes(cmdinput));

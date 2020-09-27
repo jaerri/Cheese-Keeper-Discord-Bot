@@ -9,21 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@keyv/sqlite": "^2.0.2",
     "discord.js": "^12.3.0",
     "edit-json-file": "^1.4.1",
     "fs": "0.0.1-security",
-    "heroku-client": "^3.1.0",
     "https": "^1.0.0",
     "node.js": "0.0.1-security",
-    "path": "^0.12.7",
-    "puppeteer": "^3.0.4",
-    "puppeteer-core": "^1.9.0",
     "tieq-viet": "^1.1.4"
   },
-  "devDependencies": {
-    "decache": "^4.6.0"
-  },
+  "devDependencies": {},
   "description": "yes",
   "repository": {
     "type": "git",
