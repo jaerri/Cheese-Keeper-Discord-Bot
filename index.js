@@ -1,49 +1,59 @@
 const {Client, Collection, MessageEmbed} = require("discord.js");
 const fs = require('fs');
+const mongoose = require('mongoose');
+const { type } = require("os");
 const config = require("./config.json");
 const bot = new Client();
 var prefix = config.prefix;
+const mongodburl = config.mongodburl;
 
 bot.login(config.token);
-
 bot.on('ready', () => { 
     console.log("Bot online!");
-    bot.users.cache.find(user => user.id === "679948431103492098").send("Bot online!");
-    bot.user.setActivity("YOU", { type: 'LISTENING'});
+    //bot.users.cache.get("679948431103492098").send("Bot online!");
+    bot.user.setActivity("a1Uf0pMz",{type: "CUSTOM_STATUS"});
     //bot.guilds.cache.find(guild => guild.id === "625337372594143232").channels.cache.find(channel => channel.name === 'general').send("Bot online again!");
 }); 
+
+mongoose.connect(mongodburl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+mongoose.connection.on('connected', () => {
+    console.log("Mongoose connected!")
+});
 
 
 
 bot.on("messageDelete", (deletedMsg) => {
-    if (!deletedMsg.author.bot && deletedMsg.content.length <= 100 && config.logEnabled == true && !deletedMsg.content.startsWith("!delete")) {  
-        if (deletedMsg.content.length > 100) deletedMsg.content = deletedMsg.content.slice(0, 100);
-        deletedMsg.channel.send(`A message by ${deletedMsg.author} was deleted. The message's content is : ||${deletedMsg.content}||`);
+    if (onfig.logEnabled == true && !deletedMsg.content.startsWith(`${prefix}delete`)) {  
+        if (deletedMsg.content.length > 100) deletedMsg.content = deletedMsg.content.slice(0, 100);     
         if (deletedMsg.guild.channels.cache.find(channel => channel.name === 'logs')) {     
-            if (deletedMsg.author.id === bot.user.id && deletedMsg.channel.name === "logs" && deletedMsg.author.bot && deletedMsg.embeds[0]) {    
+            if (deletedMsg.author === bot.user && deletedMsg.channel.name === "logs" && deletedMsg.embeds[0]) {    
                 if (deletedMsg.embeds[0].title === "Message Deleted") {
                     deletedMsg.channel.send("Do not delete log messages.", {embed: deletedMsg.embeds[0]}); 
                 }                 
             }  
-            else if (!deletedMsg.author.bot) {     
-                var embed = new MessageEmbed()
-                    .attachFiles(["./Files/trashcan-icon.png"])
-                    .setAuthor(deletedMsg.author.username, deletedMsg.author.avatarURL())
-                    .setTitle("Message Deleted")
-				    .setThumbnail('attachment://trashcan-icon.png')
-                    .setDescription(`A message by ${deletedMsg.author} was deleted in ${deletedMsg.channel} :`)
-                    .addField("Deleted message content :", deletedMsg.content)
-                    .setColor('#FF0000')
-                    .setTimestamp(deletedMsg.createdTimestamp)
-                    .setFooter("Deleted message sent at ");
-                deletedMsg.guild.channels.cache.find(channel => channel.name === 'logs').send(embed);
-            }
-        }    
+            if (deletedMsg.author.bot) return;
+            var embed = new MessageEmbed()
+                .attachFiles(["./Files/trashcan-icon.png"])
+                .setAuthor(deletedMsg.author.username, deletedMsg.author.avatarURL())
+                .setTitle("Message Deleted")
+                .setThumbnail('attachment://trashcan-icon.png')
+                .setDescription(`A message by ${deletedMsg.author} was deleted in ${deletedMsg.channel} :`)
+                .addField("Deleted message content :", deletedMsg.content)
+                .setColor('#FF0000')
+                .setTimestamp(deletedMsg.createdTimestamp)
+                .setFooter("Deleted message sent at ");
+            deletedMsg.guild.channels.cache.find(channel => channel.name === 'logs').send(embed);
+        }   
+        if (deletedMsg.author.bot) return;     
+        deletedMsg.channel.send(`A message by ${deletedMsg.author} was deleted. The message's content is : ||${deletedMsg.content}||`);
     }   
 }); 
 
 bot.on('messageUpdate', (oldMsg, newMsg) => {
-    if (!oldMsg.author.bot && oldMsg.content.length <= 100 && newMsg.content.length <= 100 && config.logEnabled == true && oldMsg.content != newMsg.content) {
+    if (!oldMsg.author.bot && config.logEnabled == true && oldMsg.content != newMsg.content) {
         if (oldMsg.content.length > 100) oldMsg.content = oldMsg.content.slice(0, 100)
         if (newMsg.content.length > 100) newMsg.content = newMsg.content.slice(0, 100)
         oldMsg.channel.send(`A message was edited by ${oldMsg.author}. Old message : ||${oldMsg}|| turns into : ||${newMsg}||`);
@@ -132,13 +142,6 @@ for (const file of commandFiles) {
 bot.on('message', async message => {
     const args = message.content.split(' ');
     if (message.author.bot || !message.guild || message.content.length > 500) return;  
-    var jsonString = fs.readFileSync('./GuildSettings/prefix.json', 'utf8');
-    try {
-        let jsonobj = JSON.parse(jsonString)
-        if (jsonobj[message.guild.id]) {
-            prefix = jsonobj[message.guild.id];
-        }
-    } catch (err) {return console.error(err);}
 
     const cmdinput = args[0].toLowerCase().substring(prefix.length);
     const cmdCode = bot.commands.get(cmdinput) || bot.commands.find(cmd => cmd.aliases.includes(cmdinput));
@@ -146,7 +149,7 @@ bot.on('message', async message => {
     if (cmdCode && message.content.startsWith(prefix)) {
         if (cmdCode.admin) if (!message.member.hasPermission("ADMINISTRATOR", {checkAdmin: true, checkOwner: false}) && message.author.id != "679948431103492098") 
             return message.channel.send("You don't have permission to use this command.");
-        cmdCode.execute(message, args, prefix, bot);
+        cmdCode.execute(message, args, prefix, bot, mongoose);
     }
 
     if (message.content.toLowerCase()  == `${prefix}kill`) { 
@@ -178,5 +181,4 @@ bot.on('message', async message => {
     if (Math.random() < chance && message.guild.id == "625337372594143232") {
         message.react('741123714695037039');
     }
-    return prefix = "!";
 });

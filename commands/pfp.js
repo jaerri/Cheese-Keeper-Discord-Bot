@@ -1,6 +1,6 @@
 module.exports = {
     name: "pfp",
-    description: "Use with the id of the user you want to get their profile picture or mention them, use without arg1 to get your own pfp.",   
+    description: "Use with the id of the user you want or mention them to get their profile picture, use without input to get your own.",   
     aliases: [null],
     type: "tool",
     admin: false,
