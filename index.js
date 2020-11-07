@@ -26,7 +26,7 @@ mongoose.connection.on('connected', () => {
 
 
 bot.on("messageDelete", (deletedMsg) => {
-    if (onfig.logEnabled == true && !deletedMsg.content.startsWith(`${prefix}delete`)) {  
+    if (config.logEnabled == true && !deletedMsg.content.startsWith(`${prefix}delete`)) {  
         if (deletedMsg.content.length > 100) deletedMsg.content = deletedMsg.content.slice(0, 100);     
         if (deletedMsg.guild.channels.cache.find(channel => channel.name === 'logs')) {     
             if (deletedMsg.author === bot.user && deletedMsg.channel.name === "logs" && deletedMsg.embeds[0]) {    
