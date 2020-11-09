@@ -38,7 +38,7 @@ module.exports = {
                 {name: "Role Count :", value: guild.roles.cache.size, inline: true},
             ) 
             .setTimestamp() 
-            .setFooter(`Requested by ${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL({dynamic: true}))
+            .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({dynamic: true}))
             .setColor(guild.me.displayColor);
         message.channel.send(embed);
     }

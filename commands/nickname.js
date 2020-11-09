@@ -22,7 +22,7 @@ module.exports = {
                 const embed = new MessageEmbed()
                     .setTitle(`Old Nicknames`)
                     .setDescription("→ Older")
-                    .addField(`${user.username}#${user.discriminator}'s old nicknames :`, data || "No nickname change detected")
+                    .addField(`${user.tag}'s old nicknames :`, data || "No nickname change detected")
                     .setColor(message.guild.me.displayColor);
                 message.channel.send(embed);   
             });        

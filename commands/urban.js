@@ -40,7 +40,7 @@ module.exports = {
                     {name: `Example 1/${jsondata.list.length} :`, value: ex},
                 )
                 .setColor(bot.user.displayColor)
-                .setFooter(`Requested by ${message.author.username}#${message.author.discriminator}`, message.author.displayAvatarURL({dynamic: true}))
+                .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({dynamic: true}))
 
                 return message.channel.send(embed);
             });

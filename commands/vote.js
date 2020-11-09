@@ -13,7 +13,7 @@ module.exports = {
         let embed = new MessageEmbed()
             .setAuthor(bot.user.username, bot.user.displayAvatarURL({dynamic: true}),
                 'https://discord.com/oauth2/authorize?client_id=706095024869474354&permissions=8&scope=bot')
-            .setTitle(`VOTE FOR ${jerri.username.toUpperCase()}#${jerri.discriminator}!`)
+            .setTitle(`VOTE FOR ${jerri.tag.toUpperCase()}!`)
             .setThumbnail(jerri.displayAvatarURL({dynamic: true}))
             .setDescription(`Vote for ${jerri} this election through ${votebot}'s DM.`)
             .addField("Why shud u vote?", 
