@@ -1,0 +1,1 @@
+cmd /c node . > ./logs/log.txt 2> ./logs/error.txt
