@@ -31,6 +31,7 @@ module.exports = {
         if (!args[1]) return message.channel.send("Available settings : \n`prefix` \nType with settings command.");    
         switch (args[1].toLowerCase()) {
             case "prefix":
+                return;
                 prefix();
                 break;
             default:
