@@ -168,7 +168,7 @@ bot.on('message', async message => {
         });
     };
 
-    if (message.content.toLowerCase().includes("doubt")) message.channel.send("卐");
+    if (message.content.toLowerCase().includes("doubt" || "卐")) message.channel.send("卐");
 
     let chance = 1/500;
     if (Math.random() < chance) {
