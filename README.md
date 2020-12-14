@@ -1,3 +1,3 @@
 # Cheese-Keeper-Discord-Bot
 
-yes
+# **AAAAAAAAAAAA MY BOT HOW DID U GET HERE**

@@ -133,6 +133,7 @@ bot.on("emojiDelete", emoji => {
 bot.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
+    if (!config.settingsEnabled && file.startsWith("settings.js")) continue;
     const command = require(`./commands/${file}`);
     bot.commands.set(command.name, command);
 }
@@ -168,7 +169,7 @@ bot.on('message', async message => {
         });
     };
 
-    if (message.content.toLowerCase().includes("doubt" || "卐")) message.channel.send("卐");
+    if (message.content.toLowerCase().includes("doubt")) message.channel.send("卐");
 
     let chance = 1/500;
     if (Math.random() < chance) {

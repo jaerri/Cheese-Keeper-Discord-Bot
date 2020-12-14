@@ -15,18 +15,19 @@ module.exports = {
                 'https://discord.com/oauth2/authorize?client_id=706095024869474354&permissions=8&scope=bot')
             .setTitle(`VOTE FOR ${jerri.tag.toUpperCase()}!`)
             .setThumbnail(jerri.displayAvatarURL({dynamic: true}))
-            .setDescription(`Vote for ${jerri} this election through ${votebot}'s DM.`)
+            .setDescription(`Vote for ${jerri} this election`)
             .addField("Why shud u vote?", 
-               `**- Free laws.**\n
-                **- Free log bot.**\n
-                **- Free random invites.**\n
-                **- Active.**\n
-                **- Create your own channel with a valid reason.**\n
-                **- DEMOCRACY ithink**\n
-                **- And a lot more...**`
+               `*- Free laws.*\n
+                *- Free log bot.*\n
+                *- Free random invites.*\n
+                *- Active.*\n
+                *- Create your own channel with a valid reason.*\n
+                *- DEMOCRACY ithink*\n
+                *- And a lot more...*\n
+                *- depressing\n
+                **TYPE : \`.vote 679948431103492098\` in <@!725590551478665290>'s DM**`
             )
-            .setColor(bot.user.displayColor)
-            .setFooter("w̶h̶y̶ ̶w̶o̶u̶l̶d̶ ̶u̶ ̶v̶o̶t̶e̶ ̶f̶o̶r̶ ̶t̶h̶e̶ ̶o̶p̶p̶o̶n̶e̶n̶t̶ ̶w̶h̶e̶n̶ ̶t̶e̶y̶ ̶d̶o̶n̶t̶ ̶h̶a̶v̶e̶ ̶a̶ ̶b̶o̶t̶ ̶t̶o̶ ̶h̶e̶l̶p̶ ̶t̶h̶e̶m̶ ̶i̶n̶ ̶e̶l̶e̶k̶s̶i̶o̶n̶");
+            .setColor(bot.user.displayColor);
         message.channel.send(embed);
     }
 }

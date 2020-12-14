@@ -13,7 +13,7 @@ module.exports = {
             method: "GET"    
         }
 
-        https.request(options, res=>{
+        https.request(options, res => {
             let data = "";
             res.on("data", info=>{
                 data += info;
