@@ -1,4 +1,4 @@
-const {Client, Collection, MessageEmbed} = require("discord.js");
+const {Client, MessageEmbed} = require("discord.js");
 const fs = require('fs');
 const mongoose = require('mongoose');
 const { type } = require("os");
