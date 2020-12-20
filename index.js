@@ -1,7 +1,6 @@
 const {Client, MessageEmbed, Collection} = require("discord.js");
 const fs = require('fs');
 const mongoose = require('mongoose');
-const { type } = require("os");
 const config = require("./config.json");
 const bot = new Client();
 var prefix = config.prefix;
@@ -11,7 +10,6 @@ bot.login(config.token);
 bot.on('ready', () => { 
     console.log("Bot online!");
     //bot.users.cache.get("679948431103492098").send("Bot online!");
-    bot.user.setActivity("a1Uf0pMz",{type: "CUSTOM_STATUS"});
     //bot.guilds.cache.find(guild => guild.id === "625337372594143232").channels.cache.find(channel => channel.name === 'general').send("Bot online again!");
 }); 
 
@@ -152,16 +150,11 @@ bot.on('message', async message => {
             return message.channel.send("You don't have permission to use this command.");
         cmdCode.execute(message, args, prefix, bot, mongoose);
     }
-
-    if (message.content.toLowerCase()  == `${prefix}kill`) { 
-        if (message.author.id == "679948431103492098") {
-            message.channel.send("Bot stopped.") 
-            .then(() => {
-                process.exit();
-            });
+    if (message.author.id == "679948431103492098") {
+        if (!message.content.toLowerCase()  == `${prefix}kill`) return;
+            message.channel.send("Bot stopped.") .then(() => process.exit());
         }
-        else return message.channel.send("You don't have permission.");
-    };
+    else return message.channel.send("You don't have permission.");
 
     if (message.mentions.users.get('706095024869474354')/* || message.mentions.roles.find(role => role.name === "Cheese Keeper")*/) { 
         message.channel.send(`My prefix here is \`${prefix}\` Use ${prefix}help for more information. Create a channel named "logs" to log deleted and edited messages.`).catch(error => {
