@@ -150,11 +150,11 @@ bot.on('message', async message => {
             return message.channel.send("You don't have permission to use this command.");
         cmdCode.execute(message, args, prefix, bot, mongoose);
     }
-    if (message.author.id == "679948431103492098") {
-        if (!message.content.toLowerCase()  == `${prefix}kill`) return;
+    if (message.content.toLowerCase()  == `${prefix}kill`) {
+        if (message.author.id == "679948431103492098") {
             message.channel.send("Bot stopped.") .then(() => process.exit());
-        }
-    else return message.channel.send("You don't have permission.");
+        } else return message.channel.send("You don't have permission.");  
+    } 
 
     if (message.mentions.users.get('706095024869474354')/* || message.mentions.roles.find(role => role.name === "Cheese Keeper")*/) { 
         message.channel.send(`My prefix here is \`${prefix}\` Use ${prefix}help for more information. Create a channel named "logs" to log deleted and edited messages.`).catch(error => {
