@@ -1,15 +1,17 @@
 const {Client, MessageEmbed, Collection} = require("discord.js");
 const fs = require('fs');
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 const config = require("./config.json");
 const bot = new Client();
-var prefix = config.prefix;
+const defprefix = config.prefix;
 const mongodburl = config.mongodburl;
 
 bot.login(config.token);
-bot.on('ready', () => { 
+bot.on('ready', async () => { 
     console.log("Bot online!");
-    //bot.users.cache.get("679948431103492098").send("Bot online!");
+    let jerri = await bot.users.fetch("679948431103492098", false);
+    jerri.send("Bot online!");
     //bot.guilds.cache.find(guild => guild.id === "625337372594143232").channels.cache.find(channel => channel.name === 'general').send("Bot online again!");
 }); 
 
@@ -20,11 +22,17 @@ mongoose.connect(mongodburl, {
 mongoose.connection.on('connected', () => {
     console.log("Mongoose connected!")
 });
+const prefixsche = mongoose.model("Prefix", new Schema({
+    guild: String,
+    prefix: String,
+}));
+bot.prefixes = prefixsche.find({});
 
 
 
 bot.on("messageDelete", (deletedMsg) => {
-    if (config.logEnabled == true && !deletedMsg.content.startsWith(`${prefix}delete`)) {  
+    let prefix = bot.prefixes[deletedMsg.guild.id].prefix || defprefix;
+    if (config.logEnabled == true && !deletedMsg.content.substring(prefix.length).startsWith("delete")) {  
         if (deletedMsg.content.length > 100) deletedMsg.content = deletedMsg.content.slice(0, 100);     
         if (deletedMsg.guild.channels.cache.find(channel => channel.name === 'logs')) {     
             if (deletedMsg.author === bot.user && deletedMsg.channel.name === "logs" && deletedMsg.embeds[0]) {    
@@ -139,6 +147,7 @@ for (const file of commandFiles) {
 
 
 bot.on('message', async message => {
+    let prefix = bot.prefixes[message.guild.id].prefix || defprefix;
     const args = message.content.split(' ');
     if (message.author.bot || !message.guild || message.content.length > 500) return;  
 
@@ -148,7 +157,7 @@ bot.on('message', async message => {
     if (cmdCode && message.content.startsWith(prefix)) {
         if (cmdCode.admin) if (!message.member.hasPermission("ADMINISTRATOR", {checkAdmin: true, checkOwner: false}) && message.author.id != "679948431103492098") 
             return message.channel.send("You don't have permission to use this command.");
-        cmdCode.execute(message, args, prefix, bot, mongoose);
+        cmdCode.execute(message, args, prefix, bot);
     }
     if (message.content.toLowerCase()  == `${prefix}kill`) {
         if (message.author.id == "679948431103492098") {
