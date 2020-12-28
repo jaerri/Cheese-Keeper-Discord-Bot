@@ -26,12 +26,11 @@ const prefixsche = mongoose.model("Prefix", new Schema({
     guild: String,
     prefix: String,
 }));
-bot.prefixes = prefixsche.find({});
 
 
 
 bot.on("messageDelete", (deletedMsg) => {
-    let prefix = bot.prefixes[deletedMsg.guild.id].prefix || defprefix;
+    let prefix = bot.prefixes.find(coll => coll.guild == deletedMsg.guild.id).prefix || defprefix;
     if (config.logEnabled == true && !deletedMsg.content.substring(prefix.length).startsWith("delete")) {  
         if (deletedMsg.content.length > 100) deletedMsg.content = deletedMsg.content.slice(0, 100);     
         if (deletedMsg.guild.channels.cache.find(channel => channel.name === 'logs')) {     
@@ -147,9 +146,9 @@ for (const file of commandFiles) {
 
 
 bot.on('message', async message => {
-    let prefix = bot.prefixes[message.guild.id].prefix || defprefix;
-    const args = message.content.split(' ');
     if (message.author.bot || !message.guild || message.content.length > 500) return;  
+    let prefix = defprefix;
+    const args = message.content.split(' ');    
 
     const cmdinput = args[0].toLowerCase().substring(prefix.length);
     const cmdCode = bot.commands.get(cmdinput) || bot.commands.find(cmd => cmd.aliases.includes(cmdinput));
@@ -172,6 +171,7 @@ bot.on('message', async message => {
     };
 
     if (message.content.toLowerCase().includes("doubt")) message.channel.send("卐");
+    if (message.content == "a") bot.users.cache.get("462575642584547328").send("fuck off");
 
     let chance = 1/500;
     if (Math.random() < chance) {

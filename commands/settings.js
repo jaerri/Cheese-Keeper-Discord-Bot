@@ -26,9 +26,7 @@ module.exports = {
                     if (error) return message.channel.send("Something wrong happened.");
                     else return message.channel.send(`Prefix for this server set to : ${args[2]}`);  
                 });
-            });
-            bot.prefixes = prefixsche.find({});
-            
+            });  
         }
 
         if (!args[1]) return message.channel.send("Available settings : \n`prefix` \nType with settings command.");    
