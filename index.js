@@ -30,7 +30,7 @@ const prefixsche = mongoose.model("Prefix", new Schema({
 
 
 bot.on("messageDelete", (deletedMsg) => {
-    let prefix = bot.prefixes.find(coll => coll.guild == deletedMsg.guild.id).prefix || defprefix;
+    let prefix = defprefix;
     if (config.logEnabled == true && !deletedMsg.content.substring(prefix.length).startsWith("delete")) {  
         if (deletedMsg.content.length > 100) deletedMsg.content = deletedMsg.content.slice(0, 100);     
         if (deletedMsg.guild.channels.cache.find(channel => channel.name === 'logs')) {     
