@@ -14,6 +14,6 @@ module.exports = {
 
         var uptime = `${hours} ${plural.plural("hour", "hours", hours)}, ${minutes} ${plural.plural("minute", "minutes", minutes)}, ${seconds} ${plural.plural("second", "seconds", seconds)} and ${milisec} ${plural.plural("milisecond", "miliseconds", milisec)}`;
 
-        message.channel.send(`${message.guild.me.user.username} has been up for ${uptime}.`);
+        message.channel.send(`${bot.user.username} has been up for ${uptime}.`);
     }
 }

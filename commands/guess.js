@@ -17,7 +17,7 @@ module.exports = {
             let collector = await message.channel.awaitMessages(filter, {max: 1, time: 8000});
             secondMessage = collector.first();
             if (!secondMessage) return message.reply("time is out.");
-            if (secondMessage.content == thenumber) return message.channel.send("You won!");
+            if (secondMessage.content == thenumber) return message.reply("you won!");
             else if (!times) return message.channel.send("You lost, number is " + thenumber);
             else if (secondMessage.content < thenumber) message.channel.send("Your guess is low, " + times + ` more ${plur.plural("chance", "chances", times)}`); 
             else if (secondMessage.content > thenumber) message.channel.send("Your guess is high, " + times + ` more ${plur.plural("chance", "chances", times)}`);
