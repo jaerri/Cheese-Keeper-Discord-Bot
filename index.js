@@ -171,7 +171,6 @@ bot.on('message', async message => {
     };
 
     if (message.content.toLowerCase().includes("doubt")) message.channel.send("卐");
-    if (message.content == "a") bot.users.cache.get("462575642584547328").send("fuck off");
 
     let chance = 1/500;
     if (Math.random() < chance) {
