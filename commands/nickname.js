@@ -8,7 +8,7 @@ module.exports = {
     async execute(message, args, prefix, bot) {
         if (!message.guild.me.hasPermission("VIEW_AUDIT_LOG")) return message.channel.send(`Permission required for bot : \`VIEW_AUDIT_LOG\``);
         const {MessageEmbed} = require('discord.js');
-        const user = message.mentions.users.first() || bot.users.cache.find(user => user.id === args[1]) || await bot.users.fetch(args[1], false) || await bot.users.fetch(message.mentions.users.first().id, false) || message.author;
+        const user = message.mentions.users.first() || bot.users.cache.find(user => user.id === args[1])|| await bot.users.fetch(args[1], false) || message.author;
 
         if (!user) return message.channel.send("Unknown user!");
         message.guild.fetchAuditLogs({type: 'MEMBER_UPDATE', user: user})
