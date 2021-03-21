@@ -2,9 +2,9 @@ const {Client, MessageEmbed, Collection} = require("discord.js");
 const fs = require('fs');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const config = require("./config.json");
+const config = require("./config.json");            
 const bot = new Client();
-const defprefix = config.prefix;
+const prefix = config.prefix;
 const mongodburl = config.mongodburl;
 
 bot.login(config.token);
@@ -12,7 +12,19 @@ bot.on('ready', async () => {
     console.log("Bot online!");
     let jerri = await bot.users.fetch("679948431103492098", false);
     jerri.send("Bot online!");
-    //bot.guilds.cache.find(guild => guild.id === "625337372594143232").channels.cache.find(channel => channel.name === 'general').send("Bot online again!");
+    let counting = 0;
+    bot.user.setPresence({ activity: {name: `counting minutes ${counting}`, type: "PLAYING"}});
+    setInterval(() => {
+        bot.user.setPresence({ activity: {name: `counting minutes ${counting}`, type: "PLAYING"}});
+        counting++;
+    }, 60000);
+    function setRandomPfp() {
+        let randomGuild = bot.guilds.cache.random();
+        let randomUser = randomGuild.members.cache.random();
+        bot.user.setAvatar(randomUser.user.avatarURL());
+    }
+    setRandomPfp()
+    setInterval(setRandomPfp, 1200000);
 }); 
 
 mongoose.connect(mongodburl, {
@@ -30,7 +42,6 @@ const prefixsche = mongoose.model("Prefix", new Schema({
 
 
 bot.on("messageDelete", (deletedMsg) => {
-    let prefix = defprefix;
     if (config.logEnabled == true && !deletedMsg.content.substring(prefix.length).startsWith("delete")) {  
         if (deletedMsg.content.length > 100) deletedMsg.content = deletedMsg.content.slice(0, 100);     
         if (deletedMsg.guild.channels.cache.find(channel => channel.name === 'logs')) {     
@@ -93,7 +104,14 @@ bot.on("guildMemberAdd", member => {
             member.guild.systemChannel.send(`A new bot : ${member} has been added!`);
         }
         else {
-            member.guild.systemChannel.send(`${member} has joined the server!`);
+            let welcomeMessage = `${member} has joined the server!`;
+            switch (member.guild.id) {
+                case "823193650342658078":
+                    member.roles.add(member.guild.roles.cache.get("823193650342658079"));
+                    welcomeMessage = `Chào mừng ${member} đến với server Discord của AMG Studio!`;
+                    break;
+            }
+            member.guild.systemChannel.send(welcomeMessage);
         }       
     };  
 });
@@ -102,8 +120,7 @@ bot.on("guildMemberRemove", member => {
     if (member.guild.systemChannel) {
         if (member.user.bot) {
             member.guild.systemChannel.send(`${member} has been removed from the server.`);
-        }
-        else {
+        } else {
             member.guild.systemChannel.send(`${member} has either left, kicked or banned from the server.`);
         }  
     };  
@@ -147,7 +164,6 @@ for (const file of commandFiles) {
 
 bot.on('message', async message => {
     if (message.author.bot || !message.guild || message.content.length > 500) return;  
-    let prefix = defprefix;
     const args = message.content.split(' ');    
 
     const cmdinput = args[0].toLowerCase().substring(prefix.length);
