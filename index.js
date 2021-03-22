@@ -24,7 +24,7 @@ bot.on('ready', async () => {
     }, 60000);
     async function setRandomPfp() {
         let randomGuild = bot.guilds.cache.random();
-        let users = await randomGuild.members.fetch({ cache: true });
+        let users = await randomGuild.members.fetch();
         let randomMember = users.random();
         bot.user.setAvatar(randomMember.user.avatarURL()).catch(() => console.log("setAvatar cooldown"));
     }
