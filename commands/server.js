@@ -14,7 +14,6 @@ module.exports = {
         var guild = message.guild;
         
         let members = await guild.members.fetch();
-        console.log(members);
         var userMembers = members.filter(member => !member.user.bot).size; 
         var botMembers = members.fetch().filter(member => member.user.bot).size; 
         var allMembers = members.fetch().size;
