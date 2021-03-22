@@ -1,9 +1,13 @@
-const {Client, MessageEmbed, Collection} = require("discord.js");
+const { Client, MessageEmbed, Collection, Intents } = require("discord.js");
 const fs = require('fs');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const config = require("./config.json");            
-const bot = new Client();
+const intents = new Intents([
+    Intents.NON_PRIVILEGED,
+    "GUILD_MEMBERS",
+]);
+const bot = new Client({ ws: { intents } });
 const prefix = config.prefix;
 const mongodburl = config.mongodburl;
 
