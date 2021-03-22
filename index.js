@@ -115,6 +115,9 @@ bot.on("guildMemberAdd", member => {
                     member.roles.add(member.guild.roles.cache.get("823193650342658079"));
                     welcomeMessage = `Chào mừng ${member} đến với server Discord của AMG Studio!`;
                     break;
+                case "822068315853029398":
+                    member.roles.add(member.guild.roles.cache.get("822080982382805043"));
+                    break;
             }
             member.guild.systemChannel.send(welcomeMessage);
         }       
