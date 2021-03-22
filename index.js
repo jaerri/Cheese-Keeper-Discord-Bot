@@ -18,10 +18,11 @@ bot.on('ready', async () => {
         bot.user.setPresence({ activity: {name: `counting minutes ${counting}`, type: "PLAYING"}});
         counting++;
     }, 60000);
-    function setRandomPfp() {
+    async function setRandomPfp() {
         let randomGuild = bot.guilds.cache.random();
-        let randomUser = randomGuild.members.cache.random();
-        bot.user.setAvatar(randomUser.user.avatarURL());
+        let users = await randomGuild.members.fetch({ cache: true });
+        let randomMember = users.random();
+        bot.user.setAvatar(randomMember.user.avatarURL()).catch(() => console.log("setAvatar cooldown"));
     }
     setRandomPfp()
     setInterval(setRandomPfp, 1200000);
