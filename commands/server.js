@@ -44,7 +44,7 @@ module.exports = {
                 {name: 'Region :', value: `${message.guild.region}`, inline: true},
                 {name: 'Member Count :', value: `Users: ${userMembers}\nBots: ${botMembers}\nTotal: ${allMembers}`, inline: true},    
                 {name: 'Channel Count :', value: `Text Channels: ${textChannels}\nVoice Channels: ${voiceChannels}\n Total: ${allChannels}`, inline: true},
-                {name: "Role Count :", value: roles.size, inline: true},
+                {name: "Role Count :", value: roles.cache.size, inline: true},
             ) 
             .setTimestamp() 
             .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({dynamic: true}))
