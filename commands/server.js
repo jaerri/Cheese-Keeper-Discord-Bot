@@ -11,16 +11,17 @@ module.exports = {
      * @param {Message} message
      */
     async execute(message, args) {  
-        var guild = message.guild;
+        const guild = message.guild;
         
         let members = await guild.members.fetch();
-        var userMembers = members.filter(member => !member.user.bot).size; 
-        var botMembers = members.fetch().filter(member => member.user.bot).size; 
-        var allMembers = members.fetch().size;
+        let userMembers = members.filter(member => !member.user.bot).size; 
+        let botMembers = members.filter(member => member.user.bot).size; 
+        let allMembers = members.size;
         let channels = guild.channels.cache;
-        var textChannels = channels.filter(c => c.type === 'text').size;
-        var voiceChannels = channels.filter(c => c.type === 'voice').size;
-        var allChannels = channels.size;
+        let textChannels = channels.filter(c => c.type === 'text').size;
+        let voiceChannels = channels.filter(c => c.type === 'voice').size;
+        let allChannels = channels.size;
+        let roles = await guild.roles.fetch();
 
         var d = guild.createdAt;
         dformat = d.getUTCDay() +
@@ -43,7 +44,7 @@ module.exports = {
                 {name: 'Region :', value: `${message.guild.region}`, inline: true},
                 {name: 'Member Count :', value: `Users: ${userMembers}\nBots: ${botMembers}\nTotal: ${allMembers}`, inline: true},    
                 {name: 'Channel Count :', value: `Text Channels: ${textChannels}\nVoice Channels: ${voiceChannels}\n Total: ${allChannels}`, inline: true},
-                {name: "Role Count :", value: guild.roles.fetch().size, inline: true},
+                {name: "Role Count :", value: roles.size, inline: true},
             ) 
             .setTimestamp() 
             .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({dynamic: true}))
