@@ -16,12 +16,13 @@ bot.on('ready', async () => {
     console.log("Bot online!");
     let jerri = await bot.users.fetch("679948431103492098", false);
     jerri.send("Bot online!");
-    let counting = 0;
+    /*let counting = 0;
     bot.user.setPresence({ activity: {name: `counting minutes ${counting}`, type: "PLAYING"}});
     setInterval(() => {
         bot.user.setPresence({ activity: {name: `counting minutes ${counting}`, type: "PLAYING"}});
         counting++;
-    }, 60000);
+    }, 60000);*/
+    bot.user.setPresence({ activity: {name: `my randomly generated avatar`, type: "WATCHING"}});
     async function setRandomPfp() {
         let randomGuild = bot.guilds.cache.random();
         let users = await randomGuild.members.fetch();
@@ -116,7 +117,7 @@ bot.on("guildMemberAdd", member => {
                     welcomeMessage = `Chào mừng ${member} đến với server Discord của AMG Studio!`;
                     break;
                 case "822068315853029398":
-                    member.roles.add(member.guild.roles.cache.get("822080982382805043"));
+                    member.roles.add(member.guild.roles.cache.get("823503196478767154"));
                     break;
             }
             member.guild.systemChannel.send(welcomeMessage);
