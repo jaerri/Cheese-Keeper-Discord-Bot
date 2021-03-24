@@ -2,10 +2,16 @@ module.exports = {
     name: "iss",
     description: "Show iss's position.",
     aliases: [null],
-    type: "info",
     admin: false,
     syntax: "",
-    execute(message, args){
+    cooldown: 3,
+    /**
+     * @param {Message} message 
+     * @param {Array<String>} args 
+     * @param {Client} bot 
+     * @param {String} prefix
+     */
+    async execute(message, args, bot, prefix) {   
         const https = require('https');
         const options = {
             hostname: "api.wheretheiss.at",

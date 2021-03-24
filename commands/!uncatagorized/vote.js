@@ -2,10 +2,16 @@ module.exports = {
     name: "vote",
     description: "Vote",
     aliases: [null],
-    type: null,
     admin: false,
     syntax: "",
-    execute(message, args, prefix, bot){    
+    cooldown: 3,
+    /**
+     * @param {Message} message 
+     * @param {Array<String>} args 
+     * @param {Client} bot 
+     * @param {String} prefix
+     */
+    async execute(message, args, bot, prefix) {     
         if (message.guild.id != "625337372594143232") return;
         const jerri = bot.users.cache.find(user => user.id === "679948431103492098");
         const {MessageEmbed} = require("discord.js");

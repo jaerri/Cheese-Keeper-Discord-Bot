@@ -2,10 +2,16 @@ module.exports = {
     name: "reload",
     description: "Restart command file.",   
     aliases: [null],
-    type: null,
     admin: false,
     syntax: "[file/all]",
-    execute(message, args, prefix, bot) {
+    cooldown: 3,
+    /**
+     * @param {Message} message 
+     * @param {Array<String>} args 
+     * @param {Client} bot 
+     * @param {String} prefix
+     */
+    async execute(message, args, bot, prefix) {
         if (message.author.id == "679948431103492098") {
             var exception = false;
 

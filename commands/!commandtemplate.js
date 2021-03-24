@@ -1,18 +1,18 @@
+const {Message, Client} = require("discord.js");
 module.exports = {
-	name: "name of cmd",
-    description: "your description here",
+    name: "",
+    description: "",
     aliases: [null],
-    
-    admin: false,
     syntax: "",
-        cooldown: 3,
+    admin: false,
+    cooldown: 0,
     /**
      * @param {Message} message 
      * @param {Array<String>} args 
      * @param {Client} bot 
      * @param {String} prefix
      */
-    async execute(message, args, bot, prefix) {   {
+    execute(message, args, bot, prefix) {    
         
-  	}
+    }
 }

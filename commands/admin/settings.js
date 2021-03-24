@@ -3,11 +3,17 @@ const mongoose = require("mongoose");
 module.exports = {
     name: "settings",
     description: "Settings command, use without arg 1 to show help",
-    aliases: [null],
-    type: "admin",
+    aliases: [null],   
     admin: true,
     syntax: "[settings] [option]",
-    execute(message, args, prefix, bot){   
+    cooldown: 3,
+    /**
+     * @param {Message} message 
+     * @param {Array<String>} args 
+     * @param {Client} bot 
+     * @param {String} prefix
+     */
+    async execute(message, args, bot, prefix) {    
         async function prefix() {
             const prefixsche = mongoose.model("Prefix");
 

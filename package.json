@@ -15,7 +15,7 @@
     "https": "^1.0.0",
     "mongoose": "^5.12.1",
     "node.js": "0.0.1-security",
-    "quick.db": "^7.1.2",
+    "pretty-ms": "^7.0.1",
     "tieq-viet": "^1.1.4"
   },
   "devDependencies": {},

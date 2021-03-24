@@ -2,10 +2,16 @@ module.exports = {
     name: "urban",
     description: "Search Urban Dictionary, max definition limit is 5",
     aliases: ["dict"],
-    type: "tool",
     admin: false,
     syntax: "[word]",
-    execute(message, args, prefix, bot){
+    cooldown: 3,
+    /**
+     * @param {Message} message 
+     * @param {Array<String>} args 
+     * @param {Client} bot 
+     * @param {String} prefix
+     */
+    async execute(message, args, bot, prefix) {
         const https = require('https');
         const querystring = require("querystring");
         const {MessageEmbed} = require("discord.js");

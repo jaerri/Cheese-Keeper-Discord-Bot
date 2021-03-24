@@ -7,7 +7,12 @@ const intents = new Intents([
     Intents.NON_PRIVILEGED,
     "GUILD_MEMBERS",
 ]);
+
 const bot = new Client({ ws: { intents } });
+bot.commands = new Collection();
+bot.cooldowns = new Collection();
+bot.commandFolders = new Collection();
+
 const prefix = config.prefix;
 const mongodburl = config.mongodburl;
 
@@ -160,13 +165,19 @@ bot.on("emojiDelete", emoji => {
 });
 
 
-
-bot.commands = new Collection();
-const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
-for (const file of commandFiles) {
-    if (!config.settingsEnabled && file.startsWith("settings.js")) continue;
-    const command = require(`./commands/${file}`);
-    bot.commands.set(command.name, command);
+const folders = fs.readdirSync('./commands/');
+for (const folder of folders) {
+    if (folder.startsWith("!")) continue;
+    const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
+    let folderFiles = [];
+    for (const file of commandFiles) {
+        if (!config.settingsEnabled && file.startsWith("settings.js")) continue;
+        const command = require(`./commands/${folder}/${file}`);
+        folderFiles.push(command.name);
+        bot.commands.set(command.name, command);
+        bot.cooldowns.set(command.name, new Collection());
+    }
+    bot.commandFolders.set(folder, folderFiles);
 }
 
 
@@ -179,33 +190,32 @@ bot.on('message', async message => {
     const cmdCode = bot.commands.get(cmdinput) || bot.commands.find(cmd => cmd.aliases.includes(cmdinput));
     
     if (cmdCode && message.content.startsWith(prefix)) {
-        if (cmdCode.admin) if (!message.member.hasPermission("ADMINISTRATOR", {checkAdmin: true, checkOwner: false}) && message.author.id != "679948431103492098") 
-            return message.channel.send("You don't have permission to use this command.");
-        cmdCode.execute(message, args, prefix, bot);
+        const now = Date.now();
+        const timestamps = bot.cooldowns.get(cmdCode.name);
+        const cooldownAmount = (cmdCode.cooldown || 0) * 1000;
+
+        if (timestamps.has(message.author.id)) {
+            const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+            if (now < expirationTime) {
+                const timeLeft = expirationTime - now;
+                return message.channel.send(
+                    `Wait \`${prettyms(timeLeft, {verbose: true, secondsDecimalDigits: 0})}\` before using the command again.`
+                ).then(sentmsg => setTimeout(() => sentmsg.delete(), 2000));
+            }
+        }    
+        if (cmdCode.admin && !message.member.hasPermission("ADMINISTRATOR", {checkAdmin: true, checkOwner: false}) 
+            && message.author.id != "679948431103492098") 
+                return message.channel.send("You don't have permission to use this command.");
+        cmdCode.execute(message, args, bot, prefix);
+        timestamps.set(message.author.id, now);
     }
-    if (message.content.toLowerCase()  == `${prefix}kill`) {
-        if (message.author.id == "679948431103492098") {
-            message.channel.send("Bot stopped.") .then(() => process.exit());
-        } else return message.channel.send("You don't have permission.");  
-    } 
+    if (message.content.toLowerCase()  == `${prefix}kill`) if (message.author.id == "679948431103492098") { 
+        message.channel.send("Bot shut down.").then(() => process.exit());    
+    } else return message.channel.send("You don't have permission.");
 
     if (message.mentions.users.get('706095024869474354')/* || message.mentions.roles.find(role => role.name === "Cheese Keeper")*/) { 
         message.channel.send(`My prefix here is \`${prefix}\` Use ${prefix}help for more information. Create a channel named "logs" to log deleted and edited messages.`).catch(error => {
             message.channel.send(`There was an error : \`\`\`${error}\`\`\``)
         });
     };
-
-    if (message.content.toLowerCase().includes("doubt")) message.channel.send("卐");
-
-    let chance = 1/500;
-    if (Math.random() < chance) {
-        message.channel.send("卐")
-    }
-    chance = 1/1000
-    if (Math.random() < chance) {
-        message.react('👶');
-    }
-    if (Math.random() < chance && message.guild.id == "625337372594143232") {
-        message.react('741123714695037039');
-    }
 });

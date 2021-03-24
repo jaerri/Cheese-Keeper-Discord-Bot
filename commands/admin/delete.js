@@ -2,10 +2,16 @@ module.exports = {
     name: "delete",
     description: "Delete messages in the channel.",
     aliases: [null],
-    type: "admin",
     admin: true,
     syntax: "[number]",
-    execute(message, args, prefix){
+    cooldown: 3,
+    /**
+     * @param {Message} message 
+     * @param {Array<String>} args 
+     * @param {Client} bot 
+     * @param {String} prefix
+     */
+    async execute(message, args, bot, prefix) {
         const limit = 50;
 
         if (!message.guild.me.hasPermission("MANAGE_MESSAGES")) return message.channel.send(`Bot doesn't have permission to delete messages.`);

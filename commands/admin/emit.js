@@ -1,11 +1,17 @@
 module.exports = {
     name: "emit",
     description: "Emit an event.",
-    aliases: [null],
-    type: "admin",
+    aliases: [null],  
     admin: true,
     syntax: "[event]",
-    execute(message, args, prefix, bot){    
+    cooldown: 3,
+    /**
+     * @param {Message} message 
+     * @param {Array<String>} args 
+     * @param {Client} bot 
+     * @param {String} prefix
+     */
+    async execute(message, args, bot, prefix) {     
         if (message.guild.me.hasPermission("ADMINISTRATOR"))  { 
             if (!args[1]) return;
             switch (args[1].toLowerCase()) {

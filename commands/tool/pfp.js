@@ -4,11 +4,10 @@ module.exports = {
     name: "pfp",
     description: "Use with the id of the user you want or mention them to get their profile picture, use without input to get your own.",   
     aliases: [null],
-    type: "tool",
     admin: false,
     syntax: "[user/id]",
-    /**
-     * 
+    cooldown: 3,
+    /** 
      * @param {Message} message 
      * @param {Array} args 
      * @param {String} prefix 

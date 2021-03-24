@@ -2,11 +2,17 @@ module.exports = {
     name: "guess",
     description: "Guess the number from 1 to 10.",
     aliases: [null],
-    type: "game",
     admin: false,
     syntax: "guess",
-    async execute(message, args){    
-        const plur = require("../functions/number.js");
+    cooldown: 3,
+    /**
+     * @param {Message} message 
+     * @param {Array<String>} args 
+     * @param {Client} bot 
+     * @param {String} prefix
+     */
+    async execute(message, args, bot, prefix) {      
+        const plur = require("../../functions/number.js");
 
         const thenumber = Math.floor(Math.random() * 10) + 1;
         var times = 3 - 1;

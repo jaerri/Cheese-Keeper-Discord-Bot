@@ -4,13 +4,16 @@ module.exports = {
     name: "server",
     description: "Show info about the current guild (server).",
     aliases: [null],
-    type: "info",
     admin: false,
     syntax: "",
+    cooldown: 3,
     /**
-     * @param {Message} message
+     * @param {Message} message 
+     * @param {Array<String>} args 
+     * @param {Client} bot 
+     * @param {String} prefix
      */
-    async execute(message, args) {  
+    async execute(message, args, bot, prefix) {      
         const guild = message.guild;
         
         let members = await guild.members.fetch();
