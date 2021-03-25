@@ -13,7 +13,7 @@ module.exports = {
      * @param {String} prefix 
      * @param {Client} bot 
      */
-    async execute(message, args, prefix, bot) {
+    async execute(message, args, bot, prefix) {
         const {MessageEmbed} = require('discord.js');
         const user = message.mentions.users.first() || bot.users.cache.find(user => user.id === args[1]) || await bot.users.fetch(args[1], false) || message.author;
         
