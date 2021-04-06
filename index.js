@@ -183,8 +183,8 @@ for (const folder of folders) {
 
 
 bot.on('message', async message => {
-    if (message.author.bot || !message.guild || message.content.length > 500) return;  
-    const args = message.content.split(' ');    
+    if (message.author.bot || !message.guild || message.content.length > 500 || message.channel.name == "general") return;  
+    const args = message.content.split(' ');
 
     const cmdinput = args[0].toLowerCase().substring(prefix.length);
     const cmdCode = bot.commands.get(cmdinput) || bot.commands.find(cmd => cmd.aliases.includes(cmdinput));
