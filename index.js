@@ -1,7 +1,7 @@
 const { Client, MessageEmbed, Collection, Intents } = require("discord.js");
 const fs = require('fs');
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+//const mongoose = require('mongoose');
+//const Schema = mongoose.Schema;
 const config = require("./config.json");            
 const intents = new Intents([
     Intents.NON_PRIVILEGED,
@@ -14,7 +14,7 @@ bot.cooldowns = new Collection();
 bot.commandFolders = new Collection();
 
 const prefix = config.prefix;
-const mongodburl = config.mongodburl;
+//const mongodburl = config.mongodburl;
 
 bot.login(config.token);
 bot.on('ready', async () => { 
@@ -37,7 +37,7 @@ bot.on('ready', async () => {
     setRandomPfp()
     setInterval(setRandomPfp, 1200000);
 }); 
-
+/*
 mongoose.connect(mongodburl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -48,7 +48,7 @@ mongoose.connection.on('connected', () => {
 const prefixsche = mongoose.model("Prefix", new Schema({
     guild: String,
     prefix: String,
-}));
+}));*/
 
 
 
