@@ -9,20 +9,27 @@ module.exports = {
     cooldown: 3,
     /** 
      * @param {Message} message 
-     * @param {Array} args 
+     * @param {Array} args
      * @param {String} prefix 
      * @param {Client} bot 
      */
     async execute(message, args, bot, prefix) {
-        const {MessageEmbed} = require('discord.js');
-        const user = message.mentions.users.first() || bot.users.cache.find(user => user.id === args[1]) || await bot.users.fetch(args[1], false) || message.author;
+        let user;
+       
+        if (args[1]) {
+            if (message.mentions.users.first()) {
+                user = message.mentions.users.first();
+            } else {
+                user = await bot.users.fetch(args[1], false);
+            }
+        }
         
-        if (!user) return message.channel.send("Unknown user!");
+        if (!user) user = message.author;
         const embed = new MessageEmbed()
             .setTitle(`Profile Picture`)
             .setDescription(`${user}'s pfp :`)
             .setImage(user.displayAvatarURL({dynamic: true, size: 2048}))
-            .setColor(message.guild.me.displayColor)
+            .setColor(message.guild.me.displayColor);
         message.channel.send(embed);             
     }
 }

@@ -1,3 +1,5 @@
+const {Client, MessageEmbed, Collection, Message} = require("discord.js");
+
 module.exports = {
     name: "reload",
     description: "Restart command file.",   
@@ -14,10 +16,22 @@ module.exports = {
     async execute(message, args, bot, prefix) {
         if (message.author.id == "679948431103492098") {
             var exception = false;
-
+            console.log(bot.commands);
             try {
+                for (const folder of folders) {
+                    const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js') && !file.startsWith("!"));
+                    let folderFiles = [];
+                    for (const file of commandFiles) {
+                        if (!config.settingsEnabled && file.startsWith("settings.js")) continue;
+                        const command = require(`./commands/${folder}/${file}`);
+                        folderFiles.push(command.name);
+                        bot.commands.set(command.name, command);
+                        bot.cooldowns.set(command.name, new Collection());
+                    }
+                    if (folder.startsWith("!")) continue;
+                    bot.commandFolders.set(folder, folderFiles);
+                }
                 for (const file of bot.commands.array()) {
-                    bot.commands.delete(file.name);
                     delete require.cache[require.resolve(`./${file.name}.js`)];
                     const newCommand = require(`./${file.name}.js`);
                     bot.commands.set(newCommand.name, newCommand);          

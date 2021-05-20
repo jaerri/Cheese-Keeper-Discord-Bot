@@ -1,17 +1,18 @@
 const { Client, MessageEmbed, Collection, Intents } = require("discord.js");
 const fs = require('fs');
 //const mongoose = require('mongoose');
-//const Schema = mongoose.Schema;
-const config = require("./config.json");            
+//const Schema = mongoose.Schema;           
 const intents = new Intents([
     Intents.NON_PRIVILEGED,
     "GUILD_MEMBERS",
 ]);
 
 const bot = new Client({ ws: { intents } });
-bot.commands = new Collection();
-bot.cooldowns = new Collection();
+bot.configs = require("./config.json");  
 bot.commandFolders = new Collection();
+bot.commands = new Collection(); 
+bot.callbacks = new Collection(); 
+bot.cooldowns = new Collection();
 
 const prefix = config.prefix;
 //const mongodburl = config.mongodburl;
@@ -50,7 +51,25 @@ const prefixsche = mongoose.model("Prefix", new Schema({
     prefix: String,
 }));*/
 
-
+let folders = fs.readdirSync('./commands/');
+let callbacks = fs.readdirSync("./callbacks");
+for (let folder of folders) {
+    let commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js') && !file.startsWith("!"));
+    let folderFiles = [];
+    for (let file of commandFiles) {
+        if (!config.settingsEnabled && file.startsWith("settings.js")) continue;
+        let command = require(`./commands/${folder}/${file}`);
+        folderFiles.push(command.name);
+        bot.commands.set(command.name, command);
+        bot.cooldowns.set(command.name, new Collection());
+    }
+    if (folder.startsWith("!")) continue;
+    bot.commandFolders.set(folder, folderFiles);
+}
+for (const callbackFile of callbacks) {
+    let callback = require(`./callbacks/${callbackFile}`);
+    bot.callbacks.set(callback.name, callback);
+}
 
 bot.on("messageDelete", (deletedMsg) => {
     if (config.logEnabled == true && !deletedMsg.content.substring(prefix.length).startsWith("delete")) {  
@@ -101,121 +120,14 @@ bot.on('messageUpdate', (oldMsg, newMsg) => {
             oldMsg.guild.channels.cache.find(channel => channel.name === 'logs').send(embed);
         }          
     }
- });
-
-bot.on("guildCreate", guild => {
-    if (guild.systemChannel) {
-        guild.systemChannel.send(`Hi, I'm ${bot.user.username}! Use ${prefix}help to show available commands. You can create a channel named "logs" to log server events there.`);
-    }; 
 });
 
-bot.on("guildMemberAdd", member => {
-    if (member.guild.systemChannel) {
-        if (member.user.bot) {
-            member.guild.systemChannel.send(`A new bot : ${member} has been added!`);
-        }
-        else {
-            let welcomeMessage = `${member} has joined the server!`;
-            switch (member.guild.id) {
-                case "823193650342658078":
-                    member.roles.add(member.guild.roles.cache.get("823193650342658079"));
-                    welcomeMessage = `Chào mừng ${member} đến với server Discord của AMG Studio!`;
-                    break;
-                case "822068315853029398":
-                    member.roles.add(member.guild.roles.cache.get("823503196478767154"));
-                    break;
-            }
-            member.guild.systemChannel.send(welcomeMessage);
-        }       
-    };  
-});
-
-bot.on("guildMemberRemove", member => {
-    if (member.guild.systemChannel) {
-        if (member.user.bot) {
-            member.guild.systemChannel.send(`${member} has been removed from the server.`);
-        } else {
-            member.guild.systemChannel.send(`${member} has either left, kicked or banned from the server.`);
-        }  
-    };  
-});
-
-bot.on("guildBanAdd", (guild, user) => {
-    if (guild.systemChannel) {
-        guild.systemChannel.send(`${user} was banned from the server.`);
-    }
-});
-
-bot.on("guildBanRemove", (guild, user) => {
-    if (guild.systemChannel) {
-        guild.systemChannel.send(`${user} was unbanned from the server.`);
-    }
-});
-
-bot.on("emojiCreate", emoji => {
-    if (emoji.guild.channels.cache.find(channel => channel.name === "general")) {
-        setTimeout(() => emoji.guild.channels.cache.find(channel => channel.name === "general").send(`New emoji added ${emoji}`), 500);
-    };     
-});
-
-bot.on("emojiDelete", emoji => {
-    if (emoji.guild.channels.cache.find(channel => channel.name === "general")) {
-        setTimeout(() => emoji.guild.channels.cache.find(channel => channel.name === "general").send(`Emoji deleted ${emoji}`), 500);
-    }
-});
-
-
-const folders = fs.readdirSync('./commands/');
-for (const folder of folders) {
-    if (folder.startsWith("!")) continue;
-    const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
-    let folderFiles = [];
-    for (const file of commandFiles) {
-        if (!config.settingsEnabled && file.startsWith("settings.js")) continue;
-        const command = require(`./commands/${folder}/${file}`);
-        folderFiles.push(command.name);
-        bot.commands.set(command.name, command);
-        bot.cooldowns.set(command.name, new Collection());
-    }
-    bot.commandFolders.set(folder, folderFiles);
+for (let callback of bot.callbacks.keys()) {
+    bot.on(callback, async (param, param2) => {
+        if (param2) param = [param, param2];
+        bot.callbacks.get(callback).execute(param, bot, prefix);
+    });
 }
 
 
 
-bot.on('message', async message => {
-    if (message.author.bot || !message.guild || message.content.length > 500 || message.channel.name == "general") return;  
-    const args = message.content.split(' ');
-
-    const cmdinput = args[0].toLowerCase().substring(prefix.length);
-    const cmdCode = bot.commands.get(cmdinput) || bot.commands.find(cmd => cmd.aliases.includes(cmdinput));
-    
-    if (cmdCode && message.content.startsWith(prefix)) {
-        const now = Date.now();
-        const timestamps = bot.cooldowns.get(cmdCode.name);
-        const cooldownAmount = (cmdCode.cooldown || 0) * 1000;
-
-        if (timestamps.has(message.author.id)) {
-            const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-            if (now < expirationTime) {
-                const timeLeft = expirationTime - now;
-                return message.channel.send(
-                    `Wait \`${prettyms(timeLeft, {verbose: true, secondsDecimalDigits: 0})}\` before using the command again.`
-                ).then(sentmsg => setTimeout(() => sentmsg.delete(), 2000));
-            }
-        }    
-        if (cmdCode.admin && !message.member.hasPermission("ADMINISTRATOR", {checkAdmin: true, checkOwner: false}) 
-            && message.author.id != "679948431103492098") 
-                return message.channel.send("You don't have permission to use this command.");
-        cmdCode.execute(message, args, bot, prefix);
-        timestamps.set(message.author.id, now);
-    }
-    if (message.content.toLowerCase()  == `${prefix}kill`) if (message.author.id == "679948431103492098") { 
-        message.channel.send("Bot shut down.").then(() => process.exit());    
-    } else return message.channel.send("You don't have permission.");
-
-    if (message.mentions.users.get('706095024869474354')/* || message.mentions.roles.find(role => role.name === "Cheese Keeper")*/) { 
-        message.channel.send(`My prefix here is \`${prefix}\` Use ${prefix}help for more information. Create a channel named "logs" to log deleted and edited messages.`).catch(error => {
-            message.channel.send(`There was an error : \`\`\`${error}\`\`\``)
-        });
-    };
-});
