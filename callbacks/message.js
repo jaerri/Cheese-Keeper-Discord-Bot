@@ -9,7 +9,7 @@ module.exports = {
      * @param {String} prefix
      */
     execute(message, bot, prefix) {    
-        if (message.author.bot || !message.guild || message.content.length > 500) return;  
+        if (message.author.bot || !message.guild || message.content.length > 500 || message.channel.name == "logs") return;  
         const args = message.content.split(' ');
 
         const cmdinput = args[0].toLowerCase().substring(prefix.length);
