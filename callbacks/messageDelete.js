@@ -22,8 +22,6 @@ module.exports = {
 
         let numberOfPages = parseInt(deletedMsg.content.length/wordsPerPage) + (Number.isInteger(deletedMsg.content.length/wordsPerPage) ? 0 : 1);
 
-
-        
         /**
          * @param {MessageEmbed} embed 
          */
