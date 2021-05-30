@@ -13,6 +13,7 @@ bot.commandFolders = new Collection();
 bot.commands = new Collection(); 
 bot.callbacks = new Collection(); 
 bot.cooldowns = new Collection();
+bot.msgAttachments = new Collection();
 
 const prefix = bot.configs.prefix;
 //const mongodburl = config.mongodburl;
@@ -27,7 +28,7 @@ bot.on('ready', async () => {
     setInterval(() => {
         bot.user.setPresence({ activity: {name: `counting minutes ${counting}`, type: "PLAYING"}});
         counting++;
-    }, 60000);*/
+    }, 60000);
     bot.user.setPresence({ activity: {name: `my randomly generated avatar`, type: "WATCHING"}});
     async function setRandomPfp() {
         let randomGuild = bot.guilds.cache.random();
@@ -36,7 +37,7 @@ bot.on('ready', async () => {
         bot.user.setAvatar(randomMember.user.avatarURL()).catch(() => console.log("setAvatar cooldown"));
     }
     setRandomPfp()
-    setInterval(setRandomPfp, 1200000);
+    setInterval(setRandomPfp, 1200000);*/
 }); 
 /*
 mongoose.connect(mongodburl, {
