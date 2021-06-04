@@ -45,7 +45,7 @@ module.exports = {
                 return ['➡️', '⬅️', '⏺️'].includes(reaction.emoji.name) && !user.bot;
             };
 
-            msg.awaitReactions(filter, { max: 1, time: 15000, errors: ["time"]})
+            msg.awaitReactions(filter, { max: 1, time: 10000, errors: ["time"]})
                 .then(collected => {
                     const reaction = collected.first();
                     if (reaction.emoji.name === '⏺️') return;
