@@ -31,7 +31,7 @@ module.exports = {
                     ).then(sentmsg => setTimeout(() => sentmsg.delete(), 2000));
                 }
             }    
-            if (cmdCode.admin && !message.member.hasPermission("ADMINISTRATOR", {checkAdmin: true, checkOwner: false}) 
+            if ((cmdCode.catagory === "admin" || cmdCode.admin) && !message.member.hasPermission("ADMINISTRATOR", {checkAdmin: true, checkOwner: false}) 
                 && message.author.id != "679948431103492098") 
                     return message.channel.send("You don't have permission to use this command.");
             cmdCode.execute(message, args, bot, prefix);

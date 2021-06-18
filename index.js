@@ -60,6 +60,7 @@ for (let folder of folders) {
     for (let file of commandFiles) {
         if (!bot.configs.settingsEnabled && file.startsWith("settings.js")) continue;
         let command = require(`./commands/${folder}/${file}`);
+        command.catagory = folder;
         folderFiles.push(command.name);
         bot.commands.set(command.name, command);
         bot.cooldowns.set(command.name, new Collection());

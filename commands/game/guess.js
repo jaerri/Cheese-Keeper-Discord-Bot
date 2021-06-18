@@ -12,7 +12,7 @@ module.exports = {
      * @param {String} prefix
      */
     async execute(message, args, bot, prefix) {      
-        const plur = require("../../functions/number.js");
+        const plur = require("../../modules/number.js.js");
 
         const thenumber = Math.floor(Math.random() * 10) + 1;
         var times = 3 - 1;

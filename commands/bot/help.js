@@ -1,6 +1,5 @@
 const {Message, Client, MessageEmbed} = require("discord.js");
-const string = require("../../functions/strings");
-const fs = require("fs");
+const string = require("../../modules/strings");
 
 module.exports = {
     name: "help",
@@ -24,7 +23,7 @@ module.exports = {
             }
         });
         let embed = new MessageEmbed()
-        .setAuthor(bot.user.username, bot.user.displayAvatarURL({dynamic: true}), 'https://discord.com/oauth2/authorize?client_id=706095024869474354&permissions=8&scope=bot')
+        .setAuthor(bot.user.username, bot.user.displayAvatarURL({dynamic: true, format: "png"}), 'https://discord.com/oauth2/authorize?client_id=706095024869474354&permissions=8&scope=bot')
         .setDescription(`Bot's prefix is \`${((prefix === "\\")?"\\":"") + prefix}\`, use \`${prefix}help [command]\` or \`[catagory]\` for more information`)
         .setColor(message.guild.me.displayColor);
 
@@ -57,7 +56,7 @@ module.exports = {
 				.addFields(
 					{name: "Description :", value: `${command.description}`},
 					{name: "Aliases :", value: alias},
-                    {name: "Need Admin?", value: command.admin},
+                    {name: "Need Admin?", value: command.admin || command.catagory==="admin"?true:false},
                     {name: "Cooldown", value: command.cooldown+"s"}
 				);
 			return message.channel.send(embed);

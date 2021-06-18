@@ -2,7 +2,7 @@ module.exports = {
     name: "delete",
     description: "Delete messages in the channel.",
     aliases: [null],
-    admin: true,
+    admin: false,
     syntax: "[number]",
     cooldown: 3,
     /**
