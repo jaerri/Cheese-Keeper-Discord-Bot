@@ -1,5 +1,4 @@
 const prettyms = require("pretty-ms");
-const http = require("http");
 
 const {Client, MessageEmbed, Message} = require("discord.js");
 module.exports = {
@@ -11,7 +10,6 @@ module.exports = {
      */
     execute(message, bot, prefix) {    
         if (message.author.bot || !message.guild || message.content.length > 500 || message.channel.name == "logs") return;  
-
         const args = message.content.split(' ');
 
         const cmdinput = args[0].toLowerCase().substring(prefix.length);

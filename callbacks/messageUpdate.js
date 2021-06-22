@@ -54,7 +54,10 @@ module.exports = {
                     if (reaction.emoji.name === '➡️') page++ 
                     else if (reaction.emoji.name === '⬅️') page--;
                     msg.edit(editEmbedField(msg.embeds[0])).then(changePageUpdate);
-                }).catch(() => msg.delete());
+                }).catch(() => {
+                    if (!msg) return;
+                    msg.delete();
+                });
         }
         
         let embed = new MessageEmbed()  

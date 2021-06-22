@@ -59,14 +59,16 @@ module.exports = {
                     if (reaction.emoji.name === '➡️') page++ 
                     else if (reaction.emoji.name === '⬅️') page--;
                     msg.edit(editEmbedField(msg.embeds[0])).then(changePageUpdate);
-                }).catch(() => msg.delete());
+                }).catch(() => {
+                    if (!msg) return;
+                    msg.delete();
+                });
         }
         
         var embed = new MessageEmbed()  
             .setDescription(`A message by ${deletedMsg.author} was deleted in ${deletedMsg.channel}`)
             .setColor('#FF0000')
             .setFooter("Log message will automatically delete after 15 seconds. React with ⏺️ to save the log.");
-            console.log(bot.msgAttachments.get(deletedMsg));
 
 
         if (logChannel) {     
