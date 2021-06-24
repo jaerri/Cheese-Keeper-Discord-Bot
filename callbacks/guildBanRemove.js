@@ -6,7 +6,9 @@ module.exports = {
      * @param {Client} bot 
      * @param {String} prefix
      */
-    execute(guild, bot, prefix) {    
+     execute(para, bot, prefix) {    
+        let guild = para[0];
+        let user = para[1]; 
         if (guild.systemChannel) {
             guild.systemChannel.send(`${user} was unbanned from the server.`);
         }
