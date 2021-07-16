@@ -6,7 +6,7 @@ module.exports = {
      * @param {Client} bot 
      * @param {String} prefix
      */
-    execute(guild, bot, prefix) {    
+    async execute(guild, bot, prefix) {    
         if (guild.systemChannel) {           
             guild.systemChannel.send(`Hi, I'm ${bot.user.username}! Use ${prefix}help to show available commands. You can create a channel named "logs" to log message events there.`);
         }; 

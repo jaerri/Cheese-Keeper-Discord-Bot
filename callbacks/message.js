@@ -8,14 +8,14 @@ module.exports = {
      * @param {Client} bot 
      * @param {String} prefix
      */
-    execute(message, bot, prefix) {    
+    async execute(message, bot, prefix) {    
         if (message.author.bot || !message.guild || message.content.length > 500 || message.channel.name == "logs") return;  
         const args = message.content.split(' ');
 
         const cmdinput = args[0].toLowerCase().substring(prefix.length);
         const cmdCode = bot.commands.get(cmdinput) || bot.commands.find(cmd => cmd.aliases.includes(cmdinput));
         
-        if (cmdCode && message.content.startsWith(prefix)) {
+        if (cmdCode && message.content.startsWith(prefix) && message.guild.me.permissionsIn(message.channel).has("SEND_MESSAGES")) {
             const now = Date.now();
             const timestamps = bot.cooldowns.get(cmdCode.name);
             const cooldownAmount = (cmdCode.cooldown || 0) * 1000;

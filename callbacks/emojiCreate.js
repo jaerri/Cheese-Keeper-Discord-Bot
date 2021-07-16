@@ -6,7 +6,7 @@ module.exports = {
      * @param {Client} bot 
      * @param {String} prefix
      */
-    execute(emoji, bot, prefix) {    
+    async execute(emoji, bot, prefix) {    
         if (emoji.guild.channels.cache.find(channel => channel.name === "general")) {
             setTimeout(() => emoji.guild.channels.cache.find(channel => channel.name === "general").send(`New emoji added ${emoji}`), 500);
         };  

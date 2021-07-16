@@ -6,7 +6,7 @@ module.exports = {
      * @param {Client} bot 
      * @param {String} prefix
      */
-    execute(messages, bot, prefix) {  
+    async execute(messages, bot, prefix) {  
         const oldMsg = messages[0];
         const newMsg = messages[1];  
         if (!bot.configs.logEnabled || oldMsg.content == newMsg.content || oldMsg.author.bot) return;
@@ -55,7 +55,7 @@ module.exports = {
                     else if (reaction.emoji.name === '⬅️') page--;
                     msg.edit(editEmbedField(msg.embeds[0])).then(changePageUpdate);
                 }).catch(() => {
-                    if (msg) msg.delete();
+                    if (!msg.deleted) msg.delete();
                 });
         }
         

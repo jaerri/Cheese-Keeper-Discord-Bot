@@ -8,7 +8,7 @@ module.exports = {
      * @param {String} prefix
      * @param {Message} deletedMsg
      */
-    execute(deletedMsg, bot, prefix) {    
+    async execute(deletedMsg, bot, prefix) {    
         if (!bot.configs.logEnabled) return;
         
         const logChannel = deletedMsg.guild.channels.cache.find(c => c.name == "logs");
@@ -60,7 +60,7 @@ module.exports = {
                     else if (reaction.emoji.name === '⬅️') page--;
                     msg.edit(editEmbedField(msg.embeds[0])).then(changePageUpdate);
                 }).catch(() => {
-                    if (msg) msg.delete();
+                    if (!msg.deleted) msg.delete();
                 });
         }
         

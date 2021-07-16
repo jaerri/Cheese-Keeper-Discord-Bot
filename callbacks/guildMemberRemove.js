@@ -6,7 +6,7 @@ module.exports = {
      * @param {Client} bot 
      * @param {String} prefix
      */
-    execute(member, bot, prefix) {    
+    async execute(member, bot, prefix) {    
         if (member.guild.systemChannel) {
             if (member.user.bot) {
                 member.guild.systemChannel.send(`${member} has been removed from the server.`);

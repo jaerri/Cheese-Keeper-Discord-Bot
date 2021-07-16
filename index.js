@@ -76,7 +76,7 @@ for (const callbackFile of callbacks) {
 for (let callback of bot.callbacks.keys()) {
     bot.on(callback, async (param, param2) => {
         if (param2) param = [param, param2];
-        bot.callbacks.get(callback).execute(param, bot, prefix);
+        bot.callbacks.get(callback).execute(param, bot, prefix));
     });
 }
 
