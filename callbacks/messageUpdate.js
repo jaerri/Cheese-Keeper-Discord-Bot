@@ -38,8 +38,8 @@ module.exports = {
          */
         function changePageUpdate(msg) {
             msg.react("⏺️");
-            if (page < numberOfPages) msg.react("➡️");
             if (page > 1) msg.react("⬅️");
+            if (page < numberOfPages) msg.react("➡️");
 
             const filter = (reaction, user) => {
                 return ['➡️', '⬅️', '⏺️'].includes(reaction.emoji.name) && !user.bot;
