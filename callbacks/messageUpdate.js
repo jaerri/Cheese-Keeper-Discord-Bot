@@ -36,17 +36,17 @@ module.exports = {
         /**
          * @param {Message} msg
          */
-        function changePageUpdate(msg) {
-            msg.react("⏺️");
-            if (page > 1) msg.react("⬅️");
-            if (page < numberOfPages) msg.react("➡️");
-
+        async function changePageUpdate(msg) {
+            await msg.react("⏺️");
+            if (page > 1) await msg.react("⬅️");
+            if (page < numberOfPages) await msg.react("➡️");
+            
             const filter = (reaction, user) => {
                 return ['➡️', '⬅️', '⏺️'].includes(reaction.emoji.name) && !user.bot;
             };
 
-            msg.awaitReactions(filter, { max: 1, time: 10000, errors: ["time"]})
-                .then(collected => {
+            await msg.awaitReactions(filter, { max: 1, time: 10000, errors: ["time"]})
+                .then(collected => {      
                     const reaction = collected.first();
                     if (reaction.emoji.name === '⏺️') return;
 
@@ -62,7 +62,7 @@ module.exports = {
         let embed = new MessageEmbed()  
             .setDescription(`A message was edited by ${oldMsg.author} in ${oldMsg.channel} :   [Jump to source](${oldMsg.url} 'Click to jump to original message')`)
             .setColor('#FF0000')
-            .setFooter("Log message will automatically delete after 15 seconds. React with ⏺️ to save the log.");
+            .setFooter("Log message will automatically delete after 10 seconds. React with ⏺️ to save the log.");
 
         if (logChannel) {     
             let embed2 = new MessageEmbed(embed) 
