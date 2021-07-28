@@ -13,7 +13,6 @@ bot.commandFolders = new Collection();
 bot.commands = new Collection(); 
 bot.callbacks = new Collection(); 
 bot.cooldowns = new Collection();
-bot.msgAttachments = new Collection();
 
 const prefix = bot.configs.prefix;
 //const mongodburl = config.mongodburl;
