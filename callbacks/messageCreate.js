@@ -1,21 +1,21 @@
 const prettyms = require("pretty-ms");
 
-const {Client, MessageEmbed, Message} = require("discord.js");
+const {Client, MessageEmbed, Message, Permissions} = require("discord.js");
 module.exports = {
-    name: "message",
+    name: "messageCreate",
     /**
      * @param {Message} message
      * @param {Client} bot 
      * @param {String} prefix
      */
-    async execute(message, bot, prefix) {    
+    execute(message, bot, prefix) {    
         if (message.author.bot || !message.guild || message.content.length > 500 || message.channel.name == "logs") return;  
         const args = message.content.split(' ');
 
         const cmdinput = args[0].toLowerCase().substring(prefix.length);
         const cmdCode = bot.commands.get(cmdinput) || bot.commands.find(cmd => cmd.aliases.includes(cmdinput));
         
-        if (cmdCode && message.content.startsWith(prefix) && message.guild.me.permissionsIn(message.channel).has("SEND_MESSAGES")) {
+        if (cmdCode && message.content.startsWith(prefix) && message.guild.me.permissionsIn(message.channel).has(Permissions.FLAGS.SEND_MESSAGES)) {
             const now = Date.now();
             const timestamps = bot.cooldowns.get(cmdCode.name);
             const cooldownAmount = (cmdCode.cooldown || 0) * 1000;
@@ -29,7 +29,7 @@ module.exports = {
                     ).then(sentmsg => setTimeout(() => sentmsg.delete(), 2000));
                 }
             }    
-            if ((cmdCode.catagory === "admin" || cmdCode.admin) && !message.member.hasPermission("ADMINISTRATOR", {checkAdmin: true, checkOwner: false}) 
+            if ((cmdCode.catagory == "admin" || cmdCode.admin) && !message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR, {checkAdmin: true, checkOwner: false}) 
                 && message.author.id != "679948431103492098") 
                     return message.channel.send("You don't have permission to use this command.");
             cmdCode.execute(message, args, bot, prefix);

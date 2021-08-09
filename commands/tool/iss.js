@@ -1,7 +1,7 @@
 module.exports = {
     name: "iss",
     description: "Show iss's position.",
-    aliases: [null],
+    aliases: [],
     admin: false,
     syntax: "",
     cooldown: 3,

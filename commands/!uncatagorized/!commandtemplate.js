@@ -2,7 +2,7 @@ const {Message, Client} = require("discord.js");
 module.exports = {
     name: "",
     description: "",
-    aliases: [null],
+    aliases: [],
     syntax: "",
     admin: false,
     cooldown: 0,

@@ -3,7 +3,7 @@ const {Client, MessageEmbed, Collection, Message} = require("discord.js");
 module.exports = {
     name: "pfp",
     description: "Use with the id of the user you want or mention them to get their profile picture, use without input to get your own.",   
-    aliases: [null],
+    aliases: [],
     admin: false,
     syntax: "[user/id]",
     cooldown: 3,
@@ -30,6 +30,6 @@ module.exports = {
             .setDescription(`${user}'s pfp :`)
             .setImage(user.displayAvatarURL({dynamic: true, size: 2048}))
             .setColor(message.guild.me.displayColor);
-        message.channel.send(embed);             
+        message.channel.send({ embeds: [embed] });             
     }
 }

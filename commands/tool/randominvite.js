@@ -1,7 +1,7 @@
 module.exports = {
     name: "randominvite",
     description: "Generate 10 random discord invite links that won't work.",
-    aliases: [null],
+    aliases: [],
     admin: false,
     syntax: "",
     cooldown: 3,

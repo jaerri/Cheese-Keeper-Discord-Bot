@@ -1,7 +1,7 @@
 module.exports = {
     name: "vote",
     description: "Vote",
-    aliases: [null],
+    aliases: [],
     admin: false,
     syntax: "",
     cooldown: 3,

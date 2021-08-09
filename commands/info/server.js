@@ -3,7 +3,7 @@ const {MessageEmbed, Message} = require('discord.js');
 module.exports = {
     name: "server",
     description: "Show info about the current guild (server).",
-    aliases: [null],
+    aliases: [],
     admin: false,
     syntax: "",
     cooldown: 3,
@@ -21,8 +21,8 @@ module.exports = {
         let botMembers = members.filter(member => member.user.bot).size; 
         let allMembers = members.size;
         let channels = guild.channels.cache;
-        let textChannels = channels.filter(c => c.type === 'text').size;
-        let voiceChannels = channels.filter(c => c.type === 'voice').size;
+        let textChannels = channels.filter(c => c.type === 'GUILD_TEXT').size;
+        let voiceChannels = channels.filter(c => c.type === 'GUILD_VOICE').size;
         let allChannels = channels.size;
         let roles = await guild.roles.fetch();
 
@@ -42,16 +42,15 @@ module.exports = {
             .setTitle(guild.name)
             .setDescription("Server's Info:")
             .addFields(
-                {name: 'Creation Date :', value: dformat, inline: true},
-                {name: 'Owner :', value: guild.owner.user, inline: true},
-                {name: 'Region :', value: `${message.guild.region}`, inline: true},
+                {name: 'Creation Date :', value: dformat.toString(), inline: true},
+                {name: 'Owner :', value: (await guild.fetchOwner()).toString(), inline: true},
                 {name: 'Member Count :', value: `Users: ${userMembers}\nBots: ${botMembers}\nTotal: ${allMembers}`, inline: true},    
                 {name: 'Channel Count :', value: `Text Channels: ${textChannels}\nVoice Channels: ${voiceChannels}\n Total: ${allChannels}`, inline: true},
-                {name: "Role Count :", value: roles.cache.size, inline: true},
+                {name: "Role Count :", value: roles.size.toString(), inline: true},
             ) 
             .setTimestamp() 
             .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({dynamic: true}))
             .setColor(guild.me.displayColor);
-        message.channel.send(embed);
+        message.channel.send({ embeds: [embed] });
     }
 }

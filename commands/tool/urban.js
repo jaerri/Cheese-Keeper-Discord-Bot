@@ -48,7 +48,7 @@ module.exports = {
                 .setColor(bot.user.displayColor)
                 .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({dynamic: true}))
 
-                return message.channel.send(embed);
+                return message.channel.send({ embeds: [embed] });
             });
             res.on("error", err=>{
                 console.log(err);

@@ -1,7 +1,7 @@
 module.exports = {
     name: "buihien",
     description: "Convert Tiếng Việt to Tiếq Việt",
-    aliases: [null],   
+    aliases: [],   
     admin: false,
     syntax: "[word/sentence]",
     cooldown: 3,

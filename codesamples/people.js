@@ -1,7 +1,7 @@
 module.exports = {
     name: "people",
     description: "people",
-    aliases: [null],
+    aliases: [],
     
     admin: false,
     syntax: "",

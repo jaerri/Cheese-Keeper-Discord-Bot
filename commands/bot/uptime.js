@@ -2,7 +2,7 @@ const {Message, Client} = require("discord.js");
 module.exports = {
     name: "uptime",
     description: "",
-    aliases: [null],
+    aliases: [],
     syntax: "",
     admin: false,
     cooldown: 3,
@@ -14,6 +14,6 @@ module.exports = {
      */
     async execute(message, args, bot, prefix) {    
         const pms = require("pretty-ms");
-        message.channel.send(`${bot.user} has been up for ${pms(bot.uptime, {verbose: true, secondsDecimalDigits: 0})}.`);
+        message.channel.send(`${bot.user} has been online for ${pms(bot.uptime, {verbose: true, secondsDecimalDigits: 0})}.`);
     }
 }

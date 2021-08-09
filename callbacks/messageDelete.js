@@ -8,7 +8,7 @@ module.exports = {
      * @param {String} prefix
      * @param {Message} deletedMsg
      */
-    async execute(deletedMsg, bot, prefix) {    
+    execute(deletedMsg, bot, prefix) {    
         if (!bot.configs.logEnabled) return;
         
         const logChannel = deletedMsg.guild.channels.cache.find(c => c.name == "logs");
@@ -45,20 +45,19 @@ module.exports = {
             await msg.react("⏺️");
             if (page > 1) await msg.react("⬅️");
             if (page < numberOfPages) await msg.react("➡️");
-            
             const filter = (reaction, user) => {
                 return ['➡️', '⬅️', '⏺️'].includes(reaction.emoji.name) && !user.bot;
             };
 
-            await msg.awaitReactions(filter, { max: 1, time: 10000, errors: ["time"]})
-                .then(collected => {      
+            msg.awaitReactions({ filter, max: 1, time: 10000, errors: ["time"] })
+                .then(async collected => {      
                     const reaction = collected.first();
                     if (reaction.emoji.name === '⏺️') return;
-
-                    msg.reactions.removeAll().catch();
+                    
                     if (reaction.emoji.name === '➡️') page++ 
                     else if (reaction.emoji.name === '⬅️') page--;
-                    msg.edit(editEmbedField(msg.embeds[0])).then(changePageUpdate);
+                    await msg.reactions.removeAll().catch(console.log);
+                    msg.edit({ embeds: [editEmbedField(msg.embeds[0])] }).then(changePageUpdate);
                 }).catch(() => {
                     if (!msg.deleted) msg.delete();
                 });
@@ -69,18 +68,16 @@ module.exports = {
             .setColor('#FF0000')
             .setFooter("Log message will automatically delete after 10 seconds. React with ⏺️ to save the log.");
 
-
         if (logChannel) {     
             let embed2 = new MessageEmbed(embed) 
-                .attachFiles(["./Files/trashcan-icon.png"])
                 .setThumbnail('attachment://trashcan-icon.png')
                 .setAuthor(deletedMsg.author.username, deletedMsg.author.avatarURL())
                 .setTitle("Message Deleted")
                 for (let i = 1; i <= numberOfPages; i++) { 
                     embed2.addField(`Deleted message content (page ${i}/${numberOfPages}) :`, deletedMsg.content.slice(wordsPerPage*(i - 1), wordsPerPage*i)?deletedMsg.content.slice(wordsPerPage*(i - 1), wordsPerPage*i):"");
                 }
-            logChannel.send(embed2)
+            logChannel.send({ embeds: [embed2], files: ["./Files/trashcan-icon.png"]});
         }   
-        deletedMsg.channel.send(editEmbedField(embed)).then(changePageUpdate);   
+        deletedMsg.channel.send({ embeds: [editEmbedField(embed)]}).then(changePageUpdate);   
     }
 }

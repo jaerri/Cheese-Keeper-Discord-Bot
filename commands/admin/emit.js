@@ -1,7 +1,9 @@
+const { Permissions } = require("discord.js");
+
 module.exports = {
     name: "emit",
     description: "Emit an event.",
-    aliases: [null],  
+    aliases: [],  
     admin: true,
     syntax: "[event]",
     cooldown: 3,
@@ -12,7 +14,7 @@ module.exports = {
      * @param {String} prefix
      */
     async execute(message, args, bot, prefix) {     
-        if (message.guild.me.hasPermission("ADMINISTRATOR"))  { 
+        if (message.guild.me.permissions.has(Permissions.FLAGS.ADMINISTRATOR))  { 
             if (!args[1]) return;
             switch (args[1].toLowerCase()) {
                 case "channelcreate":
@@ -57,6 +59,6 @@ module.exports = {
                     break;
             };
         }
-        else return message.channel.send(`Bot doesn't have permission to emit events.`);
+        else return message.channel.send(`Permission required for bot : \`ADMINISTRATOR\``);
     }
 }

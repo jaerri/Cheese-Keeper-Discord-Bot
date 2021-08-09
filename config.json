@@ -2,6 +2,5 @@
     "token" : "NzA2MDk1MDI0ODY5NDc0MzU0.Xq_LrA.09Uu_lNFxtG8ebV-ikXeRw1iaeA",
     "settingsEnabled": true,
     "logEnabled": true,
-    "prefix": "!",
-    "mongodburl": "mongodb+srv://JaerryFuni:31102007!@cluster0.jfiw8.gcp.mongodb.net/Cluster0?retryWrites=true&w=majority"
+    "prefix": "!"
 }

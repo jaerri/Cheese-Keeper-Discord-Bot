@@ -6,7 +6,7 @@ module.exports = {
      * @param {Client} bot 
      * @param {String} prefix
      */
-    async execute(messages, bot, prefix) {  
+    execute(messages, bot, prefix) {  
         const oldMsg = messages[0];
         const newMsg = messages[1];  
         if (!bot.configs.logEnabled || oldMsg.content == newMsg.content || oldMsg.author.bot) return;
@@ -45,18 +45,18 @@ module.exports = {
                 return ['➡️', '⬅️', '⏺️'].includes(reaction.emoji.name) && !user.bot;
             };
 
-            await msg.awaitReactions(filter, { max: 1, time: 10000, errors: ["time"]})
-                .then(collected => {      
+            msg.awaitReactions({ filter, max: 1, time: 10000, errors: ["time"] })
+                .then(async collected => {      
                     const reaction = collected.first();
                     if (reaction.emoji.name === '⏺️') return;
-
-                    msg.reactions.removeAll().catch();
+                        
                     if (reaction.emoji.name === '➡️') page++ 
                     else if (reaction.emoji.name === '⬅️') page--;
-                    msg.edit(editEmbedField(msg.embeds[0])).then(changePageUpdate);
+                    await msg.reactions.removeAll().catch(console.log);
+                    msg.edit({ embeds: [editEmbedField(msg.embeds[0])] }).then(changePageUpdate);
                 }).catch(() => {
                     if (!msg.deleted) msg.delete();
-                });
+                })
         }
         
         let embed = new MessageEmbed()  
@@ -66,7 +66,6 @@ module.exports = {
 
         if (logChannel) {     
             let embed2 = new MessageEmbed(embed) 
-                .attachFiles(["./Files/pencil-icon.png"])
                 .setThumbnail('attachment://pencil-icon.png')
                 .setAuthor(oldMsg.author.username, oldMsg.author.avatarURL())
                 .setTitle("Message Edited")
@@ -74,8 +73,8 @@ module.exports = {
                 for (let i = 1; i <= numberOfPages; i++) {
                     embed2.addField(`Old edited message content (page ${i}/${numberOfPages}) :`, oldMsg.content.slice(wordsPerPage*(i - 1), wordsPerPage*i));
                 }
-            logChannel.send(embed2)
-        }
-        oldMsg.channel.send(editEmbedField(embed)).then(changePageUpdate);   
+                logChannel.send({ embeds: [embed2], files: ["./Files/pencil-icon.png"]});
+        }   
+        oldMsg.channel.send({ embeds: [editEmbedField(embed)] }).then(changePageUpdate);   
     }
 }

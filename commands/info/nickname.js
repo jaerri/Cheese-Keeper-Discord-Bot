@@ -1,7 +1,9 @@
+const {MessageEmbed, Permissions} = require('discord.js');
+
 module.exports = {
     name: "nickname",
     description: "Use with the id of the user you want or mention them to get their old nicknames, use without input to get your own.",   
-    aliases: [null],
+    aliases: [],
     admin: false,
     syntax: "[user/id]",
     cooldown: 3,
@@ -12,11 +14,18 @@ module.exports = {
      * @param {String} prefix
      */
     async execute(message, args, bot, prefix) {
-        if (!message.guild.me.hasPermission("VIEW_AUDIT_LOG")) return message.channel.send(`Permission required for bot : \`VIEW_AUDIT_LOG\``);
-        const {MessageEmbed} = require('discord.js');
-        const user = message.mentions.users.first() || bot.users.cache.find(user => user.id === args[1])|| await bot.users.fetch(args[1], false) || message.author;
-
-        if (!user) return message.channel.send("Unknown user!");
+        if (!message.guild.me.permissions.has(Permissions.FLAGS.VIEW_AUDIT_LOG)) return message.channel.send(`Permission required for bot : \`VIEW_AUDIT_LOG\``);
+        let user;
+       
+        if (args[1]) {
+            if (message.mentions.users.first()) {
+                user = message.mentions.users.first();
+            } else {
+                user = await bot.users.fetch(args[1], false);
+            }
+        }
+        
+        if (!user) user = message.author;
         message.guild.fetchAuditLogs({type: 'MEMBER_UPDATE', user: user})
             .then((audit) => {
                 var data = "";
@@ -28,9 +37,9 @@ module.exports = {
                 const embed = new MessageEmbed()
                     .setTitle(`Old Nicknames`)
                     .setDescription("→ Older")
-                    .addField(`${user.tag}'s old nicknames :`, data || "No nickname change detected")
+                    .addField(`${user.tag}'s old nicknames :`, data || "No recent nickname change detected")
                     .setColor(message.guild.me.displayColor);
-                message.channel.send(embed);   
+                message.channel.send({ embeds: [embed] });   
             });        
     }
 }

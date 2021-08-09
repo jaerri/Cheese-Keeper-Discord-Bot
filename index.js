@@ -1,13 +1,15 @@
 const { Client, MessageEmbed, Collection, Intents } = require("discord.js");
-const fs = require('fs');
-//const mongoose = require('mongoose');
-//const Schema = mongoose.Schema;           
-const intents = new Intents([
-    Intents.NON_PRIVILEGED,
-    "GUILD_MEMBERS",
-]);
+const fs = require('fs');       
 
-const bot = new Client({ ws: { intents } });
+const bot = new Client({
+    intents: new Intents([
+        Intents.FLAGS.GUILDS,
+        Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+        Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
+        Intents.FLAGS.GUILD_MEMBERS,
+        Intents.FLAGS.GUILD_MESSAGES
+    ]),
+});
 bot.configs = require("./config.json");  
 bot.commandFolders = new Collection();
 bot.commands = new Collection(); 
@@ -15,7 +17,6 @@ bot.callbacks = new Collection();
 bot.cooldowns = new Collection();
 
 const prefix = bot.configs.prefix;
-//const mongodburl = config.mongodburl;
 
 bot.login(bot.configs.token);
 bot.on('ready', async () => { 
@@ -38,18 +39,6 @@ bot.on('ready', async () => {
     setRandomPfp()
     setInterval(setRandomPfp, 1200000);*/
 }); 
-/*
-mongoose.connect(mongodburl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
-mongoose.connection.on('connected', () => {
-    console.log("Mongoose connected!")
-});
-const prefixsche = mongoose.model("Prefix", new Schema({
-    guild: String,
-    prefix: String,
-}));*/
 
 let folders = fs.readdirSync('./commands/');
 let callbacks = fs.readdirSync("./callbacks");
@@ -73,11 +62,8 @@ for (const callbackFile of callbacks) {
 }
 
 for (let callback of bot.callbacks.keys()) {
-    bot.on(callback, async (param, param2) => {
+    bot.on(callback, (param, param2) => {
         if (param2) param = [param, param2];
         bot.callbacks.get(callback).execute(param, bot, prefix);
     });
 }
-
-
-

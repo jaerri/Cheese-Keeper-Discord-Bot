@@ -2,7 +2,7 @@ const {Message, Client} = require("discord.js");
 module.exports = {
     name: "ping",
     description: "Show bot's latency.",
-    aliases: [null],
+    aliases: [],
     syntax: "",
     admin: false,
     cooldown: 3,

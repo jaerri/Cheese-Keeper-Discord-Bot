@@ -1,7 +1,9 @@
+const { Permissions } = require("discord.js");
+
 module.exports = {
     name: "delete",
     description: "Delete messages in the channel.",
-    aliases: [null],
+    aliases: [],
     admin: false,
     syntax: "[number]",
     cooldown: 3,
@@ -14,7 +16,7 @@ module.exports = {
     async execute(message, args, bot, prefix) {
         const limit = 50;
 
-        if (!message.guild.me.hasPermission("MANAGE_MESSAGES")) return message.channel.send(`Bot doesn't have permission to delete messages.`);
+        if (!message.guild.me.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return message.channel.send(`Permission required for bot : \`MANAGE_MESSAGES\``);
         if (!args[1]) return message.channel.send("Need input!");
         else {
             if (isNaN(args[1])) return message.channel.send("Input must be a number.");
@@ -27,8 +29,8 @@ module.exports = {
                     message.channel.messages.fetch({limit: amount})
                     .then((list) => {
                         message.channel.bulkDelete(list, true)
-                        .then(() => message.channel.send(`Successfully deleted messages.`).then(msg => msg.delete({timeout: 2000})))
-                        .catch(error => message.channel.send(`There was an error : \`\`\`${error}\`\`\`  `).then(msg => msg.delete({timeout: 5000})))
+                        .then(() => message.channel.send(`Successfully deleted messages.`).then(msg => setTimeout(() => msg.delete(), 2000)))
+                        .catch(error => message.channel.send(`There was an error : \`\`\`${error}\`\`\`  `).then(msg => setTimeout(() => msg.delete(), 5000))); 
                     });
                 }
             }
