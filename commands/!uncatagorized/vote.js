@@ -1,3 +1,5 @@
+const { MessageEmbed, Message } = require("discord.js");
+
 module.exports = {
     name: "vote",
     description: "Vote",
@@ -14,7 +16,7 @@ module.exports = {
     async execute(message, args, bot, prefix) {     
         if (message.guild.id != "625337372594143232") return;
         const jerri = bot.users.cache.find(user => user.id === "679948431103492098");
-        const {MessageEmbed} = require("discord.js");
+
         let embed = new MessageEmbed()
             .setAuthor(bot.user.username, bot.user.displayAvatarURL({dynamic: true}),
                 'https://discord.com/oauth2/authorize?client_id=706095024869474354&permissions=8&scope=bot')
@@ -33,6 +35,6 @@ module.exports = {
                 **TYPE : \`.vote 679948431103492098\` in <@!725590551478665290>'s DM**`
             )
             .setColor(bot.user.displayColor);
-        message.channel.send(embed);
+        message.channel.send({embeds: [embed]});
     }
 }
