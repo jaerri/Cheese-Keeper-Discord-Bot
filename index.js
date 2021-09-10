@@ -1,3 +1,14 @@
+var cluster = require('cluster');
+if (cluster.isMaster) {
+  cluster.fork();
+
+  cluster.on('exit', (worker, code, signal) => {
+    cluster.fork();
+  });
+}
+
+if (cluster.isWorker) {
+
 const { Client, MessageEmbed, Collection, Intents } = require("discord.js");
 const fs = require('fs');       
 
@@ -66,4 +77,5 @@ for (let callback of bot.callbacks.keys()) {
         if (param2) param = [param, param2];
         bot.callbacks.get(callback).execute(param, bot, prefix);
     });
+}
 }
