@@ -1,6 +1,6 @@
 # Cheese-Keeper-Discord-Bot
 
-bot has ended its service on 2021-9-19. the repository containing it will also be archived and made public
+bot has reached its end of life on 2021-9-19. the repository containing it will also be archived and made public
 
 my first js project and also my first attempt to do some code
 
