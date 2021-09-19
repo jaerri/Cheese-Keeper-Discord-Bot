@@ -8,8 +8,8 @@ module.exports = {
      * @param {String} prefix
      * @param {Message} deletedMsg
      */
-    execute(deletedMsg, bot, prefix) {    
-        if (!bot.configs.logEnabled) return;
+    execute(deletedMsg, bot, prefix) { 
+        return; // command disabled
         
         const logChannel = deletedMsg.guild.channels.cache.find(c => c.name == "logs");
         const wordsPerPage = 500;

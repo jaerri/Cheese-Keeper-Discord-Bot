@@ -1,14 +1,4 @@
-var cluster = require('cluster');
-if (cluster.isMaster) {
-  cluster.fork();
-
-  cluster.on('exit', (worker, code, signal) => {
-    cluster.fork();
-  });
-}
-
-if (cluster.isWorker) {
-
+require("dotenv").config();
 const { Client, MessageEmbed, Collection, Intents } = require("discord.js");
 const fs = require('fs');       
 
@@ -29,7 +19,7 @@ bot.cooldowns = new Collection();
 
 const prefix = bot.configs.prefix;
 
-bot.login(bot.configs.token);
+bot.login(process.env.BOT_TOKEN);
 bot.on('ready', async () => { 
     console.log("Bot online!");
     let jerri = await bot.users.fetch("679948431103492098", false);
@@ -57,7 +47,6 @@ for (let folder of folders) {
     let commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js') && !file.startsWith("!"));
     let folderFiles = [];
     for (let file of commandFiles) {
-        if (!bot.configs.settingsEnabled && file.startsWith("settings.js")) continue;
         let command = require(`./commands/${folder}/${file}`);
         command.catagory = folder;
         folderFiles.push(command.name);
@@ -77,5 +66,4 @@ for (let callback of bot.callbacks.keys()) {
         if (param2) param = [param, param2];
         bot.callbacks.get(callback).execute(param, bot, prefix);
     });
-}
 }

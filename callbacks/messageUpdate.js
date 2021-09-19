@@ -7,6 +7,8 @@ module.exports = {
      * @param {String} prefix
      */
     execute(messages, bot, prefix) {  
+        return; // command disabled
+        
         const oldMsg = messages[0];
         const newMsg = messages[1];  
         if (!bot.configs.logEnabled || oldMsg.content == newMsg.content || oldMsg.author.bot) return;
