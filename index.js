@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { Client, MessageEmbed, Collection, Intents } = require("discord.js");
+const { Client, Collection, Intents } = require("discord.js");
 const fs = require('fs');       
 
 const bot = new Client({

@@ -12,10 +12,20 @@ module.exports = {
         if (message.author.bot || !message.guild || message.content.length > 500 || message.channel.name == "logs") return;  
         const args = message.content.split(' ');
 
+        if (message.content.toLowerCase()  == `${prefix}kill`) if (message.author.id == "679948431103492098") { 
+            return message.channel.send("Bot shut down.").then(() => process.exit());    
+        } else return message.channel.send("You don't have permission.");
+
+        if (message.mentions.users.get('706095024869474354')/* || message.mentions.roles.find(role => role.name === "Cheese Keeper")*/) { 
+            return message.channel.send(`My prefix here is \`${prefix}\` Use ${prefix}help for more information. Create a channel named "logs" to log deleted and edited messages.`).catch(error => {
+                return message.channel.send(`There was an error : \`\`\`${error}\`\`\``)
+            });
+        };
+
         const cmdinput = args[0].toLowerCase().substring(prefix.length);
         const cmdCode = bot.commands.get(cmdinput) || bot.commands.find(cmd => cmd.aliases.includes(cmdinput));
         
-        if (cmdCode && message.content.startsWith(prefix) && message.guild.me.permissionsIn(message.channel).has(Permissions.FLAGS.SEND_MESSAGES)) {
+        if (cmdCode && message.guild.me.permissionsIn(message.channel).has(Permissions.FLAGS.SEND_MESSAGES)) {
             const now = Date.now();
             const timestamps = bot.cooldowns.get(cmdCode.name);
             const cooldownAmount = (cmdCode.cooldown || 0) * 1000;
@@ -35,14 +45,6 @@ module.exports = {
             cmdCode.execute(message, args, bot, prefix);
             timestamps.set(message.author.id, now);
         }
-        if (message.content.toLowerCase()  == `${prefix}kill`) if (message.author.id == "679948431103492098") { 
-            message.channel.send("Bot shut down.").then(() => process.exit());    
-        } else return message.channel.send("You don't have permission.");
 
-        if (message.mentions.users.get('706095024869474354')/* || message.mentions.roles.find(role => role.name === "Cheese Keeper")*/) { 
-            message.channel.send(`My prefix here is \`${prefix}\` Use ${prefix}help for more information. Create a channel named "logs" to log deleted and edited messages.`).catch(error => {
-                message.channel.send(`There was an error : \`\`\`${error}\`\`\``)
-            });
-        };
     }
 }
