@@ -12,7 +12,7 @@ module.exports = {
      * @param {Client} bot 
      * @param {String} prefix
      */
-    async execute(message, args, bot, prefix) {    
+    execute(message, args, bot, prefix) {    
         
     }
 }

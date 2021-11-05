@@ -3,7 +3,7 @@ const {Client, MessageEmbed, Collection, Message} = require("discord.js");
 module.exports = {
     name: "pfp",
     description: "Use with the id of the user you want or mention them to get their profile picture, use without input to get your own.",   
-    aliases: [],
+    aliases: ["avatar"],
     admin: false,
     syntax: "[user/id]",
     cooldown: 3,
@@ -19,9 +19,7 @@ module.exports = {
         if (args[1]) {
             if (message.mentions.users.first()) {
                 user = message.mentions.users.first();
-            } else {
-                user = await bot.users.fetch(args[1], false);
-            }
+            } else user = await bot.users.fetch(args[1], false);
         }
         
         if (!user) user = message.author;

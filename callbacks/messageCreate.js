@@ -22,6 +22,7 @@ module.exports = {
             });
         };
 
+        if (!message.content.startsWith(prefix)) return;
         const cmdinput = args[0].toLowerCase().substring(prefix.length);
         const cmdCode = bot.commands.get(cmdinput) || bot.commands.find(cmd => cmd.aliases.includes(cmdinput));
         
