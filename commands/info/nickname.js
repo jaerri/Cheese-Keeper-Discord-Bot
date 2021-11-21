@@ -1,9 +1,9 @@
-const {MessageEmbed, Permissions} = require('discord.js');
+const {Message, MessageEmbed, Permissions, Client} = require('discord.js');
 
 module.exports = {
     name: "nickname",
     description: "Use with the id of the user you want or mention them to get their old nicknames, use without input to get your own.",   
-    aliases: [],
+    aliases: ["nick"],
     admin: false,
     syntax: "[user/id]",
     cooldown: 3,
@@ -20,11 +20,8 @@ module.exports = {
         if (args[1]) {
             if (message.mentions.users.first()) {
                 user = message.mentions.users.first();
-            } else {
-                user = await bot.users.fetch(args[1], false);
-            }
+            } else user = await bot.users.fetch(args[1], false).catch(() => console.log("user not found"));
         }
-        
         if (!user) user = message.author;
         message.guild.fetchAuditLogs({type: 'MEMBER_UPDATE', user: user})
             .then((audit) => {

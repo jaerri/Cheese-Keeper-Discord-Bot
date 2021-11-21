@@ -35,14 +35,15 @@ module.exports = {
         }
 
         let number = getRandomInteger();
-        let chances = Math.floor((max - min + 1) * defaultChances / defaultMax + 0.5);
-        
+        let chances = Math.floor(Math.log10(Math.abs(max - min + 1) * defaultChances / defaultMax) + 0.5);
+        chances < 2 ? chances = 2 : chances;
+
         message.reply(`type a number, from ${args[1] || defaultMin} to ${args[2] || defaultMax}, you have ${chances} chances`);
         var secondMessage;
         while (true) {
             chances--;
             let filter = m => (m.author.id === message.author.id && !isNaN(m.content));
-            let collector = await message.channel.awaitMessages({ filter, max: 1, time: 8000 });
+            let collector = await message.channel.awaitMessages({ filter, max: 1, time: 12000 });
             secondMessage = collector.first();
             if (!secondMessage) return message.reply("time is out, the number is " + number);
                         

@@ -19,9 +19,8 @@ module.exports = {
         if (args[1]) {
             if (message.mentions.users.first()) {
                 user = message.mentions.users.first();
-            } else user = await bot.users.fetch(args[1], false);
+            } else user = await bot.users.fetch(args[1], false).catch(() => console.log("user not found"));
         }
-        
         if (!user) user = message.author;
         const embed = new MessageEmbed()
             .setTitle(`Profile Picture`)
