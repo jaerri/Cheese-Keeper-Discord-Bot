@@ -35,8 +35,7 @@ module.exports = {
         }
 
         let number = getRandomInteger();
-        let chances = Math.floor(Math.log10(Math.abs(max - min + 1) * defaultChances / defaultMax) + 0.5);
-        chances < 2 ? chances = 2 : chances;
+        let chances = Math.floor(Math.log10(Math.abs(max - min + 1)) * defaultChances + 0.5);
 
         message.reply(`type a number, from ${args[1] || defaultMin} to ${args[2] || defaultMax}, you have ${chances} chances`);
         var secondMessage;
